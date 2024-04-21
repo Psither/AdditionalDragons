@@ -126,7 +126,7 @@ repositories {
     //     dir 'libs'
     // }
     flatDir {
-        dir 'C:/Users/stgri/Desktop/dragon_stuff/AdditionalDragons/libs'
+        dir 'C:/Users/stgri/git/AdditionalDragons/libs'
     }
     maven {
     	name = "Gecholib maven"
