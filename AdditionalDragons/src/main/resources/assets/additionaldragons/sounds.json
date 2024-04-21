@@ -1,0 +1,53 @@
+{
+  "luminous_breath_start": {
+    "sounds": [
+      "additionaldragons:luminous_breath_start"
+    ]
+  },
+  "luminous_breath_loop": {
+    "sounds": [
+      "additionaldragons:luminous_breath_loop"
+    ]
+  },
+  "luminous_breath_end": {
+    "sounds": [
+      "additionaldragons:luminous_breath_end"
+    ]
+  },
+  "blast_breath_start": {
+    "sounds": [
+      "dragonsurvival:fire_breath_start"
+    ]
+  },
+  "blast_breath_loop": {
+    "sounds": [
+      "dragonsurvival:fire_breath_loop"
+    ]
+  },
+  "blast_breath_end": {
+    "sounds": [
+      "dragonsurvival:fire_breath_end"
+    ]
+  },
+  "confounding_breath_start": {
+    "sounds": [
+      "dragonsurvival:forest_breath_start"
+    ]
+  },
+  "confounding_breath_loop": {
+    "sounds": [
+      "dragonsurvival:forest_breath_loop"
+    ]
+  },
+  "confounding_breath_end": {
+    "sounds": [
+      "dragonsurvival:forest_breath_end"
+    ]
+  },
+  "bug_zapper": {
+    "sounds": [
+      "additionaldragons:bug_zapper",
+      "additionaldragons:bug_zapper_2"
+    ]
+  }
+}

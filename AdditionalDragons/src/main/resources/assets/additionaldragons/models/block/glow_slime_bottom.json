@@ -1,0 +1,19 @@
+{
+	"ambientocclusion": false,
+	"render_type": "cutout",
+	"texture_size": [16, 16],
+	"textures": {
+		"glow_slime_bottom": "additionaldragons:block/glow_slime_bottom",
+		"particle": "additionaldragons:block/glow_slime_bottom"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 0.05],
+			"faces": {
+				"north": {"uv": [ 16, 0, 0, 16 ], "texture": "#glow_slime_bottom"},
+				"south": {"uv": [ 0, 0, 16, 16 ], "texture": "#glow_slime_bottom"}
+			}
+		}
+	]
+}

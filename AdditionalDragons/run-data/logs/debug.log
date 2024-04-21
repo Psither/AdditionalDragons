@@ -1,0 +1,429 @@
+[02Feb.2024 00:23:09.761] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 1.19, --assetsDir, C:\Users\stgri\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 43.2.0, --fml.mcVersion, 1.19.2, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20220805.130853, --mod, additionaldragons, --all, --output, C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\src\generated\resources, --existing, C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\src\main\resources]
+[02Feb.2024 00:23:09.765] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.9 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
+[02Feb.2024 00:23:09.784] [main/DEBUG] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Found launch services [fmlclientdev,forgeclient,minecraft,forgegametestserverdev,fmlserveruserdev,fmlclient,fmldatauserdev,forgeserverdev,forgeserveruserdev,forgeclientdev,forgeclientuserdev,forgeserver,forgedatadev,fmlserver,fmlclientuserdev,fmlserverdev,forgedatauserdev,testharness,forgegametestserveruserdev]
+[02Feb.2024 00:23:09.795] [main/DEBUG] [cpw.mods.modlauncher.NameMappingServiceHandler/MODLAUNCHER]: Found naming services : [srgtomcp]
+[02Feb.2024 00:23:09.806] [main/DEBUG] [cpw.mods.modlauncher.LaunchPluginHandler/MODLAUNCHER]: Found launch plugins: [mixin,eventbus,slf4jfixer,object_holder_definalize,runtime_enum_extender,capability_token_subclass,accesstransformer,runtimedistcleaner]
+[02Feb.2024 00:23:09.814] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Discovering transformation services
+[02Feb.2024 00:23:09.821] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Found additional transformation services from discovery services: 
+[02Feb.2024 00:23:09.829] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Found transformer services : [mixin,fml]
+[02Feb.2024 00:23:09.830] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Transformation services loading
+[02Feb.2024 00:23:09.830] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Loading service mixin
+[02Feb.2024 00:23:09.831] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Loaded service mixin
+[02Feb.2024 00:23:09.831] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Loading service fml
+[02Feb.2024 00:23:09.833] [main/DEBUG] [net.minecraftforge.fml.loading.LauncherVersion/CORE]: Found FMLLauncher version 1.0
+[02Feb.2024 00:23:09.833] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML 1.0 loading
+[02Feb.2024 00:23:09.833] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML found ModLauncher version : 10.0.9+10.0.9+main.dcd20f30
+[02Feb.2024 00:23:09.833] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML found AccessTransformer version : 8.0.4+66+master.c09db6d7
+[02Feb.2024 00:23:09.834] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML found EventBus version : 6.0.3+6.0.3+master.039e4ea9
+[02Feb.2024 00:23:09.834] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Found Runtime Dist Cleaner
+[02Feb.2024 00:23:09.836] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML found CoreMod version : 5.0.1+15+master.dc5a2922
+[02Feb.2024 00:23:09.836] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Found ForgeSPI package implementation version 6.0.0+6.0.0+master.42474703
+[02Feb.2024 00:23:09.836] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Found ForgeSPI package specification 5
+[02Feb.2024 00:23:09.838] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Loaded service fml
+[02Feb.2024 00:23:09.839] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Configuring option handling for services
+[02Feb.2024 00:23:09.844] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Transformation services initializing
+[02Feb.2024 00:23:09.845] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformation service mixin
+[02Feb.2024 00:23:09.854] [main/DEBUG] [mixin/]: MixinService [ModLauncher] was successfully booted in cpw.mods.cl.ModuleClassLoader@2aa3cd93
+[02Feb.2024 00:23:09.866] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/stgri/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23130!/ Service=ModLauncher Env=CLIENT
+[02Feb.2024 00:23:09.869] [main/DEBUG] [mixin/]: Initialising Mixin Platform Manager
+[02Feb.2024 00:23:09.869] [main/DEBUG] [mixin/]: Adding mixin platform agents for container ModLauncher Root Container(ModLauncher:4f56a0a2)
+[02Feb.2024 00:23:09.870] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for ModLauncher Root Container(ModLauncher:4f56a0a2)
+[02Feb.2024 00:23:09.870] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container ModLauncher Root Container(ModLauncher:4f56a0a2)
+[02Feb.2024 00:23:09.871] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for ModLauncher Root Container(ModLauncher:4f56a0a2)
+[02Feb.2024 00:23:09.871] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container ModLauncher Root Container(ModLauncher:4f56a0a2)
+[02Feb.2024 00:23:09.873] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformation service mixin
+[02Feb.2024 00:23:09.873] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformation service fml
+[02Feb.2024 00:23:09.873] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Setting up basic FML game directories
+[02Feb.2024 00:23:09.874] [main/DEBUG] [net.minecraftforge.fml.loading.FileUtils/CORE]: Found existing GAMEDIR directory : C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\run-data
+[02Feb.2024 00:23:09.874] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path GAMEDIR is C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\run-data
+[02Feb.2024 00:23:09.875] [main/DEBUG] [net.minecraftforge.fml.loading.FileUtils/CORE]: Found existing MODSDIR directory : C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\run-data\mods
+[02Feb.2024 00:23:09.875] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path MODSDIR is C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\run-data\mods
+[02Feb.2024 00:23:09.875] [main/DEBUG] [net.minecraftforge.fml.loading.FileUtils/CORE]: Found existing CONFIGDIR directory : C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\run-data\config
+[02Feb.2024 00:23:09.875] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path CONFIGDIR is C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\run-data\config
+[02Feb.2024 00:23:09.875] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path FMLCONFIG is C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\run-data\config\fml.toml
+[02Feb.2024 00:23:09.875] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Loading configuration
+[02Feb.2024 00:23:09.904] [main/DEBUG] [net.minecraftforge.fml.loading.FileUtils/CORE]: Found existing default config directory directory : C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\run-data\defaultconfigs
+[02Feb.2024 00:23:09.904] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Preparing ModFile
+[02Feb.2024 00:23:09.906] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Preparing launch handler
+[02Feb.2024 00:23:09.906] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Using forgedatauserdev as launch service
+[02Feb.2024 00:23:09.919] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Received command line version data  : VersionInfo[forgeVersion=43.2.0, mcVersion=1.19.2, mcpVersion=20220805.130853, forgeGroup=net.minecraftforge]
+[02Feb.2024 00:23:09.920] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformation service fml
+[02Feb.2024 00:23:09.921] [main/DEBUG] [cpw.mods.modlauncher.NameMappingServiceHandler/MODLAUNCHER]: Current naming domain is 'mcp'
+[02Feb.2024 00:23:09.921] [main/DEBUG] [cpw.mods.modlauncher.NameMappingServiceHandler/MODLAUNCHER]: Identified name mapping providers {srg=srgtomcp:1234}
+[02Feb.2024 00:23:09.921] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Transformation services begin scanning
+[02Feb.2024 00:23:09.922] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Beginning scan trigger - transformation service mixin
+[02Feb.2024 00:23:09.922] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: End scan trigger - transformation service mixin
+[02Feb.2024 00:23:09.922] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Beginning scan trigger - transformation service fml
+[02Feb.2024 00:23:09.923] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Initiating mod scan
+[02Feb.2024 00:23:09.931] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModListHandler/CORE]: Found mod coordinates from lists: []
+[02Feb.2024 00:23:09.934] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModDiscoverer/CORE]: Found Mod Locators : (mods folder:null),(maven libs:null),(exploded directory:null),(minecraft:null),(userdev classpath:null)
+[02Feb.2024 00:23:09.935] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModDiscoverer/CORE]: Found Dependency Locators : (JarInJar:null)
+[02Feb.2024 00:23:09.939] [main/DEBUG] [net.minecraftforge.fml.loading.targets.CommonLaunchHandler/CORE]: Got mod coordinates additionaldragons%%C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\build\resources\main;additionaldragons%%C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\build\classes\java\main from env
+[02Feb.2024 00:23:09.941] [main/DEBUG] [net.minecraftforge.fml.loading.targets.CommonLaunchHandler/CORE]: Found supplied mod coordinates [{additionaldragons=[C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\build\resources\main, C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\build\classes\java\main]}]
+[02Feb.2024 00:23:10.107] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file forge-1.19.2-43.2.0_mapped_official_1.19.2-recomp.jar with {minecraft} mods - versions {1.19.2}
+[02Feb.2024 00:23:10.111] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\stgri\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.19.2-43.2.0\5713dfd49576886a7ffc353f14f067ad42369592\javafmllanguage-1.19.2-43.2.0.jar
+[02Feb.2024 00:23:10.111] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\stgri\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.19.2-43.2.0\5713dfd49576886a7ffc353f14f067ad42369592\javafmllanguage-1.19.2-43.2.0.jar is missing mods.toml file
+[02Feb.2024 00:23:10.114] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\stgri\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.19.2-43.2.0\51c88985dd125457fb8b6c2c58a4f3b9349a6b57\lowcodelanguage-1.19.2-43.2.0.jar
+[02Feb.2024 00:23:10.114] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\stgri\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.19.2-43.2.0\51c88985dd125457fb8b6c2c58a4f3b9349a6b57\lowcodelanguage-1.19.2-43.2.0.jar is missing mods.toml file
+[02Feb.2024 00:23:10.116] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\stgri\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.19.2-43.2.0\f4fa83ef8129c7f7cc5847fbafb07f7ae86c1bb\mclanguage-1.19.2-43.2.0.jar
+[02Feb.2024 00:23:10.116] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\stgri\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.19.2-43.2.0\f4fa83ef8129c7f7cc5847fbafb07f7ae86c1bb\mclanguage-1.19.2-43.2.0.jar is missing mods.toml file
+[02Feb.2024 00:23:10.119] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\stgri\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.19.2-43.2.0\d4dcb5b809b7f035ac22b058941cf81f84451545\fmlcore-1.19.2-43.2.0.jar
+[02Feb.2024 00:23:10.119] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\stgri\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.19.2-43.2.0\d4dcb5b809b7f035ac22b058941cf81f84451545\fmlcore-1.19.2-43.2.0.jar is missing mods.toml file
+[02Feb.2024 00:23:10.123] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\build\resources\main
+[02Feb.2024 00:23:10.133] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file main with {additionaldragons} mods - versions {1.0.0}
+[02Feb.2024 00:23:10.136] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate /
+[02Feb.2024 00:23:10.138] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file  with {forge} mods - versions {43.2.0}
+[02Feb.2024 00:23:10.156] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\stgri\.gradle\caches\forge_gradle\deobf_dependencies\DragonSurvival\DragonSurvival\1.19.2.1_mapped_official_1.19.2\DragonSurvival-1.19.2.1_mapped_official_1.19.2.jar
+[02Feb.2024 00:23:10.158] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file DragonSurvival-1.19.2.1_mapped_official_1.19.2.jar with {dragonsurvival} mods - versions {1.19.2-18.01.2024}
+[02Feb.2024 00:23:10.161] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\stgri\.gradle\caches\forge_gradle\deobf_dependencies\software\bernie\geckolib\geckolib-forge-1.19\3.1.40_mapped_official_1.19.2\geckolib-forge-1.19-3.1.40_mapped_official_1.19.2.jar
+[02Feb.2024 00:23:10.162] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file geckolib-forge-1.19-3.1.40_mapped_official_1.19.2.jar with {geckolib3} mods - versions {3.1.40}
+[02Feb.2024 00:23:10.166] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\stgri\.gradle\caches\forge_gradle\deobf_dependencies\DragonSurvival\DragonSurvival\1.19.2.1_mapped_official_1.19.2\DragonSurvival-1.19.2.1_mapped_official_1.19.2.jar
+[02Feb.2024 00:23:10.167] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file DragonSurvival-1.19.2.1_mapped_official_1.19.2.jar with {dragonsurvival} mods - versions {1.19.2-18.01.2024}
+[02Feb.2024 00:23:10.170] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\stgri\.gradle\caches\forge_gradle\deobf_dependencies\software\bernie\geckolib\geckolib-forge-1.19\3.1.40_mapped_official_1.19.2\geckolib-forge-1.19-3.1.40_mapped_official_1.19.2.jar
+[02Feb.2024 00:23:10.171] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file geckolib-forge-1.19-3.1.40_mapped_official_1.19.2.jar with {geckolib3} mods - versions {3.1.40}
+[02Feb.2024 00:23:10.175] [main/DEBUG] [net.minecraftforge.fml.loading.UniqueModListBuilder/]: Found 2 mods for first modid dragonsurvival, selecting most recent based on version data
+[02Feb.2024 00:23:10.176] [main/DEBUG] [net.minecraftforge.fml.loading.UniqueModListBuilder/]: Selected file DragonSurvival-1.19.2.1_mapped_official_1.19.2.jar for modid dragonsurvival with version 1.19.2-18.01.2024
+[02Feb.2024 00:23:10.176] [main/DEBUG] [net.minecraftforge.fml.loading.UniqueModListBuilder/]: Found 2 mods for first modid geckolib3, selecting most recent based on version data
+[02Feb.2024 00:23:10.176] [main/DEBUG] [net.minecraftforge.fml.loading.UniqueModListBuilder/]: Selected file geckolib-forge-1.19-3.1.40_mapped_official_1.19.2.jar for modid geckolib3 with version 3.1.40
+[02Feb.2024 00:23:10.182] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from forge-1.19.2-43.2.0_mapped_official_1.19.2-recomp.jar, it does not contain dependency information.
+[02Feb.2024 00:23:10.182] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from , it does not contain dependency information.
+[02Feb.2024 00:23:10.182] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from DragonSurvival-1.19.2.1_mapped_official_1.19.2.jar, it does not contain dependency information.
+[02Feb.2024 00:23:10.182] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from geckolib-forge-1.19-3.1.40_mapped_official_1.19.2.jar, it does not contain dependency information.
+[02Feb.2024 00:23:10.183] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from main, it does not contain dependency information.
+[02Feb.2024 00:23:10.183] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from mclanguage-1.19.2-43.2.0.jar, it does not contain dependency information.
+[02Feb.2024 00:23:10.183] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from javafmllanguage-1.19.2-43.2.0.jar, it does not contain dependency information.
+[02Feb.2024 00:23:10.183] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from fmlcore-1.19.2-43.2.0.jar, it does not contain dependency information.
+[02Feb.2024 00:23:10.183] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from lowcodelanguage-1.19.2-43.2.0.jar, it does not contain dependency information.
+[02Feb.2024 00:23:10.204] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[02Feb.2024 00:23:10.206] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file forge-1.19.2-43.2.0_mapped_official_1.19.2-recomp.jar with {minecraft} mods - versions {1.19.2}
+[02Feb.2024 00:23:10.208] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\stgri\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.19.2-43.2.0_mapped_official_1.19.2\forge-1.19.2-43.2.0_mapped_official_1.19.2-recomp.jar with languages [LanguageSpec[languageName=minecraft, acceptedVersions=1]]
+[02Feb.2024 00:23:10.209] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate /
+[02Feb.2024 00:23:10.210] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file  with {forge} mods - versions {43.2.0}
+[02Feb.2024 00:23:10.210] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file / with languages [LanguageSpec[languageName=javafml, acceptedVersions=[24,]]]
+[02Feb.2024 00:23:10.234] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod field_to_method with Javascript path coremods/field_to_method.js
+[02Feb.2024 00:23:10.235] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod field_to_instanceof with Javascript path coremods/field_to_instanceof.js
+[02Feb.2024 00:23:10.235] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod add_bouncer_method with Javascript path coremods/add_bouncer_method.js
+[02Feb.2024 00:23:10.235] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/field_to_method.js
+[02Feb.2024 00:23:10.235] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/field_to_instanceof.js
+[02Feb.2024 00:23:10.235] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/add_bouncer_method.js
+[02Feb.2024 00:23:10.235] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\stgri\.gradle\caches\forge_gradle\deobf_dependencies\DragonSurvival\DragonSurvival\1.19.2.1_mapped_official_1.19.2\DragonSurvival-1.19.2.1_mapped_official_1.19.2.jar
+[02Feb.2024 00:23:10.236] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file DragonSurvival-1.19.2.1_mapped_official_1.19.2.jar with {dragonsurvival} mods - versions {1.19.2-18.01.2024}
+[02Feb.2024 00:23:10.236] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\stgri\.gradle\caches\forge_gradle\deobf_dependencies\DragonSurvival\DragonSurvival\1.19.2.1_mapped_official_1.19.2\DragonSurvival-1.19.2.1_mapped_official_1.19.2.jar with languages [LanguageSpec[languageName=javafml, acceptedVersions=[40,)]]
+[02Feb.2024 00:23:10.236] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\stgri\.gradle\caches\forge_gradle\deobf_dependencies\software\bernie\geckolib\geckolib-forge-1.19\3.1.40_mapped_official_1.19.2\geckolib-forge-1.19-3.1.40_mapped_official_1.19.2.jar
+[02Feb.2024 00:23:10.237] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file geckolib-forge-1.19-3.1.40_mapped_official_1.19.2.jar with {geckolib3} mods - versions {3.1.40}
+[02Feb.2024 00:23:10.237] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\stgri\.gradle\caches\forge_gradle\deobf_dependencies\software\bernie\geckolib\geckolib-forge-1.19\3.1.40_mapped_official_1.19.2\geckolib-forge-1.19-3.1.40_mapped_official_1.19.2.jar with languages [LanguageSpec[languageName=javafml, acceptedVersions=[41,)]]
+[02Feb.2024 00:23:10.237] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\build\resources\main
+[02Feb.2024 00:23:10.239] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file main with {additionaldragons} mods - versions {1.0.0}
+[02Feb.2024 00:23:10.239] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\build\resources\main with languages [LanguageSpec[languageName=javafml, acceptedVersions=[40,)]]
+[02Feb.2024 00:23:10.240] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: End scan trigger - transformation service fml
+[02Feb.2024 00:23:10.249] [main/DEBUG] [net.minecraftforge.fml.loading.LanguageLoadingProvider/CORE]: Found 3 language providers
+[02Feb.2024 00:23:10.250] [main/DEBUG] [net.minecraftforge.fml.loading.LanguageLoadingProvider/CORE]: Found language provider minecraft, version 1.0
+[02Feb.2024 00:23:10.251] [main/DEBUG] [net.minecraftforge.fml.loading.LanguageLoadingProvider/CORE]: Found language provider lowcodefml, version 43
+[02Feb.2024 00:23:10.251] [main/DEBUG] [net.minecraftforge.fml.loading.LanguageLoadingProvider/CORE]: Found language provider javafml, version 43
+[02Feb.2024 00:23:10.255] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/]: Configured system mods: [minecraft, forge]
+[02Feb.2024 00:23:10.255] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/]: Found system mod: minecraft
+[02Feb.2024 00:23:10.255] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/]: Found system mod: forge
+[02Feb.2024 00:23:10.257] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/LOADING]: Found 8 mod requirements (8 mandatory, 0 optional)
+[02Feb.2024 00:23:10.258] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/LOADING]: Found 0 mod requirements missing (0 mandatory, 0 optional)
+[02Feb.2024 00:23:10.541] [main/DEBUG] [net.minecraftforge.fml.loading.MCPNamingService/CORE]: Loaded 30289 method mappings from methods.csv
+[02Feb.2024 00:23:10.560] [main/DEBUG] [net.minecraftforge.fml.loading.MCPNamingService/CORE]: Loaded 28897 field mappings from fields.csv
+[02Feb.2024 00:23:10.605] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Transformation services loading transformers
+[02Feb.2024 00:23:10.605] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformers for transformation service mixin
+[02Feb.2024 00:23:10.605] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformers for transformation service mixin
+[02Feb.2024 00:23:10.606] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformers for transformation service fml
+[02Feb.2024 00:23:10.606] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Loading coremod transformers
+[02Feb.2024 00:23:10.606] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: Loading CoreMod from coremods/field_to_method.js
+[02Feb.2024 00:23:10.716] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: CoreMod loaded successfully
+[02Feb.2024 00:23:10.716] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: Loading CoreMod from coremods/field_to_instanceof.js
+[02Feb.2024 00:23:10.753] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: CoreMod loaded successfully
+[02Feb.2024 00:23:10.753] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: Loading CoreMod from coremods/add_bouncer_method.js
+[02Feb.2024 00:23:10.779] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: CoreMod loaded successfully
+[02Feb.2024 00:23:10.786] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@6325f352 to Target : CLASS {Lnet/minecraft/world/level/biome/Biome;} {} {V}
+[02Feb.2024 00:23:10.787] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@298f0a0b to Target : CLASS {Lnet/minecraft/world/level/levelgen/structure/Structure;} {} {V}
+[02Feb.2024 00:23:10.787] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@2b960a7 to Target : CLASS {Lnet/minecraft/world/effect/MobEffectInstance;} {} {V}
+[02Feb.2024 00:23:10.788] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@31dfc6f5 to Target : CLASS {Lnet/minecraft/world/level/block/LiquidBlock;} {} {V}
+[02Feb.2024 00:23:10.788] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@37b52340 to Target : CLASS {Lnet/minecraft/world/item/BucketItem;} {} {V}
+[02Feb.2024 00:23:10.788] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@663bb8ef to Target : CLASS {Lnet/minecraft/world/level/block/StairBlock;} {} {V}
+[02Feb.2024 00:23:10.788] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@2f4e40d7 to Target : CLASS {Lnet/minecraft/world/level/block/FlowerPotBlock;} {} {V}
+[02Feb.2024 00:23:10.788] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@60e9c3a5 to Target : CLASS {Lnet/minecraft/world/item/ItemStack;} {} {V}
+[02Feb.2024 00:23:10.788] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@7e5843db to Target : CLASS {Lnet/minecraft/network/play/client/CClientSettingsPacket;} {} {V}
+[02Feb.2024 00:23:10.788] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformers for transformation service fml
+[02Feb.2024 00:23:11.131] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:ModLauncher Root Container(ModLauncher:4f56a0a2)]
+[02Feb.2024 00:23:11.131] [main/DEBUG] [mixin/]: Processing launch tasks for PlatformAgent[MixinPlatformAgentDefault:ModLauncher Root Container(ModLauncher:4f56a0a2)]
+[02Feb.2024 00:23:11.131] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(minecraft)
+[02Feb.2024 00:23:11.131] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(minecraft)
+[02Feb.2024 00:23:11.132] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(minecraft)
+[02Feb.2024 00:23:11.132] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(minecraft)
+[02Feb.2024 00:23:11.132] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(minecraft)
+[02Feb.2024 00:23:11.132] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(minecraft)]
+[02Feb.2024 00:23:11.132] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(forge)
+[02Feb.2024 00:23:11.132] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(forge)
+[02Feb.2024 00:23:11.132] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(forge)
+[02Feb.2024 00:23:11.132] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(forge)
+[02Feb.2024 00:23:11.133] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(forge)
+[02Feb.2024 00:23:11.133] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(forge)]
+[02Feb.2024 00:23:11.133] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(dragonsurvival)
+[02Feb.2024 00:23:11.133] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(dragonsurvival)
+[02Feb.2024 00:23:11.133] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(dragonsurvival)
+[02Feb.2024 00:23:11.133] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(dragonsurvival)
+[02Feb.2024 00:23:11.133] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(dragonsurvival)
+[02Feb.2024 00:23:11.133] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(dragonsurvival)]
+[02Feb.2024 00:23:11.133] [main/DEBUG] [mixin/]: Registering mixin config: dragonsurvival.mixins.json
+[02Feb.2024 00:23:11.144] [main/DEBUG] [mixin/]: Compatibility level JAVA_17 specified by dragonsurvival.mixins.json is higher than the maximum level supported by this version of mixin (JAVA_13).
+[02Feb.2024 00:23:11.146] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[02Feb.2024 00:23:11.147] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(geckolib3)
+[02Feb.2024 00:23:11.147] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(geckolib3)
+[02Feb.2024 00:23:11.147] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(geckolib3)
+[02Feb.2024 00:23:11.147] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(geckolib3)
+[02Feb.2024 00:23:11.147] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(geckolib3)
+[02Feb.2024 00:23:11.147] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(geckolib3)]
+[02Feb.2024 00:23:11.147] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(additionaldragons)
+[02Feb.2024 00:23:11.147] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(additionaldragons)
+[02Feb.2024 00:23:11.148] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(additionaldragons)
+[02Feb.2024 00:23:11.148] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(additionaldragons)
+[02Feb.2024 00:23:11.148] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(additionaldragons)
+[02Feb.2024 00:23:11.148] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(additionaldragons)]
+[02Feb.2024 00:23:11.148] [main/DEBUG] [mixin/]: inject() running with 6 agents
+[02Feb.2024 00:23:11.148] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:ModLauncher Root Container(ModLauncher:4f56a0a2)]
+[02Feb.2024 00:23:11.148] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(minecraft)]
+[02Feb.2024 00:23:11.148] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(forge)]
+[02Feb.2024 00:23:11.148] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(dragonsurvival)]
+[02Feb.2024 00:23:11.148] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(geckolib3)]
+[02Feb.2024 00:23:11.149] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(additionaldragons)]
+[02Feb.2024 00:23:11.149] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\stgri\.gradle\caches\forge_gradle\assets, --assetIndex, 1.19, --mod, additionaldragons, --all, --output, C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\src\generated\resources, --existing, C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons\src\main\resources]
+[02Feb.2024 00:23:11.189] [main/DEBUG] [mixin/]: Error cleaning class output directory: .mixin.out
+[02Feb.2024 00:23:11.190] [main/DEBUG] [mixin/]: Preparing mixins for MixinEnvironment[DEFAULT]
+[02Feb.2024 00:23:11.191] [main/DEBUG] [mixin/]: Selecting config dragonsurvival.mixins.json
+[02Feb.2024 00:23:11.470] [main/INFO] [mixin/]: Remapping refMap dragonsurvival.refmap.json using C:\Users\stgri\Desktop\dragon_stuff\AdditionalDragons/build/createSrgToMcp/output.srg
+[02Feb.2024 00:23:11.470] [main/DEBUG] [mixin/]: Preparing dragonsurvival.mixins.json (27)
+[02Feb.2024 00:23:11.607] [main/DEBUG] [mixin/]: Registering new injector for @Inject with org.spongepowered.asm.mixin.injection.struct.CallbackInjectionInfo
+[02Feb.2024 00:23:11.609] [main/DEBUG] [mixin/]: Registering new injector for @ModifyArg with org.spongepowered.asm.mixin.injection.struct.ModifyArgInjectionInfo
+[02Feb.2024 00:23:11.609] [main/DEBUG] [mixin/]: Registering new injector for @ModifyArgs with org.spongepowered.asm.mixin.injection.struct.ModifyArgsInjectionInfo
+[02Feb.2024 00:23:11.610] [main/DEBUG] [mixin/]: Registering new injector for @Redirect with org.spongepowered.asm.mixin.injection.struct.RedirectInjectionInfo
+[02Feb.2024 00:23:11.611] [main/DEBUG] [mixin/]: Registering new injector for @ModifyVariable with org.spongepowered.asm.mixin.injection.struct.ModifyVariableInjectionInfo
+[02Feb.2024 00:23:11.612] [main/DEBUG] [mixin/]: Registering new injector for @ModifyConstant with org.spongepowered.asm.mixin.injection.struct.ModifyConstantInjectionInfo
+[02Feb.2024 00:23:11.615] [main/DEBUG] [mixin/]: Inner class by/dragonsurvivalteam/dragonsurvival/mixins/MixinBlock$1 in by/dragonsurvivalteam/dragonsurvival/mixins/MixinBlock on net/minecraft/world/level/block/Block gets unique name net/minecraft/world/level/block/Block$Anonymous$f4c5542dc36443089ca6af7908191780
+[02Feb.2024 00:23:11.619] [main/DEBUG] [mixin/]: Inner class by/dragonsurvivalteam/dragonsurvival/mixins/MixinEntity$1 in by/dragonsurvivalteam/dragonsurvival/mixins/MixinEntity on net/minecraft/world/entity/Entity gets unique name net/minecraft/world/entity/Entity$Anonymous$38c2301834014385978deef5e4243e85
+[02Feb.2024 00:23:11.627] [main/DEBUG] [mixin/]: Prepared 27 mixins in 0.436 sec (16.1ms avg) (0ms load, 0ms transform, 0ms plugin)
+[02Feb.2024 00:23:11.636] [main/DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory/]: Using SLF4J as the default logging framework
+[02Feb.2024 00:23:11.637] [main/DEBUG] [io.netty.util.ResourceLeakDetector/]: -Dio.netty.leakDetection.level: simple
+[02Feb.2024 00:23:11.638] [main/DEBUG] [io.netty.util.ResourceLeakDetector/]: -Dio.netty.leakDetection.targetRecords: 4
+[02Feb.2024 00:23:11.698] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [additionaldragons]
+[02Feb.2024 00:23:11.766] [main/DEBUG] [mixin/]: Mixing MixinBlock from dragonsurvival.mixins.json into net.minecraft.world.level.block.Block
+[02Feb.2024 00:23:11.798] [main/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/item/ItemStack
+[02Feb.2024 00:23:11.905] [main/DEBUG] [mixin/]: Mixing MixinEntity from dragonsurvival.mixins.json into net.minecraft.world.entity.Entity
+[02Feb.2024 00:23:11.909] [main/DEBUG] [mixin/]: Renaming synthetic method lambda$hideCaveDragonFireAnimation$0(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lby/dragonsurvivalteam/dragonsurvival/common/capability/DragonStateHandler;)V to mde7050c$lambda$hideCaveDragonFireAnimation$0$0 in dragonsurvival.mixins.json:MixinEntity
+[02Feb.2024 00:23:12.038] [main/DEBUG] [mixin/]: Mixing MixinLivingEntity from dragonsurvival.mixins.json into net.minecraft.world.entity.LivingEntity
+[02Feb.2024 00:23:12.039] [main/DEBUG] [mixin/]: Renaming synthetic method lambda$triggerDragonItemUseEffects$4(Lnet/minecraft/world/item/ItemStack;ILorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lby/dragonsurvivalteam/dragonsurvival/common/capability/DragonStateHandler;)V to mde7050c$lambda$triggerDragonItemUseEffects$4$0 in dragonsurvival.mixins.json:MixinLivingEntity
+[02Feb.2024 00:23:12.040] [main/DEBUG] [mixin/]: Renaming synthetic method lambda$onDragonSyncedDataUpdated$3(Lby/dragonsurvivalteam/dragonsurvival/common/capability/DragonStateHandler;)V to mde7050c$lambda$onDragonSyncedDataUpdated$3$1 in dragonsurvival.mixins.json:MixinLivingEntity
+[02Feb.2024 00:23:12.040] [main/DEBUG] [mixin/]: Renaming synthetic method lambda$shouldDragonTriggerItemUseEffects$2(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lby/dragonsurvivalteam/dragonsurvival/common/capability/DragonStateHandler;)V to mde7050c$lambda$shouldDragonTriggerItemUseEffects$2$2 in dragonsurvival.mixins.json:MixinLivingEntity
+[02Feb.2024 00:23:12.040] [main/DEBUG] [mixin/]: Renaming synthetic method lambda$addDragonEatEffect$1(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lby/dragonsurvivalteam/dragonsurvival/common/capability/DragonStateHandler;)V to mde7050c$lambda$addDragonEatEffect$1$3 in dragonsurvival.mixins.json:MixinLivingEntity
+[02Feb.2024 00:23:12.040] [main/DEBUG] [mixin/]: Renaming synthetic method lambda$dragonEat$0(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lby/dragonsurvivalteam/dragonsurvival/common/capability/DragonStateHandler;)V to mde7050c$lambda$dragonEat$0$4 in dragonsurvival.mixins.json:MixinLivingEntity
+[02Feb.2024 00:23:12.058] [main/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/effect/MobEffectInstance
+[02Feb.2024 00:23:12.175] [main/DEBUG] [mixin/]: Mixing MixinPlayerStart from dragonsurvival.mixins.json into net.minecraft.world.entity.player.Player
+[02Feb.2024 00:23:12.178] [main/DEBUG] [mixin/]: Mixing MixinPlayerEntity from dragonsurvival.mixins.json into net.minecraft.world.entity.player.Player
+[02Feb.2024 00:23:12.179] [main/DEBUG] [mixin/]: Renaming synthetic method lambda$dragonRidingOffset$2(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lby/dragonsurvivalteam/dragonsurvival/common/capability/DragonStateHandler;)V to mde7050c$lambda$dragonRidingOffset$2$0 in dragonsurvival.mixins.json:MixinPlayerEntity
+[02Feb.2024 00:23:12.179] [main/DEBUG] [mixin/]: Renaming synthetic method lambda$dragonEat$1(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lby/dragonsurvivalteam/dragonsurvival/common/capability/DragonStateHandler;)V to mde7050c$lambda$dragonEat$1$1 in dragonsurvival.mixins.json:MixinPlayerEntity
+[02Feb.2024 00:23:12.179] [main/DEBUG] [mixin/]: Renaming synthetic method lambda$isSleepingLongEnough$0(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lby/dragonsurvivalteam/dragonsurvival/common/capability/DragonStateHandler;)V to mde7050c$lambda$isSleepingLongEnough$0$2 in dragonsurvival.mixins.json:MixinPlayerEntity
+[02Feb.2024 00:23:12.221] [main/DEBUG] [mixin/]: Mixing MixinPlayerEnd from dragonsurvival.mixins.json into net.minecraft.world.entity.player.Player
+[02Feb.2024 00:23:12.287] [main/DEBUG] [mixin/]: Generating mapped inner class net/minecraft/world/level/block/Block$Anonymous$f4c5542dc36443089ca6af7908191780 (originally by/dragonsurvivalteam/dragonsurvival/mixins/MixinBlock$1)
+[02Feb.2024 00:23:12.315] [main/DEBUG] [mixin/]: Mixing MixinItem from dragonsurvival.mixins.json into net.minecraft.world.item.Item
+[02Feb.2024 00:23:12.316] [main/DEBUG] [mixin/]: Renaming synthetic method lambda$dragonFinishUsingItem$1(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lby/dragonsurvivalteam/dragonsurvival/common/capability/DragonStateHandler;)V to mde7050c$lambda$dragonFinishUsingItem$1$0 in dragonsurvival.mixins.json:MixinItem
+[02Feb.2024 00:23:12.316] [main/DEBUG] [mixin/]: Renaming synthetic method lambda$dragonUse$0(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lby/dragonsurvivalteam/dragonsurvival/common/capability/DragonStateHandler;)V to mde7050c$lambda$dragonUse$0$1 in dragonsurvival.mixins.json:MixinItem
+[02Feb.2024 00:23:12.399] [main/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/levelgen/structure/Structure
+[02Feb.2024 00:23:12.488] [main/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/block/LiquidBlock
+[02Feb.2024 00:23:12.527] [main/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/block/StairBlock
+[02Feb.2024 00:23:12.578] [main/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/block/FlowerPotBlock
+[02Feb.2024 00:23:13.036] [main/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/item/ItemStack
+[02Feb.2024 00:23:13.535] [main/DEBUG] [mixin/]: Generating mapped inner class net/minecraft/world/entity/Entity$Anonymous$38c2301834014385978deef5e4243e85 (originally by/dragonsurvivalteam/dragonsurvival/mixins/MixinEntity$1)
+[02Feb.2024 00:23:13.874] [main/INFO] [net.minecraft.util.datafix.DataFixers/]: Building unoptimized datafixer
+[02Feb.2024 00:23:14.377] [main/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/biome/Biome
+[02Feb.2024 00:23:14.621] [main/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/item/BucketItem
+[02Feb.2024 00:23:14.665] [main/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/effect/MobEffectInstance
+[02Feb.2024 00:23:14.718] [main/DEBUG] [mixin/]: Mixing MixinInventory from dragonsurvival.mixins.json into net.minecraft.world.entity.player.Inventory
+[02Feb.2024 00:23:14.953] [main/DEBUG] [net.minecraftforge.fml.ModWorkManager/LOADING]: Using 12 threads for parallel mod-loading
+[02Feb.2024 00:23:14.958] [main/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLJavaModLanguageProvider/LOADING]: Loading FMLModContainer from classloader cpw.mods.modlauncher.TransformingClassLoader@6ae62c7e - got cpw.mods.cl.ModuleClassLoader@69c6161d
+[02Feb.2024 00:23:14.958] [main/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLModContainer/LOADING]: Creating FMLModContainer instance for net.minecraftforge.common.ForgeMod
+[02Feb.2024 00:23:14.963] [main/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLJavaModLanguageProvider/LOADING]: Loading FMLModContainer from classloader cpw.mods.modlauncher.TransformingClassLoader@6ae62c7e - got cpw.mods.cl.ModuleClassLoader@69c6161d
+[02Feb.2024 00:23:14.964] [main/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLModContainer/LOADING]: Creating FMLModContainer instance for by.dragonsurvivalteam.dragonsurvival.DragonSurvivalMod
+[02Feb.2024 00:23:14.965] [main/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLJavaModLanguageProvider/LOADING]: Loading FMLModContainer from classloader cpw.mods.modlauncher.TransformingClassLoader@6ae62c7e - got cpw.mods.cl.ModuleClassLoader@69c6161d
+[02Feb.2024 00:23:14.965] [main/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLModContainer/LOADING]: Creating FMLModContainer instance for software.bernie.example.GeckoLibMod
+[02Feb.2024 00:23:14.965] [main/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLJavaModLanguageProvider/LOADING]: Loading FMLModContainer from classloader cpw.mods.modlauncher.TransformingClassLoader@6ae62c7e - got cpw.mods.cl.ModuleClassLoader@69c6161d
+[02Feb.2024 00:23:14.965] [main/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLModContainer/LOADING]: Creating FMLModContainer instance for by.psither.dragonsurvival.AdditionalDragonsMod
+[02Feb.2024 00:23:14.984] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for additionaldragons
+[02Feb.2024 00:23:14.988] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.psither.dragonsurvival.client.particles.ADParticles to MOD
+[02Feb.2024 00:23:14.988] [modloading-worker-0/DEBUG] [net.minecraftforge.versions.forge.ForgeVersion/CORE]: Forge Version package package net.minecraftforge.versions.forge, Forge, version 43.2 from cpw.mods.modlauncher.TransformingClassLoader@6ae62c7e
+[02Feb.2024 00:23:14.988] [modloading-worker-0/DEBUG] [net.minecraftforge.versions.forge.ForgeVersion/CORE]: Found Forge version 43.2.0
+[02Feb.2024 00:23:14.989] [modloading-worker-0/DEBUG] [net.minecraftforge.versions.forge.ForgeVersion/CORE]: Found Forge spec 43.2
+[02Feb.2024 00:23:14.989] [modloading-worker-0/DEBUG] [net.minecraftforge.versions.forge.ForgeVersion/CORE]: Found Forge group net.minecraftforge
+[02Feb.2024 00:23:14.989] [modloading-worker-0/DEBUG] [net.minecraftforge.versions.mcp.MCPVersion/CORE]: MCP Version package package net.minecraftforge.versions.mcp, Minecraft, version 1.19.2 from cpw.mods.modlauncher.TransformingClassLoader@6ae62c7e
+[02Feb.2024 00:23:14.989] [modloading-worker-0/DEBUG] [net.minecraftforge.versions.mcp.MCPVersion/CORE]: Found MC version information 1.19.2
+[02Feb.2024 00:23:14.989] [modloading-worker-0/DEBUG] [net.minecraftforge.versions.mcp.MCPVersion/CORE]: Found MCP version information 20220805.130853
+[02Feb.2024 00:23:14.989] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 43.2.0, for MC 1.19.2 with MCP 20220805.130853
+[02Feb.2024 00:23:14.991] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v43.2.0 Initialized
+[02Feb.2024 00:23:14.995] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.psither.dragonsurvival.common.handlers.magic.ADMagicHandler to FORGE
+[02Feb.2024 00:23:15.000] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.psither.dragonsurvival.registry.ADBlocks to MOD
+[02Feb.2024 00:23:15.002] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.psither.dragonsurvival.registry.ADDragonEffects to MOD
+[02Feb.2024 00:23:15.017] [modloading-worker-0/DEBUG] [mixin/]: Mixing MixinInventoryScreen from dragonsurvival.mixins.json into net.minecraft.client.gui.screens.inventory.InventoryScreen
+[02Feb.2024 00:23:15.024] [modloading-worker-0/DEBUG] [mixin/]: Renaming synthetic method lambda$dragonScreenEntityRender$0(Lnet/minecraft/client/player/LocalPlayer;Ljava/lang/Runnable;Lby/dragonsurvivalteam/dragonsurvival/common/capability/DragonStateHandler;)V to mde7050c$lambda$dragonScreenEntityRender$0$0 in dragonsurvival.mixins.json:MixinInventoryScreen
+[02Feb.2024 00:23:15.053] [modloading-worker-0/DEBUG] [mixin/]: Mixing tool_swap.MixinMultiPlayerGameModeStart from dragonsurvival.mixins.json into net.minecraft.client.multiplayer.MultiPlayerGameMode
+[02Feb.2024 00:23:15.053] [modloading-worker-0/DEBUG] [mixin/]: Mixing tool_swap.MixinMultiPlayerGameModeEnd from dragonsurvival.mixins.json into net.minecraft.client.multiplayer.MultiPlayerGameMode
+[02Feb.2024 00:23:15.070] [modloading-worker-0/DEBUG] [mixin/]: Mixing MixinClientWorld from dragonsurvival.mixins.json into net.minecraft.client.multiplayer.ClientLevel
+[02Feb.2024 00:23:15.087] [modloading-worker-0/WARN] [software.bernie.geckolib3.GeckoLib/]: Minecraft.getInstance() was null, could not register reload listeners. Ignore if datagenning.
+[02Feb.2024 00:23:15.095] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: -Dio.netty.noUnsafe: false
+[02Feb.2024 00:23:15.096] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: Java version: 17
+[02Feb.2024 00:23:15.097] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.theUnsafe: available
+[02Feb.2024 00:23:15.098] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.copyMemory: available
+[02Feb.2024 00:23:15.099] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.storeFence: available
+[02Feb.2024 00:23:15.099] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Buffer.address: available
+[02Feb.2024 00:23:15.099] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: direct buffer constructor: unavailable
+java.lang.UnsupportedOperationException: Reflective setAccessible(true) disabled
+	at io.netty.util.internal.ReflectionUtil.trySetAccessible(ReflectionUtil.java:31) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at io.netty.util.internal.PlatformDependent0$5.run(PlatformDependent0.java:287) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at java.security.AccessController.doPrivileged(AccessController.java:318) ~[?:?]
+	at io.netty.util.internal.PlatformDependent0.<clinit>(PlatformDependent0.java:281) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at io.netty.util.internal.PlatformDependent.isAndroid(PlatformDependent.java:294) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at io.netty.util.internal.PlatformDependent.<clinit>(PlatformDependent.java:88) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at io.netty.util.ConstantPool.<init>(ConstantPool.java:34) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at io.netty.util.AttributeKey$1.<init>(AttributeKey.java:27) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at io.netty.util.AttributeKey.<clinit>(AttributeKey.java:27) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at net.minecraftforge.network.NetworkConstants.<clinit>(NetworkConstants.java:34) ~[forge-1.19.2-43.2.0_mapped_official_1.19.2-recomp.jar%23187%23194!/:?]
+	at net.minecraftforge.common.ForgeMod.<init>(ForgeMod.java:436) ~[forge-1.19.2-43.2.0_mapped_official_1.19.2-recomp.jar%23187%23194!/:?]
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499) ~[?:?]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:480) ~[?:?]
+	at net.minecraftforge.fml.javafmlmod.FMLModContainer.constructMod(FMLModContainer.java:68) ~[javafmllanguage-1.19.2-43.2.0.jar%23189!/:?]
+	at net.minecraftforge.fml.ModContainer.lambda$buildTransitionHandler$10(ModContainer.java:121) ~[fmlcore-1.19.2-43.2.0.jar%23192!/:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804) [?:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1796) [?:?]
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) [?:?]
+	at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) [?:?]
+	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) [?:?]
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) [?:?]
+[02Feb.2024 00:23:15.108] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Bits.unaligned: available, true
+[02Feb.2024 00:23:15.109] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable
+java.lang.IllegalAccessException: class io.netty.util.internal.PlatformDependent0$7 (in module io.netty.common) cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to module io.netty.common
+	at jdk.internal.reflect.Reflection.newIllegalAccessException(Reflection.java:392) ~[?:?]
+	at java.lang.reflect.AccessibleObject.checkAccess(AccessibleObject.java:674) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:560) ~[?:?]
+	at io.netty.util.internal.PlatformDependent0$7.run(PlatformDependent0.java:409) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at java.security.AccessController.doPrivileged(AccessController.java:318) ~[?:?]
+	at io.netty.util.internal.PlatformDependent0.<clinit>(PlatformDependent0.java:400) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at io.netty.util.internal.PlatformDependent.isAndroid(PlatformDependent.java:294) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at io.netty.util.internal.PlatformDependent.<clinit>(PlatformDependent.java:88) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at io.netty.util.ConstantPool.<init>(ConstantPool.java:34) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at io.netty.util.AttributeKey$1.<init>(AttributeKey.java:27) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at io.netty.util.AttributeKey.<clinit>(AttributeKey.java:27) ~[netty-common-4.1.77.Final.jar%23149!/:4.1.77.Final]
+	at net.minecraftforge.network.NetworkConstants.<clinit>(NetworkConstants.java:34) ~[forge-1.19.2-43.2.0_mapped_official_1.19.2-recomp.jar%23187%23194!/:?]
+	at net.minecraftforge.common.ForgeMod.<init>(ForgeMod.java:436) ~[forge-1.19.2-43.2.0_mapped_official_1.19.2-recomp.jar%23187%23194!/:?]
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499) ~[?:?]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:480) ~[?:?]
+	at net.minecraftforge.fml.javafmlmod.FMLModContainer.constructMod(FMLModContainer.java:68) ~[javafmllanguage-1.19.2-43.2.0.jar%23189!/:?]
+	at net.minecraftforge.fml.ModContainer.lambda$buildTransitionHandler$10(ModContainer.java:121) ~[fmlcore-1.19.2-43.2.0.jar%23192!/:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804) [?:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1796) [?:?]
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) [?:?]
+	at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) [?:?]
+	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) [?:?]
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) [?:?]
+[02Feb.2024 00:23:15.110] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for geckolib3
+[02Feb.2024 00:23:15.111] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing software.bernie.example.GeckoLibMod to FORGE
+[02Feb.2024 00:23:15.111] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+[02Feb.2024 00:23:15.111] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: sun.misc.Unsafe: available
+[02Feb.2024 00:23:15.112] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: maxDirectMemory: 4261412864 bytes (maybe)
+[02Feb.2024 00:23:15.112] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing software.bernie.example.CommonListener to MOD
+[02Feb.2024 00:23:15.112] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.tmpdir: C:\Users\stgri\AppData\Local\Temp (java.io.tmpdir)
+[02Feb.2024 00:23:15.112] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[02Feb.2024 00:23:15.113] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: Platform: Windows
+[02Feb.2024 00:23:15.113] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.maxDirectMemory: -1 bytes
+[02Feb.2024 00:23:15.114] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+[02Feb.2024 00:23:15.114] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing software.bernie.example.ClientListener to MOD
+[02Feb.2024 00:23:15.114] [modloading-worker-0/DEBUG] [io.netty.util.internal.CleanerJava9/]: java.nio.ByteBuffer.cleaner(): available
+[02Feb.2024 00:23:15.115] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.noPreferDirect: false
+[02Feb.2024 00:23:15.135] [modloading-worker-0/DEBUG] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Loading Network data for FML net version: FML3
+[02Feb.2024 00:23:15.139] [modloading-worker-0/DEBUG] [mixin/]: Mixing AccessorEntityRenderer from dragonsurvival.mixins.json into net.minecraft.client.renderer.entity.EntityRenderer
+[02Feb.2024 00:23:15.175] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigTracker/CONFIG]: Config file forge-client.toml for forge tracking
+[02Feb.2024 00:23:15.175] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigTracker/CONFIG]: Config file forge-server.toml for forge tracking
+[02Feb.2024 00:23:15.175] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigTracker/CONFIG]: Config file forge-common.toml for forge tracking
+[02Feb.2024 00:23:15.205] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for forge
+[02Feb.2024 00:23:15.206] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.minecraftforge.common.ForgeSpawnEggItem$CommonHandler to MOD
+[02Feb.2024 00:23:15.207] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.minecraftforge.common.ForgeSpawnEggItem$ColorRegisterHandler to MOD
+[02Feb.2024 00:23:15.211] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.minecraftforge.client.model.data.ModelDataManager to FORGE
+[02Feb.2024 00:23:15.213] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.minecraftforge.client.ForgeHooksClient$ClientEvents to MOD
+[02Feb.2024 00:23:15.220] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.minecraftforge.client.ClientForgeMod to MOD
+[02Feb.2024 00:23:15.231] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigTracker/CONFIG]: Config file dragonsurvival-client.toml for dragonsurvival tracking
+[02Feb.2024 00:23:15.237] [modloading-worker-0/WARN] [Dragon Survival/]: Potential issue found for configuration: [oresTag]
+[02Feb.2024 00:23:15.243] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigTracker/CONFIG]: Config file dragonsurvival-server.toml for dragonsurvival tracking
+[02Feb.2024 00:23:15.261] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for dragonsurvival
+[02Feb.2024 00:23:15.262] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.server.tileentity.DSTileEntities to MOD
+[02Feb.2024 00:23:15.263] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.server.handlers.ServerPlayerStatusSync to FORGE
+[02Feb.2024 00:23:15.263] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.server.handlers.ServerFlightHandler to FORGE
+[02Feb.2024 00:23:15.265] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.server.handlers.PotionSync to FORGE
+[02Feb.2024 00:23:15.266] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.server.handlers.LootTableInject to FORGE
+[02Feb.2024 00:23:15.272] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.server.handlers.DragonRidingHandler to FORGE
+[02Feb.2024 00:23:15.275] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.registry.DSItems to MOD
+[02Feb.2024 00:23:15.280] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.registry.DSEntities to MOD
+[02Feb.2024 00:23:15.283] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.registry.DSContainers to MOD
+[02Feb.2024 00:23:15.284] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.registry.DSBlocks to MOD
+[02Feb.2024 00:23:15.292] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.registry.DragonEffects to MOD
+[02Feb.2024 00:23:15.294] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.data.ForgeDataGen to MOD
+[02Feb.2024 00:23:15.295] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.config.ConfigHandler to MOD
+[02Feb.2024 00:23:15.295] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.WingObtainmentController to FORGE
+[02Feb.2024 00:23:15.299] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.VillagerRelationsHandler to FORGE
+[02Feb.2024 00:23:15.305] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.SourceOfMagicHandler to FORGE
+[02Feb.2024 00:23:15.308] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.MiningTickHandler to FORGE
+[02Feb.2024 00:23:15.309] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.magic.ManaHandler to FORGE
+[02Feb.2024 00:23:15.310] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.magic.MagicHandler to FORGE
+[02Feb.2024 00:23:15.315] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.magic.ClawToolHandler to FORGE
+[02Feb.2024 00:23:15.318] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.magic.ClawToolHandler$Event_busHandler to MOD
+[02Feb.2024 00:23:15.318] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.EventHandler to FORGE
+[02Feb.2024 00:23:15.324] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonTreasureHandler to FORGE
+[02Feb.2024 00:23:15.328] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonTraitHandler to FORGE
+[02Feb.2024 00:23:15.328] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonSizeHandler to FORGE
+[02Feb.2024 00:23:15.330] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonPenaltyHandler to FORGE
+[02Feb.2024 00:23:15.332] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonGrowthHandler to FORGE
+[02Feb.2024 00:23:15.333] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonFoodHandler to MOD
+[02Feb.2024 00:23:15.334] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonConfigHandler to MOD
+[02Feb.2024 00:23:15.335] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonBonusHandler to FORGE
+[02Feb.2024 00:23:15.337] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.common.capability.Capabilities to FORGE
+[02Feb.2024 00:23:15.345] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.util.FakeClientPlayerUtils to FORGE
+[02Feb.2024 00:23:15.347] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.skin_editor_system.DragonEditorRegistry to MOD
+[02Feb.2024 00:23:15.349] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.RenderHudEvents to FORGE
+[02Feb.2024 00:23:15.350] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.render.util.AnimationTimer to FORGE
+[02Feb.2024 00:23:15.351] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.render.ClientDragonRender to FORGE
+[02Feb.2024 00:23:15.363] [modloading-worker-0/DEBUG] [mixin/]: Mixing MixinLevelRenderer from dragonsurvival.mixins.json into net.minecraft.client.renderer.LevelRenderer
+[02Feb.2024 00:23:15.365] [modloading-worker-0/DEBUG] [mixin/]: Mixing MixinWorldRenderer from dragonsurvival.mixins.json into net.minecraft.client.renderer.LevelRenderer
+[02Feb.2024 00:23:15.410] [modloading-worker-0/DEBUG] [mixin/]: Mixing AccessorLivingRenderer from dragonsurvival.mixins.json into net.minecraft.client.renderer.entity.LivingEntityRenderer
+[02Feb.2024 00:23:15.417] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.particles.DSParticles to MOD
+[02Feb.2024 00:23:15.417] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.handlers.ToolTipHandler to FORGE
+[02Feb.2024 00:23:15.423] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.handlers.magic.ClientMagicHandler to FORGE
+[02Feb.2024 00:23:15.427] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.handlers.magic.ClientCastingHandler to FORGE
+[02Feb.2024 00:23:15.428] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler to FORGE
+[02Feb.2024 00:23:15.430] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.handlers.DragonSkinReloadHandle to FORGE
+[02Feb.2024 00:23:15.430] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.handlers.DragonAltarHandler to FORGE
+[02Feb.2024 00:23:15.432] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.handlers.ClientFlightHandler to FORGE
+[02Feb.2024 00:23:15.436] [modloading-worker-0/DEBUG] [mixin/]: Mixing AccessorGameRenderer from dragonsurvival.mixins.json into net.minecraft.client.renderer.GameRenderer
+[02Feb.2024 00:23:15.439] [modloading-worker-0/DEBUG] [mixin/]: Mixing MixinGameRenderer from dragonsurvival.mixins.json into net.minecraft.client.renderer.GameRenderer
+[02Feb.2024 00:23:15.450] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.handlers.ClientEvents to FORGE
+[02Feb.2024 00:23:15.454] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.emotes.EmoteRegistry to MOD
+[02Feb.2024 00:23:15.456] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.emotes.EmoteRegistry$clientStart to FORGE
+[02Feb.2024 00:23:15.457] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.emotes.EmoteMenuHandler to FORGE
+[02Feb.2024 00:23:15.458] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.emotes.EmoteHandler to FORGE
+[02Feb.2024 00:23:15.460] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing by.dragonsurvivalteam.dragonsurvival.client.ClientModEvents to MOD
+[02Feb.2024 00:23:15.501] [main/DEBUG] [net.minecraftforge.common.capabilities.CapabilityManager/CAPABILITIES]: Attempting to automatically register: Lnet/minecraftforge/energy/IEnergyStorage;
+[02Feb.2024 00:23:15.502] [main/DEBUG] [net.minecraftforge.common.capabilities.CapabilityManager/CAPABILITIES]: Attempting to automatically register: Lnet/minecraftforge/fluids/capability/IFluidHandler;
+[02Feb.2024 00:23:15.502] [main/DEBUG] [net.minecraftforge.common.capabilities.CapabilityManager/CAPABILITIES]: Attempting to automatically register: Lnet/minecraftforge/fluids/capability/IFluidHandlerItem;
+[02Feb.2024 00:23:15.502] [main/DEBUG] [net.minecraftforge.common.capabilities.CapabilityManager/CAPABILITIES]: Attempting to automatically register: Lnet/minecraftforge/items/IItemHandler;
+[02Feb.2024 00:23:15.869] [main/DEBUG] [software.bernie.geckolib3.GeckoLib/]: Registered syncable for software.bernie.example.item.JackInTheBoxItem
+[02Feb.2024 00:23:15.869] [main/DEBUG] [software.bernie.geckolib3.GeckoLib/]: Registered syncable for software.bernie.example.item.PistolItem
+[02Feb.2024 00:23:15.958] [main/WARN] [net.minecraft.server.packs.VanillaPackResources/]: Assets URL 'union:/C:/Users/stgri/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.19.2-43.2.0_mapped_official_1.19.2/forge-1.19.2-43.2.0_mapped_official_1.19.2-recomp.jar%23188!/assets/.mcassetsroot' uses unexpected schema
+[02Feb.2024 00:23:15.959] [main/WARN] [net.minecraft.server.packs.VanillaPackResources/]: Assets URL 'union:/C:/Users/stgri/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.19.2-43.2.0_mapped_official_1.19.2/forge-1.19.2-43.2.0_mapped_official_1.19.2-recomp.jar%23188!/data/.mcassetsroot' uses unexpected schema
+[02Feb.2024 00:23:16.152] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 0 ms
+[02Feb.2024 00:23:16.157] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 0, old count: 0, new count: 1, removed stale: 0, written: 0

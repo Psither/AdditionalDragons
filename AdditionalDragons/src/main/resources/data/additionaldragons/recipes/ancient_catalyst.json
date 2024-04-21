@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        { "item": "dragonsurvival:sea_dragon_treat" },
+        { "item": "dragonsurvival:cave_dragon_treat" },
+        { "item": "dragonsurvival:forest_dragon_treat" },
+        { "item": "dragonsurvival:weak_dragon_heart" }
+    ],
+    "result": {
+        "item": "additionaldragons:ancient_catalyst",
+        "count": 1
+      }
+}

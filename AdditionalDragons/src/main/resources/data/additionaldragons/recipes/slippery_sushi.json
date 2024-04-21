@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "KKK",
+      "GFG",
+      "KKK"
+    ],
+    "key": {
+      "K": {
+        "item": "minecraft:kelp"
+      },
+      "F": {
+        "tag": "forge:raw_fishes"
+      },
+      "G": {
+        "item": "additionaldragons:glow_slime"
+      }
+    },
+    "result": {
+      "item": "additionaldragons:slippery_sushi",
+      "count": 1
+    }
+  }
