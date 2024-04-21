@@ -40,13 +40,13 @@ public class ADItems {
 	public static void register(final RegisterEvent event){
 		if (!event.getRegistryKey().equals(Registry.ITEM_REGISTRY))
 			return ;
-		Properties defaultProperties = new Item.Properties().tab(DragonSurvivalMod.items);
+		Properties defaultProperties = new Item.Properties();
 		slipperySushi = registerItem(event, new DragonFoodItem(defaultProperties, DragonTypes.SEA, () -> new MobEffectInstance(MobEffects.DOLPHINS_GRACE, Functions.secondsToTicks(20))), "slippery_sushi");
 		ancientCatalyst = registerItem(event, new AncientCatalystItem(defaultProperties.stacksTo(1).rarity(Rarity.EPIC)), "ancient_catalyst");
 	}
 
 	public static Item registerItem(RegisterEvent event, String name, String description){
-		Item item = new Item(new Item.Properties().tab(DragonSurvivalMod.items)){
+		Item item = new Item(new Item.Properties()){
 			@Override
 			public void appendHoverText(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> list, @NotNull TooltipFlag tooltipFlag){
 				super.appendHoverText(stack, world, list, tooltipFlag);

@@ -47,14 +47,13 @@ public class ADBlocks{
 	
 	public static void registerBlockItems(final RegisterEvent event){
 		ADBlocks.AD_BLOCKS.forEach((key, value) -> {
-			if(key.startsWith("broken_knight_helmet")) return;
-			registerItem(value, new Item.Properties().tab(DragonSurvivalMod.items), event);
+			registerItem(value, new Item.Properties(), event);
 		});
 	}
 
 	@SuppressWarnings( "ConstantConditions" )
 	private static void registerItem(Block block, Item.Properties itemProperties, RegisterEvent event){
-		BlockItem itm = new BlockItem(block, itemProperties.tab(DragonSurvivalMod.items));
+		BlockItem itm = new BlockItem(block, itemProperties);
 		event.register(Registry.ITEM_REGISTRY, new ResourceLocation(ResourceHelper.getKey(block).toString()), ()->itm);
 		AD_BLOCK_ITEMS.put(ResourceHelper.getKey(block).toString(), itm);
 	}
