@@ -15,8 +15,10 @@ import net.minecraft.core.particles.ParticleOptions.Deserializer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class LargeGlowSlimeParticleData implements ParticleOptions {
+	@SuppressWarnings("deprecation")
 	public static final Deserializer<LargeGlowSlimeParticleData> DESERIALIZER = new Deserializer<LargeGlowSlimeParticleData>(){
 		@Override
 		public LargeGlowSlimeParticleData fromCommand(ParticleType<LargeGlowSlimeParticleData> particleTypeIn, StringReader reader) throws CommandSyntaxException{
@@ -65,9 +67,8 @@ public class LargeGlowSlimeParticleData implements ParticleOptions {
 		buffer.writeBoolean(swirls);
 	}
 
-	@SuppressWarnings( "deprecation" )
 	@Override
 	public String writeToString(){
-		return String.format(Locale.ROOT, "%s %.2f %b", Registry.PARTICLE_TYPE.getKey(getType()), duration, swirls);
+		return String.format(Locale.ROOT, "%s %.2f %b", ForgeRegistries.PARTICLE_TYPES.getKey(getType()), duration, swirls);
 	}
 }

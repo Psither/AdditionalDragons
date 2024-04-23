@@ -7,6 +7,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import by.dragonsurvivalteam.dragonsurvival.client.particles.CaveDragon.LargeFireParticleData;
 import by.psither.dragonsurvival.client.particles.ADParticles;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
@@ -14,6 +15,7 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class LargeBlastDustParticleData implements ParticleOptions {
 	public static final Deserializer<LargeBlastDustParticleData> DESERIALIZER = new Deserializer<LargeBlastDustParticleData>(){
@@ -77,6 +79,6 @@ public class LargeBlastDustParticleData implements ParticleOptions {
 	@SuppressWarnings( "deprecation" )
 	@Override
 	public String writeToString(){
-		return String.format(Locale.ROOT, "%s %.2f %b %d", Registry.PARTICLE_TYPE.getKey(getType()), duration, swirls, color);
+		return String.format(Locale.ROOT, "%s %.2f %b %d", ForgeRegistries.PARTICLE_TYPES.getKey(getType()), duration, swirls, color);
 	}
 }

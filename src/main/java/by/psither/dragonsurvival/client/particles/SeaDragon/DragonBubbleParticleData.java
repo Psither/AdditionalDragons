@@ -13,6 +13,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleOptions.Deserializer;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class DragonBubbleParticleData implements ParticleOptions {
 	public static final Deserializer<DragonBubbleParticleData> DESERIALIZER = new Deserializer<DragonBubbleParticleData>(){
@@ -56,6 +57,6 @@ public class DragonBubbleParticleData implements ParticleOptions {
 	@SuppressWarnings( "deprecation" )
 	@Override
 	public String writeToString(){
-		return String.format(Locale.ROOT, "%s %.2f", Registry.PARTICLE_TYPE.getKey(getType()), duration);
+		return String.format(Locale.ROOT, "%s %.2f", ForgeRegistries.PARTICLE_TYPES.getKey(getType()), duration);
 	}
 }

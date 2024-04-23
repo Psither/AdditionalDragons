@@ -77,33 +77,33 @@ public class BubbleShieldAbility extends AoeBuffAbility {
 	}
 	
 	public static void produceBubbles(LivingEntity entity) {
-		if (entity.level.isClientSide()) {
+		if (entity.level().isClientSide()) {
 			// Create particles because it's pretty
 			for (int i = 0; i < 6; i++) {
 				if (entity.getRandom().nextInt(100) < (entity.isInWaterRainOrBubble() ? 30 : 70)) {
 					float randX = (entity.getRandom().nextFloat() * 1.5F) - 0.75F;
 					float randY = entity.getRandom().nextFloat() - 0.5f;
 					float randZ = (entity.getRandom().nextFloat() * 1.5F) - 0.75F;
-					entity.level.addParticle(ADParticles.dragonBubbleParticle, entity.getX() + randX, entity.getY() + (entity.getEyeHeight() / 2) + randY, entity.getZ() + randZ, 0.0, 0.0, 0.0);
+					entity.level().addParticle(ADParticles.dragonBubbleParticle, entity.getX() + randX, entity.getY() + (entity.getEyeHeight() / 2) + randY, entity.getZ() + randZ, 0.0, 0.0, 0.0);
 				}
 			}
 			if (DragonUtils.isDragonType(entity, DragonTypes.CAVE) && entity.getRandom().nextInt(100) < (entity.isInWaterRainOrBubble() ? 30 : 70)) {
 				float randX = (entity.getRandom().nextFloat() * 1F) - 0.5F;
 				float randY = entity.getRandom().nextFloat() - 0.5f;
 				float randZ = (entity.getRandom().nextFloat() * 1F) - 0.5F;
-				entity.level.addParticle(ParticleTypes.FLAME, entity.getX() + randX, entity.getY() + randY, entity.getZ() + randZ, 0.0, 0.0, 0.0);
+				entity.level().addParticle(ParticleTypes.FLAME, entity.getX() + randX, entity.getY() + randY, entity.getZ() + randZ, 0.0, 0.0, 0.0);
 			}
 		}
 	}
 	
 	public static void restoreHydrationAndAir(Player player) {
-		if (!player.level.isClientSide()) {
+		if (!player.level().isClientSide()) {
 			if (DragonUtils.isDragonType(player, DragonTypes.SEA)) {
-				Level world = player.level;
+				Level world = player.level();
 				Biome biome = world.getBiome(player.blockPosition()).value();
 				SeaDragonType sdt = (SeaDragonType) DragonUtils.getHandler(player).getType();
 
-				boolean hotBiome = biome.getPrecipitation() == Precipitation.NONE && biome.getBaseTemperature() > 1.0;
+				boolean hotBiome = biome.getPrecipitationAt(player.blockPosition()) == Precipitation.NONE && biome.getBaseTemperature() > 1.0;
 				double timeIncrement = (world.isNight() ? 0.5F : 1.0) * (hotBiome ? biome.getBaseTemperature() : 1F);
 				sdt.timeWithoutWater -= (ServerConfig.seaTicksBasedOnTemperature ? timeIncrement : 1) * ((bubbleShieldHydrationFactor - 2) / (bubbleShieldHydrationFactor - 1)) * 5;
 				return;

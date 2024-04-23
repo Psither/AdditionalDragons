@@ -30,34 +30,34 @@ public class ADParticles{
 	public static void register()
 	{
 		dragonBubbleParticle = new SimpleParticleType(false);
-		questionMarkParticle = new SimpleParticleType(false);
+		//questionMarkParticle = new SimpleParticleType(false);
 		REGISTRY.register("dragon_bubble", ()->dragonBubbleParticle);
-		REGISTRY.register("question_mark", ()->questionMarkParticle);
+		//REGISTRY.register("question_mark", ()->questionMarkParticle);
 	}
 
 	//Insecure modifications
 	@SubscribeEvent( priority = EventPriority.LOWEST)
 	public static void registerParticles(RegisterParticleProvidersEvent event){
-		event.register(ADParticles.LARGE_GLOWSLIME.get(), LargeGlowSlimeParticle.ParticleFactory::new);
-		event.register(ADParticles.LARGE_BLAST_DUST.get(), LargeBlastDustParticle.ParticleFactory::new);
-		event.register(ADParticles.SMALL_CONFOUND.get(), SmallConfoundParticle.ParticleFactory::new);
+		event.registerSpriteSet(ADParticles.LARGE_GLOWSLIME.get(), LargeGlowSlimeParticle.ParticleFactory::new);
+		event.registerSpriteSet(ADParticles.LARGE_BLAST_DUST.get(), LargeBlastDustParticle.ParticleFactory::new);
+		event.registerSpriteSet(ADParticles.SMALL_CONFOUND.get(), SmallConfoundParticle.ParticleFactory::new);
 	}
 
-	public static final RegistryObject<ParticleType<LargeGlowSlimeParticleData>> LARGE_GLOWSLIME = REGISTRY.register("large_glowslime", () -> new ParticleType<LargeGlowSlimeParticleData>(false, LargeGlowSlimeParticleData.DESERIALIZER){
+	public static final RegistryObject<ParticleType<LargeGlowSlimeParticleData>> LARGE_GLOWSLIME = REGISTRY.register("large_glowslime", () -> new ParticleType<>(false, LargeGlowSlimeParticleData.DESERIALIZER){
 		@Override
 		public Codec<LargeGlowSlimeParticleData> codec(){
 			return LargeGlowSlimeParticleData.CODEC(LARGE_GLOWSLIME.get());
 		}
 	});
 	
-	public static final RegistryObject<ParticleType<LargeBlastDustParticleData>> LARGE_BLAST_DUST = REGISTRY.register("large_blast_dust", () -> new ParticleType<LargeBlastDustParticleData>(false, LargeBlastDustParticleData.DESERIALIZER){
+	public static final RegistryObject<ParticleType<LargeBlastDustParticleData>> LARGE_BLAST_DUST = REGISTRY.register("large_blast_dust", () -> new ParticleType<>(false, LargeBlastDustParticleData.DESERIALIZER){
 		@Override
 		public Codec<LargeBlastDustParticleData> codec(){
 			return LargeBlastDustParticleData.CODEC(LARGE_BLAST_DUST.get());
 		}
 	});
 
-	public static final RegistryObject<ParticleType<SmallConfoundParticleData>> SMALL_CONFOUND = REGISTRY.register("small_confound", () -> new ParticleType<SmallConfoundParticleData>(false, SmallConfoundParticleData.DESERIALIZER) {
+	public static final RegistryObject<ParticleType<SmallConfoundParticleData>> SMALL_CONFOUND = REGISTRY.register("small_confound", () -> new ParticleType<>(false, SmallConfoundParticleData.DESERIALIZER) {
 		@Override
 		public Codec<SmallConfoundParticleData> codec(){
 			return SmallConfoundParticleData.CODEC(SMALL_CONFOUND.get());

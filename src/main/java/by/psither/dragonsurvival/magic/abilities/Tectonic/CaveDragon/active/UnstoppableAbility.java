@@ -25,31 +25,31 @@ import net.minecraft.world.effect.MobEffectInstance;
 public class UnstoppableAbility extends AoeBuffAbility {
 
 	@ConfigOption(side = ConfigSide.SERVER, category = { "magic", "abilities", "tectonic_dragon", "unstoppable" }, key = "unstoppable", comment = "Whether the unstoppable ability should be enabled")
-	public static boolean unstoppable = true;
+	public static Boolean unstoppable = true;
 
 	@ConfigRange(min = 0, max = 100)
 	@ConfigOption(side = ConfigSide.SERVER, category = { "magic", "abilities", "tectonic_dragon", "unstoppable" }, key = "unstoppableManaCost", comment = "The mana cost for the unstoppable ability")
-	public static int unstoppableManaCost = 1;
+	public static Integer unstoppableManaCost = 1;
 
 	@ConfigRange(min = 0.05, max = 10000)
 	@ConfigOption(side = ConfigSide.SERVER, category = { "magic", "abilities", "tectonic_dragon", "unstoppable" }, key = "unstoppableCasttime", comment = "The cast time in seconds of the unstoppable ability")
-	public static double unstoppableCasttime = 2.0;
+	public static Double unstoppableCasttime = 2.0;
 
 	@ConfigRange(min = 0.05, max = 10000)
 	@ConfigOption(side = ConfigSide.SERVER, category = { "magic", "abilities", "tectonic_dragon", "unstoppable" }, key = "unstoppableRange", comment = "The range of the unstoppable ability")
-	public static double unstoppableRange = 5.0;
+	public static Double unstoppableRange = 5.0;
 
 	@ConfigRange(min = 0.05, max = 10000)
 	@ConfigOption(side = ConfigSide.SERVER, category = { "magic", "abilities", "tectonic_dragon", "unstoppable" }, key = "unstoppableCooldown", comment = "The cooldown in seconds of the unstoppable ability")
-	public static double unstoppableCooldown = 30.0;
+	public static Double unstoppableCooldown = 30.0;
 
 	@ConfigRange(min = 0.05, max = 10000)
 	@ConfigOption(side = ConfigSide.SERVER, category = { "magic", "abilities", "tectonic_dragon", "unstoppable" }, key = "unstoppableEffectDuration", comment = "How long the Unstoppable effect lasts")
-	public static double unstoppableEffectDuration = 100.0;
+	public static Double unstoppableEffectDuration = 100.0;
 
 	@ConfigRange(min = 0.05, max = 10000)
 	@ConfigOption(side = ConfigSide.SERVER, category = { "magic", "abilities", "tectonic_dragon", "unstoppable" }, key = "unstoppableKnockbackResistValue", comment = "How much knockback resistance you gain from Unstoppable")
-	public static double unstoppableKnockbackResistValue = 0.25;
+	public static Double unstoppableKnockbackResistValue = 0.25;
 
 	@Override
 	public boolean isDisabled(){

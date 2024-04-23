@@ -1,6 +1,5 @@
 package by.psither.dragonsurvival.registry;
 
-import by.dragonsurvivalteam.dragonsurvival.DragonSurvivalMod;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.blocks.*;
 import by.dragonsurvivalteam.dragonsurvival.util.ResourceHelper;
@@ -11,9 +10,9 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 
 import java.util.HashMap;
@@ -29,18 +28,18 @@ public class ADBlocks{
 	@SubscribeEvent
 	public static void registerEvent(final RegisterEvent event){
 		ResourceKey<? extends Registry<?>> registerKey = event.getRegistryKey();
-		if (registerKey.equals(Registry.BLOCK_REGISTRY)) {
+		if (registerKey.equals(ForgeRegistries.Keys.BLOCKS)) {
 			registerBlocks(event);
-		} else if (registerKey.equals(Registry.ITEM_REGISTRY)) {
+		} else if (registerKey.equals(ForgeRegistries.Keys.ITEMS)) {
 			registerBlockItems(event);
 		}
 	}
 	protected static void registerBlocks(final RegisterEvent event){
-		glowSlime = registerBlock(new GlowSlimeBlock(Block.Properties.of(Material.SNOW).strength(0.2F).noOcclusion().sound(SoundType.SLIME_BLOCK).requiresCorrectToolForDrops().lightLevel(GlowSlimeBlock::getLightLevel)), "glow_slime", event);
+		glowSlime = registerBlock(new GlowSlimeBlock(Block.Properties.of(/*Material.SNOW*/).strength(0.2F).noOcclusion().sound(SoundType.SLIME_BLOCK).requiresCorrectToolForDrops().lightLevel(GlowSlimeBlock::getLightLevel)), "glow_slime", event);
 	}
 
 	private static <B extends Block> B registerBlock(B block, String identifier, RegisterEvent event){
-		event.register(Registry.BLOCK_REGISTRY, new ResourceLocation(AdditionalDragonsMod.MODID,identifier), ()->block);
+		event.register(ForgeRegistries.Keys.BLOCKS, new ResourceLocation(AdditionalDragonsMod.MODID,identifier), ()->block);
 		AD_BLOCKS.put(identifier, block);
 		return block;
 	}
@@ -51,10 +50,9 @@ public class ADBlocks{
 		});
 	}
 
-	@SuppressWarnings( "ConstantConditions" )
 	private static void registerItem(Block block, Item.Properties itemProperties, RegisterEvent event){
 		BlockItem itm = new BlockItem(block, itemProperties);
-		event.register(Registry.ITEM_REGISTRY, new ResourceLocation(ResourceHelper.getKey(block).toString()), ()->itm);
+		event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ResourceHelper.getKey(block).toString()), ()->itm);
 		AD_BLOCK_ITEMS.put(ResourceHelper.getKey(block).toString(), itm);
 	}
 }

@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.mojang.math.Vector3f;
+import org.joml.Vector3f;
 
 import by.dragonsurvivalteam.dragonsurvival.client.particles.CaveDragon.LargeFireParticleData;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.ForestDragon.SmallPoisonParticleData;
@@ -43,6 +43,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class AncientCatalystItem extends Item {
 	private String descriptionId = "item.additionaldragons.ancient_catalyst";
@@ -61,7 +62,7 @@ public class AncientCatalystItem extends Item {
 
 	protected String getOrCreateDescriptionId() {
 		if (this.descriptionId == null) {
-			this.descriptionId = Util.makeDescriptionId("item", Registry.ITEM.getKey(this));
+			this.descriptionId = Util.makeDescriptionId("item", ForgeRegistries.ITEMS.getKey(this));
 		}
 
 		return this.descriptionId;
@@ -81,7 +82,7 @@ public class AncientCatalystItem extends Item {
 		DragonStateHandler handler = DragonUtils.getHandler(player);
 
 		if(handler.altarCooldown > 0){
-			if(player.level.isClientSide){
+			if(player.level().isClientSide){
 				//Show the current cooldown in minutes and seconds in cases where the cooldown is set high in the config
 				int mins = (int) (Functions.ticksToMinutes(handler.altarCooldown));
 				int secs = (int) (Functions.ticksToSeconds(handler.altarCooldown - Functions.minutesToTicks(mins)));
@@ -124,7 +125,7 @@ public class AncientCatalystItem extends Item {
 		RandomSource random = player.getRandom();
 		for (int i = 0; i < 40; i++) {
 			Vector3f vec = MathUtils.randomPointInSphere(2F, random);
-			player.level.addAlwaysVisibleParticle(particle, player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z(), 0, 0, 0);
+			player.level().addAlwaysVisibleParticle(particle, player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z(), 0, 0, 0);
 		}
 	}
 
@@ -144,21 +145,21 @@ public class AncientCatalystItem extends Item {
 			mc.getPassiveAbilityFromSlot(i).setLevel(passives.get(i).getLevel());
 		}
 
-		if (player.level.isClientSide()) {
+		if (player.level().isClientSide()) {
 			player.sendSystemMessage(Component.translatable("ds." + type.getSubtypeName().toLowerCase() + "_dragon_choice"));
 			switch (type.getTypeName().toLowerCase()) {
 			case "sea":
-				//player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.BELL_RESONATE, SoundSource.PLAYERS, 1.0F, 1.2F, false);
-				player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.AMBIENT_UNDERWATER_EXIT, SoundSource.PLAYERS, 0.8F, 0.9F, false);
+				//player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.BELL_RESONATE, SoundSource.PLAYERS, 1.0F, 1.2F, false);
+				player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.AMBIENT_UNDERWATER_EXIT, SoundSource.PLAYERS, 0.8F, 0.9F, false);
 				showParticles(player, new LargeLightningParticleData(37, false));
 				break;
 			case "cave":
-				//player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.BELL_RESONATE, SoundSource.PLAYERS, 1.0F, 1.2F, false);
-				player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.FIRE_AMBIENT, SoundSource.PLAYERS, 4.0F, 1.2F, false);
+				//player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.BELL_RESONATE, SoundSource.PLAYERS, 1.0F, 1.2F, false);
+				player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.FIRE_AMBIENT, SoundSource.PLAYERS, 4.0F, 1.2F, false);
 				showParticles(player, new LargeFireParticleData(37, false));
 				break;
 			case "forest":
-				player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.BELL_RESONATE, SoundSource.PLAYERS, 1.0F, 1.2F, false);
+				player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.BELL_RESONATE, SoundSource.PLAYERS, 1.0F, 1.2F, false);
 				showParticles(player, new SmallPoisonParticleData(37, false));
 				break;
 			}

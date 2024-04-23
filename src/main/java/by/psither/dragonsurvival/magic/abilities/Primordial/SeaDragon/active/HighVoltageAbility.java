@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.mojang.math.Vector3f;
+import org.joml.Vector3f;
 
 import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.SeaDragon.LargeLightningParticleData;
@@ -55,35 +55,35 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @RegisterDragonAbility
 public class HighVoltageAbility extends ChargeCastAbility {
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "high_voltage"}, key = "highVoltage", comment = "Whether the high voltage ability should be enabled" )
-	public static boolean highVoltage = true;
+	public static Boolean highVoltage = true;
 
 	@ConfigRange( min = 1.0, max = 10000.0 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "high_voltage"}, key = "highVoltageDuration", comment = "The duration in seconds of the high voltage effect given when the ability is used" )
-	public static double highVoltageDuration = 30.0;
+	public static Double highVoltageDuration = 30.0;
 
 	@ConfigRange( min = 0.05, max = 10000 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "high_voltage"}, key = "highVoltageCooldown", comment = "The cooldown in seconds of the high voltage ability" )
-	public static double highVoltageCooldown = 50.0;
+	public static Double highVoltageCooldown = 50.0;
 
 	@ConfigRange( min = 0.05, max = 10000 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "high_voltage"}, key = "highVoltageCasttime", comment = "The cast time in seconds of the high voltage ability" )
-	public static double highVoltageCasttime = 1.0;
+	public static Double highVoltageCasttime = 1.0;
 
 	@ConfigRange( min = 0, max = 100 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "high_voltage"}, key = "highVoltageManaCost", comment = "The mana cost for using the high voltage ability" )
-	public static int highVoltageManaCost = 1;
+	public static Integer highVoltageManaCost = 1;
 
 	@ConfigRange ( min = 0, max = 10000.0 )
 	@ConfigOption ( side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "high_voltage"}, key = "highVoltageActiveRange", comment = "How far away the attacker can be and still trigger the effect" )
-	public static double highVoltageActiveRange = 10.0;
+	public static Double highVoltageActiveRange = 10.0;
 	
 	@ConfigRange ( min = 0, max = 10000.0 )
 	@ConfigOption ( side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "high_voltage"}, key = "highVoltagePassiveRange", comment = "How far away the passive shock aura extends" )
-	public static double highVoltagePassiveRange = 2.0;
+	public static Double highVoltagePassiveRange = 2.0;
 	
 	@ConfigRange ( min = 0, max = 10000.0 )
 	@ConfigOption ( side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "high_voltage"}, key = "highVoltageDamage", comment = "How much damage will be done to the target on activation" )
-	public static double highVoltageDamage = 2.0;
+	public static Double highVoltageDamage = 2.0;
 
 	@Override
 	public boolean isDisabled(){
@@ -130,7 +130,7 @@ public class HighVoltageAbility extends ChargeCastAbility {
 	@Override
 	public void castingComplete(Player player){
 		player.addEffect(new MobEffectInstance(ADDragonEffects.HIGH_VOLTAGE, Functions.secondsToTicks(getDuration()), getLevel() - 1));
-		player.level.playLocalSound(player.position().x, player.position().y + 0.5, player.position().z, SoundEvents.UI_TOAST_IN, SoundSource.PLAYERS, 5F, 0.1F, true);
+		player.level().playLocalSound(player.position().x, player.position().y + 0.5, player.position().z, SoundEvents.UI_TOAST_IN, SoundSource.PLAYERS, 5F, 0.1F, true);
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public class HighVoltageAbility extends ChargeCastAbility {
 
 	public static void attackNearbyTargets(LivingEntity entity, int amp) {
 		int range = (int) getPassiveRange(amp);
-		List<Entity> entities = entity.level.getEntities(null, new AABB(entity.position().x - range, entity.position().y - range, entity.position().z - range, entity.position().x + range, entity.position().y + range, entity.position().z + range));
+		List<Entity> entities = entity.level().getEntities(null, new AABB(entity.position().x - range, entity.position().y - range, entity.position().z - range, entity.position().x + range, entity.position().y + range, entity.position().z + range));
 		entities.removeIf(e -> e == entity || e instanceof BallLightningEntity);
 		entities.removeIf(e -> e.distanceTo(entity) > range);
 		entities.removeIf(e -> !(e instanceof LivingEntity));
@@ -153,11 +153,11 @@ public class HighVoltageAbility extends ChargeCastAbility {
 	
 	public static void zapTarget(LivingEntity source, Entity target, int amp) {
 		ClipContext cc = new ClipContext(source.getPosition(0), target.getPosition(0), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null);
-		if (target.level.clip(cc).getType() == HitResult.Type.BLOCK) {
+		if (target.level().clip(cc).getType() == HitResult.Type.BLOCK) {
 			return;
 		}
 		float damage = (float) ((amp + 1) * HighVoltageAbility.getDamage(amp));
-		if(source.level.isClientSide){
+		if(source.level().isClientSide){
 			// Creates a trail of particles between the entity and target(s)
 			int steps = 20;
 			Vector3f randLoc = MathUtils.randomPointInSphere((float) getPassiveRange(amp), source.getRandom());
@@ -168,28 +168,28 @@ public class HighVoltageAbility extends ChargeCastAbility {
 				double stepX = source.getX() + (distV.x * distFrac);
 				double stepY = source.getY() + (source.getEyeHeight() / 2) + (distV.y * distFrac);
 				double stepZ = source.getZ() + (distV.z * distFrac);
-				source.level.addParticle(new LargeLightningParticleData(16F, false), stepX, stepY, stepZ, 0.0, 0.0, 0.0);
+				source.level().addParticle(new LargeLightningParticleData(16F, false), stepX, stepY, stepZ, 0.0, 0.0, 0.0);
 			}
 		} else {
 			if (target instanceof LivingEntity livingtarget) {
 				if (DragonUtils.isDragonType(target, DragonTypes.SEA)) return;
-				if (TargetingFunctions.attackTargets(source, entity -> entity.hurt(DamageSource.LIGHTNING_BOLT, damage), target)) {
+				if (TargetingFunctions.attackTargets(source, entity -> entity.hurt(source.damageSources().lightningBolt(), damage), target)) {
 					livingtarget.setDeltaMovement(livingtarget.getDeltaMovement().multiply(0.25, 1, 0.25));
 					onHurtTarget(source, livingtarget);
 				}
 			}
 		}
-		source.level.playLocalSound(target.position().x, target.position().y + 0.5, target.position().z, ADSoundRegistry.bugZapper, SoundSource.PLAYERS, 5F, 1F, false);
+		source.level().playLocalSound(target.position().x, target.position().y + 0.5, target.position().z, ADSoundRegistry.bugZapper, SoundSource.PLAYERS, 5F, 1F, false);
 	}
 	
 	public static void onHurtTarget(LivingEntity source, Entity target) {
 		if(source.getRandom().nextInt(100) < 50){
-			if(!source.level.isClientSide){
+			if(!source.level().isClientSide){
 				source.addEffect(new MobEffectInstance(DragonEffects.CHARGED, Functions.secondsToTicks(30)));
 			}
 		}
 
-		if(!target.level.isClientSide){
+		if(!target.level().isClientSide){
 			if(!StormBreathAbility.chargedBlacklist.contains(ResourceHelper.getKey(target).toString())){
 				if(source.getRandom().nextInt(100) < 40){
 					EntityStateHandler cap = DragonUtils.getEntityHandler(target);
@@ -207,7 +207,7 @@ public class HighVoltageAbility extends ChargeCastAbility {
 	}
 
 	public static void producePassiveParticles(LivingEntity entity, int amp) {
-		if (entity.level.isClientSide()) {
+		if (entity.level().isClientSide()) {
 			// Create particles sometimes because it's pretty
 			if (/* 40% 4/sec */ entity.getRandom().nextInt(100) < 40) {
 				for (int i = 0; i < (5 * (amp + 1)); i++) {
@@ -215,7 +215,7 @@ public class HighVoltageAbility extends ChargeCastAbility {
 					float randX = (entity.getRandom().nextFloat() * 3f) - 1.5f;
 					float randY = (entity.getRandom().nextFloat() * 1f) - 0.5f;
 					float randZ = (entity.getRandom().nextFloat() * 3f) - 1.5f;
-					entity.level.addParticle(new LargeLightningParticleData(15, false), entity.getX() + loc.x(), entity.getY() + entity.getEyeHeight() + loc.y(), entity.getZ() + loc.z(), randX * 0.1, randY * 0.1, randZ * 0.1);
+					entity.level().addParticle(new LargeLightningParticleData(15, false), entity.getX() + loc.x(), entity.getY() + entity.getEyeHeight() + loc.y(), entity.getZ() + loc.z(), randX * 0.1, randY * 0.1, randZ * 0.1);
 				}
 			}
 		}

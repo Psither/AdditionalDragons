@@ -15,6 +15,7 @@ import net.minecraft.core.particles.ParticleOptions.Deserializer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class SmallConfoundParticleData implements ParticleOptions {
 	public static final Deserializer<SmallConfoundParticleData> DESERIALIZER = new Deserializer<SmallConfoundParticleData>(){
@@ -68,6 +69,6 @@ public class SmallConfoundParticleData implements ParticleOptions {
 	@SuppressWarnings( "deprecation" )
 	@Override
 	public String writeToString(){
-		return String.format(Locale.ROOT, "%s %.2f %b", Registry.PARTICLE_TYPE.getKey(getType()), duration, swirls);
+		return String.format(Locale.ROOT, "%s %.2f %b", ForgeRegistries.PARTICLE_TYPES.getKey(getType()), duration, swirls);
 	}
 }

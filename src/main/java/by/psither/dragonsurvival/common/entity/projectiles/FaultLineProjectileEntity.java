@@ -1,6 +1,5 @@
 package by.psither.dragonsurvival.common.entity.projectiles;
 
-import by.dragonsurvivalteam.dragonsurvival.network.client.ClientProxy;
 import by.dragonsurvivalteam.dragonsurvival.registry.DragonEffects;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.dragonsurvivalteam.dragonsurvival.util.TargetingFunctions;
@@ -8,9 +7,9 @@ import by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active.Faul
 import by.psither.dragonsurvival.registry.ADEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -18,7 +17,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -47,7 +45,7 @@ public class FaultLineProjectileEntity extends AbstractArrow {
 	public static final EntityDataAccessor<ItemStack> AMMO_TYPE = SynchedEntityData.defineId(FaultLineProjectileEntity.class, EntityDataSerializers.ITEM_STACK);
 
 	public FaultLineProjectileEntity(Level p_i50172_2_){
-		super(ADEntities.FAULT_LINE, p_i50172_2_);
+		super(ADEntities.FAULT_LINE.get(), p_i50172_2_);
 	}
 
 	public FaultLineProjectileEntity(EntityType<? extends AbstractArrow> type, Level worldIn){
@@ -69,11 +67,11 @@ public class FaultLineProjectileEntity extends AbstractArrow {
 	public void tick() {
 		super.tick();
 		if (inGroundTime > 60 && this.pickup == Pickup.DISALLOWED && !this.isRemoved()) {
-			if (!this.level.isClientSide())
+			if (!this.level().isClientSide())
 				this.remove(Entity.RemovalReason.DISCARDED);
 			//else if (inGroundTime == 60) {
 			//	Player localPlayer = ClientProxy.getLocalPlayer();
-			//	localPlayer.level.playSound(localPlayer, this.getX(), this.getY(), this.getZ(), this.getHitGroundSoundEvent(), SoundSource.PLAYERS, 1.0F, 1.0F);
+			//	localplayer.level().playSound(localPlayer, this.getX(), this.getY(), this.getZ(), this.getHitGroundSoundEvent(), SoundSource.PLAYERS, 1.0F, 1.0F);
 			//}
 		}
 	}
@@ -84,9 +82,9 @@ public class FaultLineProjectileEntity extends AbstractArrow {
 		Entity entity1 = getOwner();
 		DamageSource damagesource;
 		if(entity1 == null){
-			damagesource = DamageSource.arrow(this, this);
+			damagesource = level().damageSources().arrow(this, this);
 		}else{
-			damagesource = DamageSource.arrow(this, entity1);
+			damagesource = entity1.damageSources().arrow(this, entity1);
 			if(entity1 instanceof LivingEntity){
 				((LivingEntity)entity1).setLastHurtMob(entity);
 			}
@@ -95,11 +93,11 @@ public class FaultLineProjectileEntity extends AbstractArrow {
 
 		if(TargetingFunctions.attackTargets(getOwner(), ent -> ent.hurt(damagesource, damage), entity)){
 			if(entity instanceof LivingEntity livingentity){
-				if(!level.isClientSide){
+				if(!level().isClientSide()){
 					livingentity.setArrowCount(livingentity.getArrowCount() + 1);
 				}
 
-				if(!level.isClientSide && entity1 instanceof LivingEntity){
+				if(!level().isClientSide() && entity1 instanceof LivingEntity){
 					EnchantmentHelper.doPostHurtEffects(livingentity, entity1);
 					EnchantmentHelper.doPostDamageEffects((LivingEntity)entity1, livingentity);
 				}
@@ -119,7 +117,7 @@ public class FaultLineProjectileEntity extends AbstractArrow {
 			setYRot(getYRot() + 180.0F);
 			yRotO += 180.0F;
 
-			if(!level.isClientSide && getDeltaMovement().lengthSqr() < 1.0E-7D){
+			if(!level().isClientSide() && getDeltaMovement().lengthSqr() < 1.0E-7D){
 				remove(RemovalReason.DISCARDED);
 			}
 		}
@@ -144,9 +142,9 @@ public class FaultLineProjectileEntity extends AbstractArrow {
 		super.onHitBlock(bhr);
 		this.setSoundEvent(sound);
 		if (this.getAmmoType().getItem().equals(Items.MAGMA_BLOCK)) {
-			BlockPos blockpos = new BlockPos(getPosition(1).x, getPosition(1).y, getPosition(1).z);
+			BlockPos blockpos = new BlockPos((int) getPosition(1).x, (int) getPosition(1).y, (int) getPosition(1).z);
 			//BlockPos blockpos = new BlockPos(getX(), getY(), getZ());
-			if (!this.level.isClientSide()) {
+			if (!this.level().isClientSide()) {
 				igniteBlock(blockpos);
 				igniteBlock(blockpos.below());
 			}
@@ -154,18 +152,18 @@ public class FaultLineProjectileEntity extends AbstractArrow {
 	}
 
 	public void igniteBlock(BlockPos blockpos) {
-		BlockState blockstate = level.getBlockState(blockpos);
+		BlockState blockstate = level().getBlockState(blockpos);
 		if (!CampfireBlock.canLight(blockstate) && !CandleBlock.canLight(blockstate) && !CandleCakeBlock.canLight(blockstate)) {
-			if (BaseFireBlock.canBePlacedAt(level, blockpos, getDirection().getOpposite()) || BaseFireBlock.canBePlacedAt(level, blockpos, Direction.UP)) {
+			if (BaseFireBlock.canBePlacedAt(level(), blockpos, getDirection().getOpposite()) || BaseFireBlock.canBePlacedAt(level(), blockpos, Direction.UP)) {
 				//level.playSound(null, blockpos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
-				BlockState blockstate1 = BaseFireBlock.getState(level, blockpos);
-				level.setBlock(blockpos, blockstate1, 11);
-				level.gameEvent(null, GameEvent.BLOCK_PLACE, blockpos);
+				BlockState blockstate1 = BaseFireBlock.getState(level(), blockpos);
+				level().setBlock(blockpos, blockstate1, 11);
+				level().gameEvent(null, GameEvent.BLOCK_PLACE, blockpos);
 			}
 		} else {
 			//level.playSound(null, blockpos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
-			level.setBlock(blockpos, blockstate.setValue(BlockStateProperties.LIT, Boolean.valueOf(true)), 11);
-			level.gameEvent(null, GameEvent.BLOCK_CHANGE, blockpos);
+			level().setBlock(blockpos, blockstate.setValue(BlockStateProperties.LIT, Boolean.valueOf(true)), 11);
+			level().gameEvent(null, GameEvent.BLOCK_CHANGE, blockpos);
 		}
 	}
 
@@ -211,7 +209,7 @@ public class FaultLineProjectileEntity extends AbstractArrow {
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket(){
+	public Packet<ClientGamePacketListener> getAddEntityPacket(){
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 

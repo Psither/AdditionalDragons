@@ -1,8 +1,6 @@
 package by.psither.dragonsurvival.client.particles.ForestDragon;
 
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
-
+import by.dragonsurvivalteam.dragonsurvival.client.particles.ForestDragon.SmallPoisonParticle;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -12,14 +10,14 @@ import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class SmallConfoundParticle extends TextureSheetParticle {
+public class SmallConfoundParticle extends SmallPoisonParticle {
 	private final float spread;
 	private final SpriteSet sprites;
 	boolean swirls;
 	private int swirlTick;
 
 	public SmallConfoundParticle(ClientLevel world, double x, double y, double z, double vX, double vY, double vZ, double duration, boolean swirls, SpriteSet sprite){
-		super(world, x, y, z);
+		super(world, x, y, z, vX, vY, vZ, duration, swirls, sprite);
 		setSize(2, 2);
 		xd = vX;
 		yd = vY;
@@ -33,45 +31,6 @@ public class SmallConfoundParticle extends TextureSheetParticle {
 		sprites = sprite;
 	}
 
-	@Override
-	protected float getU1(){
-		return super.getU1() - (super.getU1() - super.getU0()) / 8f;
-	}
-
-	@Override
-	protected float getV1(){
-		return super.getV1() - (super.getV1() - super.getV0()) / 8f;
-	}
-
-	@Override
-	public void tick(){
-		super.tick();
-
-		if(swirls){
-			Vector3f motionVec = new Vector3f((float)xd, (float)yd, (float)zd);
-			motionVec.normalize();
-			float yaw = (float)Math.atan2(motionVec.x(), motionVec.z());
-			float pitch = (float)Math.atan2(motionVec.y(), 1);
-			float swirlRadius = 1f * (age / (float)lifetime) * spread;
-			Quaternion quatSpin = motionVec.rotation(swirlTick * 0.2f);
-			Quaternion quatOrient = new Quaternion(pitch, yaw, 0, false);
-			Vector3f vec = new Vector3f(swirlRadius, 0, 0);
-			vec.transform(quatOrient);
-			vec.transform(quatSpin);
-			x += vec.x();
-			y += vec.y();
-			z += vec.z();
-		} else {
-			y += 10 * (age / lifetime);
-		}
-
-		if(age >= lifetime){
-			remove();
-		}
-		age++;
-		swirlTick++;
-		setSpriteFromAge(sprites);
-	}
 
 	@Override
 	public ParticleRenderType getRenderType(){

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.mojang.math.Vector3f;
+import org.joml.Vector3f;
 
 import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.CaveDragon.LargeFireParticleData;
@@ -16,10 +16,12 @@ import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigSide;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.AbilityAnimation;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.ChargeCastAbility;
+import by.dragonsurvivalteam.dragonsurvival.registry.DSDamageTypes;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
+import by.psither.dragonsurvival.registry.ADDamageTypes;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.psither.dragonsurvival.utils.MathUtils;
 import net.minecraft.core.particles.ParticleOptions;
@@ -30,7 +32,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -89,19 +90,19 @@ public class PyroclasticRoarAbility extends ChargeCastAbility {
 
 	@Override
 	public void castingComplete(Player player){
-		if (player.level.isClientSide()) {
+		if (player.level().isClientSide()) {
 			for (int i = 0; i < getRange() * getRange() * 10; i++) {
 				Vector3f vec = MathUtils.randomPointInSphere(getRange(), player.getRandom());
 				ClipContext cc = new ClipContext(player.getPosition(0), new Vec3(player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z()), ClipContext.Block.COLLIDER, ClipContext.Fluid.WATER, null);
-				if (player.level.clip(cc).getType() == HitResult.Type.BLOCK) {
+				if (player.level().clip(cc).getType() == HitResult.Type.BLOCK) {
 					continue;
 				}
-				player.level.addAlwaysVisibleParticle(new LargeFireParticleData(27 + player.getRandom().nextInt(20), true), player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z(), (0.5D - player.getRandom().nextDouble()) * 0.15D, 0.01F, (0.5D - player.getRandom().nextDouble()) * 0.15D);
+				player.level().addAlwaysVisibleParticle(new LargeFireParticleData(27 + player.getRandom().nextInt(20), true), player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z(), (0.5D - player.getRandom().nextDouble()) * 0.15D, 0.01F, (0.5D - player.getRandom().nextDouble()) * 0.15D);
 			}
-			player.level.addAlwaysVisibleParticle(ParticleTypes.EXPLOSION, player.getX(), player.getY(), player.getZ(), 0.0F, 0.0F, 0.0F);
-			player.level.playLocalSound(player.position().x, player.position().y + 0.5, player.position().z, SoundEvents.ENDER_DRAGON_GROWL, SoundSource.PLAYERS, 40F, 0.9F, false);
+			player.level().addAlwaysVisibleParticle(ParticleTypes.EXPLOSION, player.getX(), player.getY(), player.getZ(), 0.0F, 0.0F, 0.0F);
+			player.level().playLocalSound(player.position().x, player.position().y + 0.5, player.position().z, SoundEvents.ENDER_DRAGON_GROWL, SoundSource.PLAYERS, 40F, 0.9F, false);
 		} else {
-			List<LivingEntity> list1 = player.level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(getRange() * 2));
+			List<LivingEntity> list1 = player.level().getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(getRange() * 2));
 			if(!list1.isEmpty())
 				for (LivingEntity livingentity : list1) {
 					applyEffects(livingentity, player);
@@ -114,7 +115,7 @@ public class PyroclasticRoarAbility extends ChargeCastAbility {
 			player.addEffect(new MobEffectInstance(ADDragonEffects.VOLCANIC_RAGE, getDuration(), getLevel() - 1));
 		} else { // Shamelessly stolen from Explosion, with a few additions
 			ClipContext cc = new ClipContext(player.getPosition(0), entity.getPosition(0), ClipContext.Block.COLLIDER, ClipContext.Fluid.WATER, null);
-			if (player.level.clip(cc).getType() == HitResult.Type.BLOCK) {
+			if (player.level().clip(cc).getType() == HitResult.Type.BLOCK) {
 				return;
 			}
 			float f2 = getRange() * 2.0F;
@@ -145,7 +146,7 @@ public class PyroclasticRoarAbility extends ChargeCastAbility {
 	}
 
 	private DamageSource getDamageSource() {
-		return new EntityDamageSource("pyroRoar", player);
+		return ADDamageTypes.entityDamageSource(player.level(), ADDamageTypes.PYRO_ROAR, player);
 	}
 
 	@Override
@@ -155,14 +156,14 @@ public class PyroclasticRoarAbility extends ChargeCastAbility {
 
 	@Override
 	public void onCasting(Player player, int arg1) {
-		if (player.level.isClientSide()) {
+		if (player.level().isClientSide()) {
 			for (int i = 0; i < getRange() * getRange() * 0.2; i++) {
 				Vector3f vec = MathUtils.randomPointInSphere(getRange(), player.getRandom());
 				ClipContext cc = new ClipContext(player.getPosition(0), new Vec3(player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z()), ClipContext.Block.COLLIDER, ClipContext.Fluid.WATER, null);
-				if (player.level.clip(cc).getType() == HitResult.Type.BLOCK) {
+				if (player.level().clip(cc).getType() == HitResult.Type.BLOCK) {
 					continue;
 				}
-				player.level.addAlwaysVisibleParticle(new SmallFireParticleData(16, true), player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z(), 0.0F, 0.04F, 0.0F);
+				player.level().addAlwaysVisibleParticle(new SmallFireParticleData(16, true), player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z(), 0.0F, 0.04F, 0.0F);
 			}
 			if (!DragonUtils.getHandler(player).isWingsSpread()) {
 				player.setDeltaMovement(0, 0, 0);

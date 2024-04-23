@@ -12,16 +12,9 @@ license="${mod_license}"
     description='''${mod_description}'''
 
 [[dependencies.${mod_id}]]
-    modId = "geckolib3"
-    mandatory = true
-    versionRange = "[3.0.47,)"
-    ordering = "NONE"
-    side = "CLIENT"
-
-[[dependencies.${mod_id}]]
     modId = "dragonsurvival"
     mandatory = true
-    versionRange = "[1.19.2-02.03.2024,)"
+    versionRange = "[1.5.57,)"
     ordering = "BEFORE"
 
 [[dependencies.${mod_id}]]

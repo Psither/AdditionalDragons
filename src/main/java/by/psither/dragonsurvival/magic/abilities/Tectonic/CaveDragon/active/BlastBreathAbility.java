@@ -26,6 +26,7 @@ import by.psither.dragonsurvival.client.sounds.BlastBreathSound;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.common.entity.CountdownAreaEffectCloud;
 import by.psither.dragonsurvival.registry.ADDamageSources;
+import by.psither.dragonsurvival.registry.ADDamageTypes;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.psither.dragonsurvival.registry.ADEntities;
 import net.minecraft.client.Minecraft;
@@ -134,7 +135,7 @@ public class BlastBreathAbility extends BreathAbility {
 	
 	@Override
 	public void onEntityHit(LivingEntity entity) {
-		if (!entity.level.isClientSide() && !DragonUtils.isDragonType(entity, DragonTypes.CAVE)) {
+		if (!entity.level().isClientSide() && !DragonUtils.isDragonType(entity, DragonTypes.CAVE)) {
 			if (getDamage() > 0) {
 				hurtTarget(entity);
 			}
@@ -144,7 +145,7 @@ public class BlastBreathAbility extends BreathAbility {
 
 	@Override
 	public void onDamage(LivingEntity entity) {
-		if (!entity.level.isClientSide()) {
+		if (!entity.level().isClientSide()) {
 			if (!entity.hasEffect(ADDragonEffects.BLAST_DUSTED)) {
 				DragonUtils.getEntityHandler(entity).lastAfflicted = player != null ? player.getId() : -1;
 				entity.addEffect(new MobEffectInstance(ADDragonEffects.BLAST_DUSTED, Functions.secondsToTicks(blastBreathEffectDuration), getLevel() - 1));
@@ -156,7 +157,7 @@ public class BlastBreathAbility extends BreathAbility {
 	}
 
 	public void hurtTarget(LivingEntity entity) {
-		TargetingFunctions.attackTargets(getPlayer(), e -> e.hurt(ADDamageSources.BLAST_DUST, getDamage()), entity);
+		TargetingFunctions.attackTargets(getPlayer(), e -> e.hurt(ADDamageTypes.entityDamageSource(player.level(), ADDamageTypes.BLAST_DUST, player), getDamage()), entity);
 	}
 
 	public float getDamage() {
@@ -169,13 +170,13 @@ public class BlastBreathAbility extends BreathAbility {
 
 	@Override
 	public void onBlock(BlockPos pos, BlockState blockState, Direction direction) {
-		if (!(player.level instanceof ServerLevel serverLevel)) {
+		if (!(player.level() instanceof ServerLevel serverLevel)) {
 			return;
 		}
 
-		if (blockState.getMaterial().isSolidBlocking()) {
+		if (blockState.isSolid()) {
 			if (/* 10% */ player.getRandom().nextInt(100) < 10) {
-				CountdownAreaEffectCloud entity = new CountdownAreaEffectCloud(ADEntities.COUNTDOWN_CLOUD, player.level);
+				CountdownAreaEffectCloud entity = new CountdownAreaEffectCloud(ADEntities.COUNTDOWN_CLOUD.get(), player.level());
 				entity.setPos(pos.above().getX(), pos.above().getY(), pos.above().getZ());
 				entity.setWaitTime(0);
 				entity.setPotion(new Potion(new MobEffectInstance(ADDragonEffects.BLAST_DUSTED, /* Effect duration is normally divided by 4 */ Functions.secondsToTicks(blastBreathEffectDuration) * 4)));
@@ -224,12 +225,12 @@ public class BlastBreathAbility extends BreathAbility {
 	public void onChanneling(Player player, int castDuration){
 		super.onChanneling(player, castDuration);
 
-		if(player.level.isClientSide && castDuration <= 0){
+		if(player.level().isClientSide() && castDuration <= 0){
 			DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> (SafeRunnable)this::sound);
 		}
 
 		if(player.isInWaterRainOrBubble()) {
-			if(player.level.isClientSide){
+			if(player.level().isClientSide()){
 				if(player.tickCount % 10 == 0){
 					player.playSound(SoundEvents.LAVA_EXTINGUISH, 0.25F, 1F);
 				}
@@ -238,12 +239,12 @@ public class BlastBreathAbility extends BreathAbility {
 					double xSpeed = speed * 1f * xComp;
 					double ySpeed = speed * 1f * yComp;
 					double zSpeed = speed * 1f * zComp;
-					player.level.addParticle(ParticleTypes.SMOKE, dx, dy, dz, xSpeed, ySpeed, zSpeed);
+					player.level().addParticle(ParticleTypes.SMOKE, dx, dy, dz, xSpeed, ySpeed, zSpeed);
 				}
 			}
 			return;
 		} else { 
-			if(player.level.isClientSide){
+			if(player.level().isClientSide()){
 				RandomSource random = player.getRandom();
 				for(int i = 0; i < 4; i++){
 					double xSpeed = speed * 1f * xComp;
@@ -251,7 +252,7 @@ public class BlastBreathAbility extends BreathAbility {
 					double zSpeed = speed * 1f * zComp;
 					float randAge = 1 - (random.nextFloat() * 0.2f);
 					int color = getIntColorFromTimeLeft(randAge);
-					player.level.addParticle(new LargeBlastDustParticleData(37, false, color), dx, dy, dz, xSpeed, ySpeed, zSpeed);
+					player.level().addParticle(new LargeBlastDustParticleData(37, false, color), dx, dy, dz, xSpeed, ySpeed, zSpeed);
 				}
 	
 				for(int i = 0; i < 6; i++){
@@ -260,7 +261,7 @@ public class BlastBreathAbility extends BreathAbility {
 					double zSpeed = speed * zComp + spread * 0.7 * (random.nextFloat() * 2 - 1) * Math.sqrt(1 - zComp * zComp);
 					float randAge = 1 - (random.nextFloat() * 0.4f);
 					int color = getIntColorFromTimeLeft(randAge);
-					player.level.addParticle(new LargeBlastDustParticleData(37, false, color), dx, dy, dz, xSpeed, ySpeed, zSpeed);
+					player.level().addParticle(new LargeBlastDustParticleData(37, false, color), dx, dy, dz, xSpeed, ySpeed, zSpeed);
 				}
 			}
 			hitEntities();

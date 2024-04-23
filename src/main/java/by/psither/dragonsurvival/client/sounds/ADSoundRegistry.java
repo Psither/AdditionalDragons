@@ -27,7 +27,7 @@ public class ADSoundRegistry {
 	}
 	
 	private static SoundEvent register(String name){
-		SoundEvent soundEvent = new SoundEvent(new ResourceLocation(AdditionalDragonsMod.MODID, name));
+		SoundEvent soundEvent = SoundEvent.createVariableRangeEvent(new ResourceLocation(AdditionalDragonsMod.MODID, name));
 		SOUNDS.register(name, ()->soundEvent);
 		return soundEvent;
 	}

@@ -128,10 +128,14 @@ repositories {
     flatDir {
         dir 'C:/Users/stgri/git/AdditionalDragons/libs'
     }
-    maven {
-    	name = "Gecholib maven"
-    	url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
-    }
+	maven {
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+                includeGroupByRegex("software\\.bernie.*")
+                includeGroup("com.eliotlash.mclib")
+        }
+	}
 }
 
 dependencies {
@@ -143,7 +147,10 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${property('geckolib_mc_version')}:${property('geckolib_version')}")
-    implementation fg.deobf("dragonsurvival:dragonsurvival:1.19.2-28.02.2024")
+    implementation fg.deobf("dragonsurvival:dragonsurvival:1.20.1-21.04.2024")
+
+    // https://mvnrepository.com/artifact/org.joml/joml
+    implementation 'org.joml:joml:1.10.5'
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency

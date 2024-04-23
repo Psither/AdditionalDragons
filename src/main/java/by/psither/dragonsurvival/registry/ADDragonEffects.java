@@ -3,6 +3,7 @@ package by.psither.dragonsurvival.registry;
 import java.util.Collections;
 import java.util.List;
 
+import by.dragonsurvivalteam.dragonsurvival.DragonSurvivalMod;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.effects.BlastDustedEffect;
 import by.psither.dragonsurvival.common.effects.BubbleShieldEffect;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 
 @Mod.EventBusSubscriber( bus = Mod.EventBusSubscriber.Bus.MOD )
@@ -33,8 +35,10 @@ public class ADDragonEffects {
 
 	@SubscribeEvent
 	public static void registerEffects(RegisterEvent event){
-		if (!event.getRegistryKey().equals(Registry.MOB_EFFECT_REGISTRY))
+		if (!event.getRegistryKey().equals(ForgeRegistries.Keys.MOB_EFFECTS)) {
 			return;
+		}
+
 		BUBBLE_SHIELD = registerMobEffect(event, "bubble_shield", new BubbleShieldEffect(MobEffectCategory.BENEFICIAL, 0x0));
 		HIGH_VOLTAGE = registerMobEffect(event, "high_voltage", new Effect2(MobEffectCategory.BENEFICIAL, 0x0, false));
 		BLAST_DUSTED = registerMobEffect(event, "blast_dusted", new BlastDustedEffect(MobEffectCategory.HARMFUL, 0x0));
@@ -51,7 +55,7 @@ public class ADDragonEffects {
 
 	protected static MobEffect registerMobEffect(RegisterEvent event, String identity, MobEffect mobEffect)
 	{
-		event.register(Registry.MOB_EFFECT_REGISTRY, new ResourceLocation(AdditionalDragonsMod.MODID, identity), ()->mobEffect);
+		event.register(ForgeRegistries.Keys.MOB_EFFECTS, new ResourceLocation(AdditionalDragonsMod.MODID, identity), ()->mobEffect);
 		return mobEffect;
 	}
 

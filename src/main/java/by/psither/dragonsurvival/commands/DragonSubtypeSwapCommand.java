@@ -69,7 +69,7 @@ public class DragonSubtypeSwapCommand {
 			NetworkHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverplayer), new RequestClientData(cap.getType(), cap.getLevel()));
 			serverplayer.refreshDimensions();
 
-			pSource.sendSuccess(Component.translatable("ds.commands.ability_swap.success"), true);
+			//pSource.sendSuccess(Component.translatable("ds.commands.ability_swap.success"), true);
 			System.out.println("new dragon type: " + DragonUtils.getDragonType(serverplayer).getSubtypeName());
 			return 1;
 		}

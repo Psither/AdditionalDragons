@@ -112,7 +112,7 @@ public class LuminousBreathAbility extends BreathAbility {
 
 	@Override
 	public void onDamage(LivingEntity entity){
-		if (!entity.level.isClientSide()) {
+		if (!entity.level().isClientSide()) {
 			entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, Functions.secondsToTicks(luminousBreathEffectDuration), 1));
 			entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, Functions.secondsToTicks(luminousBreathEffectDuration), 0, false, true));
 		}
@@ -154,24 +154,24 @@ public class LuminousBreathAbility extends BreathAbility {
 	public void onChanneling(Player player, int castDuration){
 		super.onChanneling(player, castDuration);
 
-		if(player.level.isClientSide && castDuration <= 0){
+		if(player.level().isClientSide && castDuration <= 0){
 			DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> (SafeRunnable)this::sound);
 		}
 
-		if(player.level.isClientSide){
+		if(player.level().isClientSide){
 			for(int i = 0; i < 6; i++){
 				double xSpeed = speed * 1f * xComp + (spread * 1.7 * (player.getRandom().nextFloat() * 2 - 1) * Math.sqrt(1 - xComp * xComp));
 				double ySpeed = speed * 1f * yComp + (spread * 0.7 * (player.getRandom().nextFloat() * 2 - 1) * Math.sqrt(1 - yComp * yComp));
 				double zSpeed = speed * 1f * zComp + (spread * 1.7 * (player.getRandom().nextFloat() * 2 - 1) * Math.sqrt(1 - zComp * zComp));
 				int dur = (int) (player.getRandom().nextFloat() * 64 + 16);
-				player.level.addParticle(new LargeGlowSlimeParticleData(dur, false), dx, dy, dz, xSpeed, ySpeed, zSpeed);
+				player.level().addParticle(new LargeGlowSlimeParticleData(dur, false), dx, dy, dz, xSpeed, ySpeed, zSpeed);
 			}
 
 			for(int i = 0; i < 2; i++){
 				  double xSpeed = speed * xComp;
 				  double ySpeed = speed * yComp;
 				  double zSpeed = speed * zComp;
-				  player.level.addParticle(new LargeGlowSlimeParticleData(37, true), dx, dy, dz, xSpeed, ySpeed, zSpeed);
+				  player.level().addParticle(new LargeGlowSlimeParticleData(37, true), dx, dy, dz, xSpeed, ySpeed, zSpeed);
 			}
 		}
 
@@ -188,7 +188,7 @@ public class LuminousBreathAbility extends BreathAbility {
 	
 	@Override
 	public void onBlock(BlockPos pos, BlockState blockState, Direction direction) {
-		if (!(player.level instanceof ServerLevel serverLevel)) {
+		if (!(player.level() instanceof ServerLevel serverLevel)) {
 			return;
 		}
 		
@@ -200,14 +200,14 @@ public class LuminousBreathAbility extends BreathAbility {
 			creationChance = 45;
 		BlockHitResult bhr = new BlockHitResult(player.position(), direction, pos, false);
 		ItemStack gs = new ItemStack(ADBlocks.glowSlime, 1);
-		UseOnContext uc = new UseOnContext(player.level, player, InteractionHand.MAIN_HAND, gs, bhr);
+		UseOnContext uc = new UseOnContext(player.level(), player, InteractionHand.MAIN_HAND, gs, bhr);
 		// Give closer blocks an increased chance to apply
 		double mathDist = player.position().distanceToSqr(new Vec3(pos.getX(), pos.getY(), pos.getZ())) / calculateCurrentBreathRange(DragonUtils.getDragonLevel(player));
 		creationChance /= mathDist;
 		if (player.getRandom().nextInt(100) < creationChance) {
 			InteractionResult ir = ADBlocks.glowSlime.asItem().useOn(uc);
 			if (ir.consumesAction()) {
-				player.level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.SLIME_BLOCK_PLACE, SoundSource.BLOCKS, 2F, 1F, false);
+				player.level().playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.SLIME_BLOCK_PLACE, SoundSource.BLOCKS, 2F, 1F, false);
 			}
 		}
 	}

@@ -91,7 +91,7 @@ public class DragonAbilitySwapCommand {
 		if (mc.abilities.get(abilityName) instanceof ActiveDragonAbility) {
 			boolean res = replaceAbility((Player) serverPlayer, mc, (ActiveDragonAbility) mc.abilities.get(abilityName));
 			if (!res) {
-				pSource.sendSuccess(Component.translatable("ds.commands.ability_swap.success"), true);
+				//pSource.sendSuccess(Component.translatable("ds.commands.ability_swap.success"), true);
 			} else {
 				pSource.sendFailure(Component.translatable("ds.commands.ability_swap.same"));
 			}
@@ -113,7 +113,7 @@ public class DragonAbilitySwapCommand {
 		}
 		mc.activeDragonAbilities.put(slot, ability.getName());
 		
-		if(player.level.isClientSide){
+		if(player.level().isClientSide){
 			NetworkHandler.CHANNEL.sendToServer(new SyncMagicCap(player.getId(), mc));
 		}else{
 			NetworkHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player), new SyncMagicCap(player.getId(), mc));

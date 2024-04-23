@@ -127,12 +127,12 @@ public class FaultLineAbility extends InstantCastAbility {
 					shot = new ItemStack(Items.STONE);
 				} else if (!faultLineMultishotConsumesMore && i > 0) {
 					// No ammo to shoot, and not in creative, make some smoke.
-					player.level.addParticle(ParticleTypes.SMOKE, player.getX(), player.getY() + player.getEyeHeight(), player.getZ(), 0.0, 0.0, 0.0);
+					player.level().addParticle(ParticleTypes.SMOKE, player.getX(), player.getY() + player.getEyeHeight(), player.getZ(), 0.0, 0.0, 0.0);
 					continue;
 				}
 			}
 
-			FaultLineProjectileEntity entity = new FaultLineProjectileEntity(ADEntities.FAULT_LINE, player, player.level);
+			FaultLineProjectileEntity entity = new FaultLineProjectileEntity(ADEntities.FAULT_LINE.get(), player, player.level());
 			entity.setPos(entity.getX() + d2, entity.getY() + d3, entity.getZ() + d4);
 			if (shot.getItem().equals(Items.BLACKSTONE) || shot.getItem().equals(Items.DEEPSLATE) || shot.getItem().equals(Items.STONE))
 				entity.setBaseDamage(getDamage() * 1.2f);
@@ -148,7 +148,7 @@ public class FaultLineAbility extends InstantCastAbility {
 			if (creative || (!faultLineMultishotConsumesMore && i > 1))
 				entity.pickup = AbstractArrow.Pickup.DISALLOWED;
 			entity.shootFromRotation(player, player.getXRot() + spreadPatternX[i], player.getYRot() + spreadPatternY[i], 0.0F, 4F, i * faultLineSpread);
-			player.level.addFreshEntity(entity);
+			player.level().addFreshEntity(entity);
 			
 			if (!faultLineMultishot)
 				break;

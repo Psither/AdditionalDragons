@@ -28,19 +28,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class SeekingTalonsAbility extends ChargeCastAbility {
 
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "seeking_talons"}, key = "seekingTalons", comment = "Whether the seeking talons ability should be enabled" )
-	public static boolean seekingTalons = true;
+	public static Boolean seekingTalons = true;
 
 	@ConfigRange( min = 1.0, max = 10000.0 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "seeking_talons"}, key = "seekingTalonsDuration", comment = "The duration in seconds of the seeking talons effect given when the ability is used" )
-	public static double seekingTalonsDuration = 100.0;
+	public static Double seekingTalonsDuration = 100.0;
 
 	@ConfigRange( min = 0.05, max = 10000 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "seeking_talons"}, key = "seekingTalonsCooldown", comment = "The cooldown in seconds of the seeking talons ability" )
-	public static double seekingTalonsCooldown = 50.0;
+	public static Double seekingTalonsCooldown = 50.0;
 
 	@ConfigRange( min = 0.05, max = 10000 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "seeking_talons"}, key = "seekingTalonsCasttime", comment = "The cast time in seconds of the seeking talons ability" )
-	public static double seekingTalonsCasttime = 1.0;
+	public static Double seekingTalonsCasttime = 1.0;
 
 	@ConfigRange( min = 0, max = 100 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "seeking_talons"}, key = "seekingTalonsManaCost", comment = "The mana cost for using the seeking talons ability" )
@@ -48,11 +48,11 @@ public class SeekingTalonsAbility extends ChargeCastAbility {
 	
 	@ConfigRange( min = 0.0, max = 10000 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "seeking_talons"}, key = "seekingTalonsCritBonus", comment = "The maximum bonus on your critical hit damage, decreases the more HP your target has" )
-	public static double seekingTalonsCritBonus = 1.0;
+	public static Double seekingTalonsCritBonus = 1.0;
 	
 	@ConfigRange( min = 0.0, max = 10000 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "seeking_talons"}, key = "seekingTalonsBonusLoot", comment = "The amount of additional Looting added when scoring a kill" )
-	public static double seekingTalonsBonusLoot = 1.0;
+	public static Double seekingTalonsBonusLoot = 1.0;
 
 	@Override
 	public boolean isDisabled(){
@@ -62,7 +62,7 @@ public class SeekingTalonsAbility extends ChargeCastAbility {
 	@Override
 	public void castingComplete(Player player){
 		player.addEffect(new MobEffectInstance(ADDragonEffects.SEEKING_TALONS, Functions.secondsToTicks(getDuration()), getLevel() - 1));
-		player.level.playLocalSound(player.position().x, player.position().y + 0.5, player.position().z, SoundEvents.UI_TOAST_IN, SoundSource.PLAYERS, 5F, 0.1F, true);
+		player.level().playLocalSound(player.position().x, player.position().y + 0.5, player.position().z, SoundEvents.UI_TOAST_IN, SoundSource.PLAYERS, 5F, 0.1F, true);
 	}
 
 	@Override

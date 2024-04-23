@@ -28,15 +28,15 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @RegisterDragonAbility
 public class MistyBarbAbility extends ChargeCastAbility {
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "misty_barb"}, key = "mistyBarb", comment = "Whether the misty barb ability should be enabled" )
-	public static boolean mistyBarb = true;
+	public static Boolean mistyBarb = true;
 
 	@ConfigRange( min = 0.05, max = 10000 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "misty_barb"}, key = "mistyBarbCooldown", comment = "The cooldown in seconds of the misty barb ability" )
-	public static double mistyBarbCooldown = 10.0;
+	public static Double mistyBarbCooldown = 10.0;
 
 	@ConfigRange( min = 0.05, max = 10000 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "misty_barb"}, key = "mistyBarbCasttime", comment = "The cast time in seconds of the misty barb ability" )
-	public static double mistyBarbCasttime = 1.0;
+	public static Double mistyBarbCasttime = 1.0;
 
 	@ConfigRange( min = 0, max = 100 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "misty_barb"}, key = "mistyBarbManaCost", comment = "The mana cost for using the misty barb ability" )
@@ -44,11 +44,11 @@ public class MistyBarbAbility extends ChargeCastAbility {
 	
 	@ConfigRange( min = 0.0, max = 10000 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "misty_barb"}, key = "mistyBarbDamage", comment = "The damage the barb will inflict on a direct hit" )
-	public static double mistyBarbDamage = 1.0;
+	public static Double mistyBarbDamage = 1.0;
 	
 	@ConfigRange( min = 0.0, max = 10000 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "misty_barb"}, key = "mistyBarbRadius", comment = "The radius of the Drain cloud produced after the barb detonates") 
-	public static double mistyBarbRadius = 0.8;
+	public static Double mistyBarbRadius = 0.8;
 
 	@Override
 	public boolean isDisabled(){
@@ -66,13 +66,13 @@ public class MistyBarbAbility extends ChargeCastAbility {
 		DragonStateHandler handler = DragonUtils.getHandler(player);
 		handler.getMovementData().bite = true;
 
-		MistyBarbProjectileEntity entity = new MistyBarbProjectileEntity(ADEntities.MISTY_BARB, player, player.level);
+		MistyBarbProjectileEntity entity = new MistyBarbProjectileEntity(ADEntities.MISTY_BARB.get(), player, player.level());
 		entity.setPos(entity.getX() + d2, entity.getY() + d3, entity.getZ() + d4);
 		entity.setShotLevel(getLevel());
 		entity.setBaseDamage(getDamage());
 		entity.pickup = AbstractArrow.Pickup.DISALLOWED;
 		entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 4F, 1.0F);
-		player.level.addFreshEntity(entity);
+		player.level().addFreshEntity(entity);
 	}
 
 	@Override

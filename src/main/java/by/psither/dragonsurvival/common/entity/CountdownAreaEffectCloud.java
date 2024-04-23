@@ -6,46 +6,28 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import org.checkerframework.common.returnsreceiver.qual.This;
-import org.slf4j.Logger;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
-import com.mojang.logging.LogUtils;
-import com.mojang.math.Vector3f;
+import org.joml.Vector3f;
 
-import by.psither.dragonsurvival.AdditionalDragonsMod;
-import by.psither.dragonsurvival.client.particles.ADParticles;
-import by.psither.dragonsurvival.client.particles.CaveDragon.LargeBlastDustParticle;
 import by.psither.dragonsurvival.client.particles.CaveDragon.LargeBlastDustParticleData;
 import by.psither.dragonsurvival.common.effects.BlastDustedEffect;
 import by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active.BlastBreathAbility;
-import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.psither.dragonsurvival.utils.MathUtils;
-import net.minecraft.commands.arguments.ParticleArgument;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 
@@ -66,6 +48,7 @@ public class CountdownAreaEffectCloud extends AreaEffectCloud {
 	private int durationOnUse;
 	private float radiusOnUse;
 	private float radiusPerTick;
+	private Level level;
 	@Nullable
 	private LivingEntity owner;
 	@Nullable
@@ -77,6 +60,7 @@ public class CountdownAreaEffectCloud extends AreaEffectCloud {
 
 	public CountdownAreaEffectCloud(EntityType<? extends CountdownAreaEffectCloud> cloud, Level level) {
 		super(cloud, level);
+		this.level = level;
 	}
 	
 	public void setPotion(Potion potion) {
@@ -107,13 +91,13 @@ public class CountdownAreaEffectCloud extends AreaEffectCloud {
 
 			ParticleOptions particleoptions = this.getParticle();
 			int i;
-			float f1;
+			//float f1;
 			if (flag) {
 				i = 2;
-				f1 = 0.2F;
+				//f1 = 0.2F;
 			} else {
 				i = Mth.ceil((float)Math.PI * f * f);
-				f1 = f;
+				//f1 = f;
 			}
 
 			for(int j = 0; j < i; ++j) {
@@ -144,7 +128,7 @@ public class CountdownAreaEffectCloud extends AreaEffectCloud {
 					d7 = (double)((float)(k & 255) / 255.0F);
 				}
 
-				this.level.addAlwaysVisibleParticle(particleoptions, loc.x(), loc.y(), loc.z(), d5, d6, d7);
+				this.level().addAlwaysVisibleParticle(particleoptions, loc.x() + this.getX(), loc.y() + this.getY(), loc.z() + this.getZ(), d5, d6, d7);
 			}
 		} else {
 			if (this.tickCount >= this.waitTime + this.duration) {
@@ -190,7 +174,7 @@ public class CountdownAreaEffectCloud extends AreaEffectCloud {
 				if (list.isEmpty()) {
 					this.victims.clear();
 				} else {
-					List<LivingEntity> list1 = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox());
+					List<LivingEntity> list1 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox());
 					if (!list1.isEmpty()) {
 						for(LivingEntity livingentity : list1) {
 							if (!this.victims.containsKey(livingentity) && livingentity.isAffectedByPotions()) {

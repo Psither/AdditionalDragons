@@ -27,28 +27,17 @@ public class ClientModEvents {
 	@SubscribeEvent
 	public static void setup(FMLClientSetupEvent event)
 	{
-		EntityRenderers.register(ADEntities.FAULT_LINE, FaultLineProjectileRenderer::new);
-		EntityRenderers.register(ADEntities.COUNTDOWN_CLOUD, NoopRenderer::new);
-		EntityRenderers.register(ADEntities.MISTY_BARB, MistyBarbProjectileRenderer::new);
+		EntityRenderers.register(ADEntities.FAULT_LINE.get(), FaultLineProjectileRenderer::new);
+		EntityRenderers.register(ADEntities.COUNTDOWN_CLOUD.get(), NoopRenderer::new);
+		EntityRenderers.register(ADEntities.MISTY_BARB.get(), MistyBarbProjectileRenderer::new);
 	}
 
 	@SubscribeEvent
 	public static void registerParticleFactories(RegisterParticleProvidersEvent event){
-		event.register(ADParticles.dragonBubbleParticle, p_create_1_ -> new ParticleProvider<SimpleParticleType>(){
-			@Override
-			public @NotNull Particle createParticle(@NotNull SimpleParticleType p_199234_1_, @NotNull ClientLevel clientWorld, double v, double v1, double v2, double v3, double v4, double v5) {
-				DragonBubbleParticle dragonBubbleParticle = new DragonBubbleParticle(clientWorld, v, v1, v2, v3, v4, v5);
-				dragonBubbleParticle.pickSprite(p_create_1_);
-				return dragonBubbleParticle;
-			}
-		});
-		event.register(ADParticles.questionMarkParticle, p_create_1_ -> new ParticleProvider<SimpleParticleType>(){
-			@Override
-			public @NotNull Particle createParticle(@NotNull SimpleParticleType p_199234_1_, @NotNull ClientLevel clientWorld, double v, double v1, double v2, double v3, double v4, double v5) {
-				QuestionMarkParticle questionMarkParticle = new QuestionMarkParticle(clientWorld, v, v1, v2, v3, v4, v5);
-				questionMarkParticle.pickSprite(p_create_1_);
-				return questionMarkParticle;
-			}
+		event.registerSpriteSet(ADParticles.dragonBubbleParticle, spriteSet -> (particleType, clientWorld, x, y, z, speedX, speedY, speedZ) -> {
+			BeaconParticle beaconParticle = new BeaconParticle(clientWorld, x, y, z, speedX, speedY, speedZ);
+			beaconParticle.pickSprite(spriteSet);
+			return beaconParticle;
 		});
 	}
 }
