@@ -2,11 +2,14 @@ package by.psither.dragonsurvival.client.particles.CaveDragon;
 
 import java.awt.Color;
 
+import by.dragonsurvivalteam.dragonsurvival.client.particles.DSParticles;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.CaveDragon.LargeFireParticle;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.CaveDragon.SmallFireParticleData;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -26,11 +29,18 @@ public class LargeBlastDustParticle extends LargeFireParticle {
 		lifetime = (int)duration;
 		swirlTick = random.nextInt(120);
 		spread = random.nextFloat();
-		hasPhysics = true;
+		hasPhysics = false;
 		this.swirls = swirls;
 		this.color = getColorFromInt(color);
 		setSpriteFromAge(sprite);
 		sprites = sprite;
+	}
+
+	@Override
+	public void remove(){
+		if (this.level.getRandom().nextInt(100) < 5)
+			level.addParticle(new SmallFireParticleData(16, false), x, y, z, 0, 0.01, 0);
+		super.remove();
 	}
 
 	public static Color getColorFromInt(int color) {

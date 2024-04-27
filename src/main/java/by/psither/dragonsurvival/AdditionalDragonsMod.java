@@ -6,7 +6,9 @@ import org.apache.logging.log4j.Logger;
 import by.psither.dragonsurvival.client.particles.ADParticles;
 import by.psither.dragonsurvival.client.sounds.ADSoundRegistry;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
+import by.psither.dragonsurvival.registry.ADCreativeTabs;
 import by.psither.dragonsurvival.registry.ADEntities;
+import by.psither.dragonsurvival.registry.ADItems;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -29,6 +31,8 @@ public class AdditionalDragonsMod {
 		ADSoundRegistry.SOUNDS.register(modEventBus);
 		ADParticles.REGISTRY.register(modEventBus);
 		ADEntities.ENTITY_TYPES.register(modEventBus);
+		
+		ADCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
 
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.addListener(this::serverRegisterCommandsEvent);

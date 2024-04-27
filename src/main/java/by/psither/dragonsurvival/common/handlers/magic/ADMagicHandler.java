@@ -1,5 +1,6 @@
 package by.psither.dragonsurvival.common.handlers.magic;
 
+import by.psither.dragonsurvival.client.particles.ForestDragon.SmallConfoundParticleData;
 import by.psither.dragonsurvival.common.effects.BlastDustedEffect;
 import by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active.ConfoundingBreathAbility;
 import by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active.InvigorateAbility;
@@ -7,14 +8,21 @@ import by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active.S
 import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.BubbleShieldAbility;
 import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.HighVoltageAbility;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.UUID;
 
 import by.dragonsurvivalteam.dragonsurvival.client.handlers.magic.ClientMagicHandler;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.ForestDragon.SmallPoisonParticleData;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.SeaDragon.LargeLightningParticleData;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
+import by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonFoodHandler;
+import by.dragonsurvivalteam.dragonsurvival.registry.DragonEffects;
 import by.psither.dragonsurvival.registry.ADDamageTypes;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
+import by.psither.dragonsurvival.registry.ADItems;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -28,10 +36,15 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.lighting.LevelLightEngine;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
@@ -90,6 +103,11 @@ public class ADMagicHandler {
 			}
 			if (entity.hasEffect(ADDragonEffects.BLAST_DUSTED)) {
 				BlastDustedEffect.showSmoke(entity, entity.getEffect(ADDragonEffects.BLAST_DUSTED));
+			}
+			if (entity.hasEffect(ADDragonEffects.CONFOUNDED)) {
+				for (int i = 0; i < 4; i++) {
+					ClientMagicHandler.renderEffectParticle(entity, new SmallConfoundParticleData(37F, false));
+				}
 			}
 		}
 	}
@@ -233,6 +251,43 @@ public class ADMagicHandler {
 			if (source.hasEffect(ADDragonEffects.SEEKING_TALONS)) {
 				int bonus = (int) (SeekingTalonsAbility.seekingTalonsBonusLoot * (source.getEffect(ADDragonEffects.SEEKING_TALONS).getAmplifier() + 1));
 				event.setLootingLevel(event.getLootingLevel() + bonus);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void dropsEvent(LivingDropsEvent event) {
+		LivingEntity entity = event.getEntity();
+		Entity source = event.getSource().getEntity();
+		if (entity == null || entity.level().isClientSide())
+			return;
+		Collection<ItemEntity> drops = event.getDrops();
+		if (entity.hasEffect(ADDragonEffects.CONFOUNDED) && !(DragonUtils.isDragon(event.getEntity()) && DragonUtils.isDragonType(event.getEntity(), DragonTypes.FOREST))) {
+			// Look through their drops and see if we find anything forest dragons can eat.
+			boolean isEdible = false;
+			int bones = 0;
+			for (ItemEntity ie : drops) {
+				ItemStack is = ie.getItem();
+				if (is.getItem().equals(Items.BONE)) {
+					// Curse any bones that drop.
+					bones = is.getCount();
+					is.setCount(0);
+				}
+				if (DragonFoodHandler.isDragonEdible(is.getItem(), DragonTypes.FOREST)) {
+					isEdible = true;
+				}
+			}
+			if (isEdible) {
+				int res = entity.getRandom().nextInt(event.getLootingLevel()) + 1;
+				if (source instanceof LivingEntity src) {
+					if (src.hasEffect(ADDragonEffects.SEEKING_TALONS))
+						res += (int) (SeekingTalonsAbility.seekingTalonsBonusLoot * (src.getEffect(ADDragonEffects.SEEKING_TALONS).getAmplifier() + 1));
+				}
+				drops.add(new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, res)));
+			}
+			if (bones > 0) {
+				System.out.println("Dropping " + bones + " cursed bones.");
+				drops.add(new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, bones)));
 			}
 		}
 	}

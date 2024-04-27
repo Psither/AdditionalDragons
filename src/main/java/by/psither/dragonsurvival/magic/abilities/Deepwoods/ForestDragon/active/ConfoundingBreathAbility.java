@@ -57,7 +57,7 @@ public class ConfoundingBreathAbility extends BreathAbility {
 
 	@ConfigRange( min = 0.0, max = 100.0 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "confounding_breath"}, key = "confoundingBreathDamage", comment = "The amount of damage the confounding breath ability deals on contact. This value is multiplied by the ability level." )
-	public static Double confoundingBreathDamage = 0.5;
+	public static Double confoundingBreathDamage = 0.0;
 
 	@ConfigRange( min = 0, max = 100 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "confounding_breath"}, key = "confoundingBreathInitialMana", comment = "The mana cost for starting the confounding breath ability" )
@@ -119,7 +119,7 @@ public class ConfoundingBreathAbility extends BreathAbility {
 	}
 
 	public static void confoundPlayer(Player player, int amp) {
-		if (player.level().isClientSide()) {
+		if (!player.level().isClientSide()) {
 			if (DragonUtils.isDragonType(player, DragonTypes.FOREST) || !confoundingBreathAffectsPlayers) return;
 
 			player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100));

@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -31,7 +32,7 @@ import net.minecraftforge.registries.RegisterEvent;
 @Mod.EventBusSubscriber( modid = AdditionalDragonsMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD )
 public class ADItems {
 	public static HashMap<String, Item> AD_ITEMS = new HashMap<>();
-	public static Item slipperySushi;
+	public static Item slipperySushi, cursedMarrow;
 	public static Item ancientCatalyst;
 	
 	@SubscribeEvent
@@ -41,6 +42,7 @@ public class ADItems {
 		}
 		Properties defaultProperties = new Item.Properties();
 		slipperySushi = registerItem(event, new DragonFoodItem(defaultProperties, DragonTypes.SEA, () -> new MobEffectInstance(MobEffects.DOLPHINS_GRACE, Functions.secondsToTicks(20))), "slippery_sushi");
+		cursedMarrow = registerItem(event, new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.8f).alwaysEat().fast().effect(new MobEffectInstance(ADDragonEffects.CONFOUNDED, Functions.secondsToTicks(20), 1), 1f).build())), "cursed_marrow");
 		ancientCatalyst = registerItem(event, new AncientCatalystItem(defaultProperties.stacksTo(1).rarity(Rarity.EPIC)), "ancient_catalyst");
 	}
 
