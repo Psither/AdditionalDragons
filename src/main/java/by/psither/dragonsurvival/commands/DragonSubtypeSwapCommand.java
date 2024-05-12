@@ -63,10 +63,10 @@ public class DragonSubtypeSwapCommand {
 			cap.setType(DragonTypes.getStaticSubtype(subtype));
 
 			NetworkHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> serverplayer),new SyncAltarCooldown(serverplayer.getId(), Functions.secondsToTicks(ServerConfig.altarUsageCooldown)));
-			NetworkHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> serverplayer),new SynchronizeDragonCap(serverplayer.getId(), cap.isHiding(), cap.getType(), cap.getSize(), cap.hasWings(), 0));
+			NetworkHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> serverplayer),new SynchronizeDragonCap(serverplayer.getId(), cap.isHiding(), cap.getType(), cap.getBody(), cap.getSize(), cap.hasFlight(), 0));
 			NetworkHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> serverplayer),new SyncSpinStatus(serverplayer.getId(), cap.getMovementData().spinAttack, cap.getMovementData().spinCooldown, cap.getMovementData().spinLearned));
 			NetworkHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> serverplayer), new SyncSize(serverplayer.getId(), cap.getSize()));
-			NetworkHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverplayer), new RequestClientData(cap.getType(), cap.getLevel()));
+			NetworkHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverplayer), new RequestClientData(cap.getType(), cap.getBody(), cap.getLevel()));
 			serverplayer.refreshDimensions();
 
 			pSource.sendSuccess(Component.translatable("ds.commands.ability_swap.success"), true);

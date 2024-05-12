@@ -19,7 +19,9 @@ import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.types.ForestDragonType;
 import by.psither.dragonsurvival.registry.ADDamageSources;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
+import by.psither.dragonsurvival.registry.ADItems;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -40,6 +42,7 @@ import net.minecraft.world.level.lighting.LevelLightEngine;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
@@ -80,6 +83,19 @@ public class ADMagicHandler {
 		}
 	}
 
+	/*@SubscribeEvent
+	public static void onEat(LivingEntityUseItemEvent.Finish event) {
+		LivingEntity livingentity = event.getEntity();
+		if (event.getItem().is(ADItems.revolvingHearts)) {
+			for (int i = 0; i < 5; i++) {
+				float randX = (livingentity.getRandom().nextFloat() - 0.5f) * 0.7f;
+				float randY = (livingentity.getRandom().nextFloat() - 0.5f) * 0.7f;
+				float randZ = (livingentity.getRandom().nextFloat() - 0.5f) * 0.7f;
+				livingentity.level.addAlwaysVisibleParticle(ParticleTypes.HEART, livingentity.getX() + randX, livingentity.getY() + livingentity.getEyeHeight() + randY, livingentity.getZ() + randZ, 0.0, 0.0, 0.0);
+			}
+		}
+	}*/
+
 	@SubscribeEvent
 	public static void showParticles(LivingEvent.LivingTickEvent event) {
 		LivingEntity entity = event.getEntity();
@@ -89,6 +105,8 @@ public class ADMagicHandler {
 		}
 
 		if (entity.tickCount % 5 == 0) {
+			if (!ClientMagicHandler.particlesOnDragons)
+				return;
 			if (entity.hasEffect(ADDragonEffects.BUBBLE_SHIELD)) {
 				BubbleShieldAbility.produceBubbles(entity);
 			}
@@ -260,7 +278,7 @@ public class ADMagicHandler {
 			if (!(DragonUtils.isDragon(entity) && DragonUtils.isDragonType(entity, DragonTypes.CAVE))) 
 			{
 				if (event.getEffect() == ADDragonEffects.BLAST_DUSTED) {
-					entity.getLevel().playLocalSound(entity.position().x, entity.position().y + 0.5, entity.position().z, SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 0.3F, 1.3F, true);
+					entity.getLevel().playLocalSound(entity.position().x, entity.position().y + 0.5, entity.position().z, SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.3F, 1.3F, true);
 				}
 			}
 		}

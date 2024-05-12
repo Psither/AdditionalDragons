@@ -63,7 +63,7 @@ public class LuminousBreathAbility extends BreathAbility {
 
 	@ConfigRange( min = 0, max = 100 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "luminous_breath"}, key = "luminousBreathInitialMana", comment = "The mana cost for starting the luminous breath ability" )
-	public static Integer luminousBreathInitialMana = 1;
+	public static Integer luminousBreathInitialMana = 0;
 
 	@ConfigRange( min = 0.05, max = 10000 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "luminous_breath"}, key = "luminousBreathCooldown", comment = "The cooldown in seconds of the luminous breath ability" )
