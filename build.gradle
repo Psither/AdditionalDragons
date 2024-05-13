@@ -143,7 +143,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${property('geckolib_mc_version')}:${property('geckolib_version')}")
-    implementation fg.deobf("dragonsurvival:dragonsurvival:1.19.2-11.05.2024")
+    implementation fg.deobf("dragonsurvival:dragonsurvival:1.19.2-13.05.2024")
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency

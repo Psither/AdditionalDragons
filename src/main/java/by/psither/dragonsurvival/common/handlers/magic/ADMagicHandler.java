@@ -1,6 +1,7 @@
 package by.psither.dragonsurvival.common.handlers.magic;
 
 import by.psither.dragonsurvival.client.particles.ADParticles;
+import by.psither.dragonsurvival.client.particles.ForestDragon.SmallConfoundParticleData;
 import by.psither.dragonsurvival.common.effects.BlastDustedEffect;
 import by.psither.dragonsurvival.common.effects.BubbleShieldEffect;
 import by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active.ConfoundingBreathAbility;
@@ -13,14 +14,17 @@ import java.util.UUID;
 
 import by.dragonsurvivalteam.dragonsurvival.client.handlers.magic.ClientMagicHandler;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.DSParticles;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.ForestDragon.SmallPoisonParticleData;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.SeaDragon.LargeLightningParticleData;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.SeaDragon.SmallLightningParticleData;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.types.ForestDragonType;
+import by.dragonsurvivalteam.dragonsurvival.registry.DragonEffects;
 import by.psither.dragonsurvival.registry.ADDamageSources;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.psither.dragonsurvival.registry.ADItems;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -103,10 +107,17 @@ public class ADMagicHandler {
 		if (!entity.level.isClientSide) {
 			return;
 		}
+		if (!ClientMagicHandler.particlesOnDragons && DragonUtils.isDragon(entity)) {
+			return;
+		}
 
 		if (entity.tickCount % 5 == 0) {
-			if (!ClientMagicHandler.particlesOnDragons)
-				return;
+			if (entity.hasEffect(ADDragonEffects.CONFOUNDED)) {
+				ParticleOptions data = new SmallConfoundParticleData(37F, false);
+				for (int i = 0; i < 4; i++) {
+					ClientMagicHandler.renderEffectParticle(entity, data);
+				}
+			}
 			if (entity.hasEffect(ADDragonEffects.BUBBLE_SHIELD)) {
 				BubbleShieldAbility.produceBubbles(entity);
 			}

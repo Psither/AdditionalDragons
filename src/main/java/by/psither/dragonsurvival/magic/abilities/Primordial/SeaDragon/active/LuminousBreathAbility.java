@@ -202,7 +202,7 @@ public class LuminousBreathAbility extends BreathAbility {
 		ItemStack gs = new ItemStack(ADBlocks.glowSlime, 1);
 		UseOnContext uc = new UseOnContext(player.level, player, InteractionHand.MAIN_HAND, gs, bhr);
 		// Give closer blocks an increased chance to apply
-		double mathDist = player.position().distanceToSqr(new Vec3(pos.getX(), pos.getY(), pos.getZ())) / calculateCurrentBreathRange(DragonUtils.getDragonLevel(player));
+		double mathDist = player.position().distanceToSqr(new Vec3(pos.getX(), pos.getY(), pos.getZ())) / calculateCurrentBreathRange(DragonUtils.getHandler(player).getSize());
 		creationChance /= mathDist;
 		if (player.getRandom().nextInt(100) < creationChance) {
 			InteractionResult ir = ADBlocks.glowSlime.asItem().useOn(uc);
