@@ -14,26 +14,21 @@ import java.util.UUID;
 import by.dragonsurvivalteam.dragonsurvival.client.handlers.magic.ClientMagicHandler;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.SeaDragon.LargeLightningParticleData;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
-import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.types.ForestDragonType;
 import by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonFoodHandler;
-import by.dragonsurvivalteam.dragonsurvival.registry.DragonEffects;
 import by.psither.dragonsurvival.registry.ADDamageSources;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.psither.dragonsurvival.registry.ADItems;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -44,9 +39,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.lighting.LevelLightEngine;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
@@ -192,12 +185,7 @@ public class ADMagicHandler {
 				if (!entity.level.isClientSide) {
 					int amp = entity.getEffect(ADDragonEffects.INVIGORATE).getAmplifier();
 					LevelLightEngine lightManager = entity.level.getChunkSource().getLightEngine();
-					if (lightManager.getLayerListener(LightLayer.BLOCK).getLightValue(entity.blockPosition()) < 3 && lightManager.getLayerListener(LightLayer.SKY).getLightValue(entity.blockPosition()) < 3 && lightManager.getLayerListener(LightLayer.SKY).getLightValue(entity.blockPosition().above()) < 3) {
-						changeLightModifiers(entity, amp, true);
-					}
-					else {
-						changeLightModifiers(entity, amp, false);
-					}
+                    changeLightModifiers(entity, amp, lightManager.getLayerListener(LightLayer.BLOCK).getLightValue(entity.blockPosition()) < 3 && lightManager.getLayerListener(LightLayer.SKY).getLightValue(entity.blockPosition()) < 3 && lightManager.getLayerListener(LightLayer.SKY).getLightValue(entity.blockPosition().above()) < 3);
 				}
 			} else {
 				changeLightModifiers(entity, 0, false);
@@ -237,7 +225,13 @@ public class ADMagicHandler {
 			}
 			if (isEdible) {
 				int res = 0;
-				if (event.getLootingLevel() >= 0) { res = entity.getRandom().nextInt(event.getLootingLevel()) + 1; }
+				try {
+					if (event.getLootingLevel() + 1 >= 1 && source != null) {
+						res = (int) (entity.getRandom().nextFloat() * (event.getLootingLevel() + 1));
+					}
+				} catch (IllegalArgumentException e) {
+					//System.out.println(e.getMessage());
+				}
 				if (source instanceof LivingEntity src) {
 					if (src.hasEffect(ADDragonEffects.SEEKING_TALONS))
 						res += (int) (SeekingTalonsAbility.seekingTalonsBonusLoot * (src.getEffect(ADDragonEffects.SEEKING_TALONS).getAmplifier() + 1));
@@ -245,7 +239,7 @@ public class ADMagicHandler {
 				drops.add(new ItemEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, res)));
 			}
 			if (bones > 0) {
-				System.out.println("Dropping " + bones + " cursed bones.");
+				//System.out.println("Dropping " + bones + " cursed bones.");
 				drops.add(new ItemEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, bones)));
 			}
 		}
