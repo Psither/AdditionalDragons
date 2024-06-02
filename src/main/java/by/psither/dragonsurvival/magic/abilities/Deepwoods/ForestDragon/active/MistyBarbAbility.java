@@ -113,7 +113,7 @@ public class MistyBarbAbility extends ChargeCastAbility {
 
 	@Override
 	public int getMaxLevel() {
-		return 3;
+		return 4;
 	}
 
 	@Override
