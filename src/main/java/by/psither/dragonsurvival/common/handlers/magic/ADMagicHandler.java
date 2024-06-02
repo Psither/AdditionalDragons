@@ -152,13 +152,9 @@ public class ADMagicHandler {
 				HighVoltageAbility.attackNearbyTargets(entity, amp);
 			}
 			if (entity.hasEffect(ADDragonEffects.BLAST_DUSTED)) {
-				MobEffectInstance bde = entity.getEffect(ADDragonEffects.BLAST_DUSTED);
 				if (entity instanceof Player player) {
 					if (DragonUtils.isDragonType(player, DragonTypes.CAVE))
 						entity.removeEffect(ADDragonEffects.BLAST_DUSTED);
-				}
-				if (bde != null) {
-					if (bde.getDuration() > 0) ;
 				}
 			}
 			if (entity.hasEffect(ADDragonEffects.UNSTOPPABLE)) {
@@ -291,14 +287,14 @@ public class ADMagicHandler {
 			if (entity.hasEffect(ADDragonEffects.SEEKING_TALONS)) {
 				float critboost = (float) SeekingTalonsAbility.seekingTalonsCritBonus * (1 - (target.getHealth() / target.getMaxHealth()));
 				critboost *= (entity.getEffect(ADDragonEffects.SEEKING_TALONS).getAmplifier() + 1);
-				event.setDamageModifier((float) event.getDamageModifier() + critboost);
+				event.setDamageModifier(event.getDamageModifier() + critboost);
 			}
 		}
 	}
 
 	@SubscribeEvent
 	public static void lootingEvent(LootingLevelEvent event) {
-		if (event.getDamageSource().getEntity() instanceof LivingEntity source && source != null) {
+		if (event.getDamageSource() != null && event.getDamageSource().getEntity() instanceof LivingEntity source) {
 			if (source.hasEffect(ADDragonEffects.SEEKING_TALONS)) {
 				int bonus = (int) (SeekingTalonsAbility.seekingTalonsBonusLoot * (source.getEffect(ADDragonEffects.SEEKING_TALONS).getAmplifier() + 1));
 				event.setLootingLevel(event.getLootingLevel() + bonus);
