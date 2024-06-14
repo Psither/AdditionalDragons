@@ -32,19 +32,12 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 
 public class CountdownAreaEffectCloud extends AreaEffectCloud {
-	private static final int TIME_BETWEEN_APPLICATIONS = 5;
-	private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(CountdownAreaEffectCloud.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(CountdownAreaEffectCloud.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Boolean> DATA_WAITING = SynchedEntityData.defineId(CountdownAreaEffectCloud.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<ParticleOptions> DATA_PARTICLE = SynchedEntityData.defineId(CountdownAreaEffectCloud.class, EntityDataSerializers.PARTICLE);
-	private static final float MAX_RADIUS = 32.0F;
 	private Potion potion = Potions.EMPTY;
 	private final List<MobEffectInstance> effects = Lists.newArrayList();
 	private final Map<Entity, Integer> victims = Maps.newHashMap();
 	private int duration = 600;
 	private int waitTime = 20;
 	private int reapplicationDelay = 20;
-	private boolean fixedColor;
 	private int durationOnUse;
 	private float radiusOnUse;
 	private float radiusPerTick;
@@ -83,6 +76,7 @@ public class CountdownAreaEffectCloud extends AreaEffectCloud {
 		}
 
 		boolean flag = this.isWaiting();
+		flag = true;
 		float f = this.getRadius();
 		if (this.level.isClientSide) {
 			if (flag && this.random.nextBoolean()) {

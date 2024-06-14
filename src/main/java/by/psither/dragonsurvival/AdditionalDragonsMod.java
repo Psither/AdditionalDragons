@@ -10,7 +10,6 @@ import by.psither.dragonsurvival.registry.ADCreativeTabs;
 import by.psither.dragonsurvival.registry.ADEntities;
 import by.psither.dragonsurvival.registry.ADItems;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -35,14 +34,5 @@ public class AdditionalDragonsMod {
 		ADCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
 
 		MinecraftForge.EVENT_BUS.register(this);
-		MinecraftForge.EVENT_BUS.addListener(this::serverRegisterCommandsEvent);
-	}
-	
-	@SubscribeEvent
-	public void serverRegisterCommandsEvent(RegisterCommandsEvent event){
-		//CommandDispatcher<CommandSourceStack> commandDispatcher = event.getDispatcher();
-		//DragonAbilitySwapCommand.register(commandDispatcher);
-		//DragonSubtypeSwapCommand.register(commandDispatcher);
-		//LOGGER.info("Registered ability commands");
 	}
 }

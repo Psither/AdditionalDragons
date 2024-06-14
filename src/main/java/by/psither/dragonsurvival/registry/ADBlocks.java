@@ -35,7 +35,7 @@ public class ADBlocks{
 		}
 	}
 	protected static void registerBlocks(final RegisterEvent event){
-		glowSlime = registerBlock(new GlowSlimeBlock(Block.Properties.of(/*Material.SNOW*/).strength(0.2F).noOcclusion().sound(SoundType.SLIME_BLOCK).requiresCorrectToolForDrops().lightLevel(GlowSlimeBlock::getLightLevel)), "glow_slime", event);
+		glowSlime = registerBlock(new GlowSlimeBlock(Block.Properties.of(/*Material.SNOW*/).strength(0.2F).noOcclusion().sound(SoundType.SLIME_BLOCK).lightLevel(GlowSlimeBlock::getLightLevel)), "glow_slime", event);
 	}
 
 	private static <B extends Block> B registerBlock(B block, String identifier, RegisterEvent event){
@@ -46,7 +46,7 @@ public class ADBlocks{
 	
 	public static void registerBlockItems(final RegisterEvent event){
 		ADBlocks.AD_BLOCKS.forEach((key, value) -> {
-			registerItem(value, new Item.Properties(), event);
+			registerItem(value, new Item.Properties().tab(DragonSurvivalMod.items), event);
 		});
 	}
 

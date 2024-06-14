@@ -43,10 +43,10 @@ public class ADEntities {
 	}
 
 	public static void registerEntities(RegisterEvent event){
-		//FAULT_LINE = register(event, "fault_line", EntityType.Builder.<FaultLineProjectileEntity>of(FaultLineProjectileEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(1).build("additionaldragons:fault_line"));
-		//COUNTDOWN_CLOUD = register(event, "countdown_cloud", EntityType.Builder.<AreaEffectCloud>of(AreaEffectCloud::new, MobCategory.MISC).sized(6.0F, 0.5F).fireImmune().clientTrackingRange(10).updateInterval(Integer.MAX_VALUE).build("additionaldragons:countdown_cloud"));
-		//MISTY_BARB = register(event, "misty_barb", EntityType.Builder.<MistyBarbProjectileEntity>of(MistyBarbProjectileEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(1).build("additionaldragons:misty_barb"));
-		//AdditionalDragonsMod.LOGGER.info("Registered entities!");
+		FAULT_LINE = register(event, "fault_line", EntityType.Builder.<FaultLineProjectileEntity>of(FaultLineProjectileEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(1).build("additionaldragons:fault_line"));
+		COUNTDOWN_CLOUD = register(event, "countdown_cloud", EntityType.Builder.<CountdownAreaEffectCloud>of(CountdownAreaEffectCloud::new, MobCategory.MISC).sized(6.0F, 0.5F).fireImmune().clientTrackingRange(10).updateInterval(Integer.MAX_VALUE).build("additionaldragons:countdown_cloud"));
+		MISTY_BARB = register(event, "misty_barb", EntityType.Builder.<MistyBarbProjectileEntity>of(MistyBarbProjectileEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(1).build("additionaldragons:misty_barb"));
+		AdditionalDragonsMod.LOGGER.info("Registered entities!");
 	}
 
 	@SuppressWarnings("rawtypes")

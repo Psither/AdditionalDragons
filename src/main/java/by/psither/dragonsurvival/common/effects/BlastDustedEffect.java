@@ -28,6 +28,8 @@ public class BlastDustedEffect extends MobEffect {
 	}
 
 	public void detonate(LivingEntity entity, int amp) {
+		if (entity.level().isClientSide())
+			return;
 		boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(entity.level(), entity);
 		EntityStateHandler cap = DragonUtils.getEntityHandler(entity);
 		Player player = cap.lastAfflicted != -1 && entity.level().getEntity(cap.lastAfflicted) instanceof Player ? (Player)entity.level().getEntity(cap.lastAfflicted) : null;
@@ -37,8 +39,10 @@ public class BlastDustedEffect extends MobEffect {
 	}
 
 	public void detonate(Entity entity, int amp) {
-		boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(entity.level(), entity);
-		entity.level().explode(entity, ADDamageTypes.entityDamageSource(entity.level(), ADDamageTypes.BLAST_DUST, null), null, entity.getX(), entity.getY() + (entity.getBbHeight() * 0.4), entity.getZ(), (float) BlastBreathAbility.getExplosionPower(amp), flag, (flag ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.NONE));
+		if (entity.level().isClientSide())
+			return;
+		boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(entity.level, entity);
+		entity.level.explode(entity, ADDamageSources.BLAST_DUST, null, entity.getX(), entity.getY() + (entity.getBbHeight() * 0.4), entity.getZ(), (float) BlastBreathAbility.getExplosionPower(amp), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
 	}
 	
 	@Override

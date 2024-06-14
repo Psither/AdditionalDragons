@@ -37,8 +37,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @RegisterDragonAbility
 public class GroupHealAbility extends ChargeCastAbility {
 
-	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "group_heal"}, key = "groupheal", comment = "Whether the Group Heal ability should be enabled" )
+	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "group_heal"}, key = "groupHeal", comment = "Whether the Group Heal ability should be enabled" )
 	public static boolean groupHeal = true;
+
+	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "group_heal"}, key = "groupHealSelfStrength", comment = "How much healing you gain without valid targets" )
+	public static Double groupHealSelfStrength = 1.5;
 
 	@ConfigRange( min = 0.05, max = 10000.0 )
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "group_heal"}, key = "groupHealCooldown", comment = "The cooldown in seconds of the Group Heal ability" )
@@ -76,6 +79,10 @@ public class GroupHealAbility extends ChargeCastAbility {
 	
 	public float getHealStrength() {
 		return (float) (groupHealStrength * getLevel());
+	}
+	
+	public float getSelfHealStrength() {
+		return (float) (groupHealSelfStrength * getLevel());
 	}
 
 	@Override
@@ -197,7 +204,7 @@ public class GroupHealAbility extends ChargeCastAbility {
 
 	private float applyHealOrHurt(LivingEntity livingentity, Player player) {
 		if (livingentity.equals(player)) {
-			return getHealStrength();
+			return getSelfHealStrength();
 		}
 		if (livingentity.isInvertedHealAndHarm()) {
 			if (!player.level().isClientSide()) {

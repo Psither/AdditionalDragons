@@ -2,8 +2,6 @@ package by.psither.dragonsurvival.client;
 
 import org.jetbrains.annotations.NotNull;
 
-import by.dragonsurvivalteam.dragonsurvival.client.particles.BeaconParticle;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.DSParticles;
 import by.psither.dragonsurvival.client.particles.ADParticles;
 import by.psither.dragonsurvival.client.particles.ForestDragon.QuestionMarkParticle;
 import by.psither.dragonsurvival.client.particles.SeaDragon.DragonBubbleParticle;

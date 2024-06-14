@@ -1,7 +1,6 @@
 package by.psither.dragonsurvival.common.dragon_types;
 
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
-import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.dragon_types.types.DeepwoodsDragonType;
 import by.psither.dragonsurvival.common.dragon_types.types.PrimordialDragonType;
 import by.psither.dragonsurvival.common.dragon_types.types.TectonicDragonType;
@@ -18,6 +17,5 @@ public class ADDragonTypes {
 		//AdditionalDragonsMod.LOGGER.info("Registered Deepwoods DragonType as " + DEEPWOODS);
 		TECTONIC = DragonTypes.registerSubtype(TectonicDragonType::new);
 		//AdditionalDragonsMod.LOGGER.info("Registered Tectonic DragonType as " + TECTONIC);
-		//AdditionalDragonsMod.LOGGER.info(DragonTypes.staticTypes + "\n" + DragonTypes.staticSubtypes);
 	}
 }

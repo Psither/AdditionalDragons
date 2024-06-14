@@ -1,8 +1,15 @@
 package by.psither.dragonsurvival.common.blocks;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.LuminousBreathAbility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -43,6 +50,14 @@ public class GlowSlimeBlock extends MultifaceBlock implements SimpleWaterloggedB
 		}
 
 	    return super.updateShape(pState, pDirection, pNeighborState, pLevel, pCurrentPos, pNeighborPos);
+	}
+
+	@Override
+	public void appendHoverText(ItemStack p_190948_1_,
+		@Nullable
+			BlockGetter p_190948_2_, List<Component> p_190948_3_, TooltipFlag p_190948_4_){
+		super.appendHoverText(p_190948_1_, p_190948_2_, p_190948_3_, p_190948_4_);
+		p_190948_3_.add(Component.translatable("ad.description.glow_slime"));
 	}
 	
 	public static int getLightLevel(BlockState pState) {

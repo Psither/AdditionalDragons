@@ -10,10 +10,12 @@ import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigSide;
+import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigType;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.BreathAbility;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
+import by.dragonsurvivalteam.dragonsurvival.util.ResourceHelper;
 import by.dragonsurvivalteam.dragonsurvival.util.TargetingFunctions;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.client.particles.ADParticles;
@@ -51,6 +53,14 @@ import net.minecraftforge.fml.DistExecutor.SafeRunnable;
 
 @RegisterDragonAbility
 public class ConfoundingBreathAbility extends BreathAbility {
+
+	@ConfigType( EntityType.class )
+	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "confounding_breath"}, key = "confoundedTargetingBlacklist", comment = "List of entities that will not change targets while confounded, and cannot be valid targets for targeting. Format: modid:id" )
+	public static List<String> confoundedTargetingBlacklist = List.of();
+
+	@ConfigType( EntityType.class )
+	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "confounding_breath"}, key = "confoundedMirrorBlacklist", comment = "List of entities that will not suffer self-damage from dealing damage while confounded. Format: modid:id" )
+	public static List<String> confoundedMirrorBlacklist = List.of();
 
 	@ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "deepwoods_dragon", "confounding_breath"}, key = "confoundingBreath", comment = "Whether the confounding breath ability should be enabled" )
 	public static Boolean confoundingBreath = true;
@@ -101,16 +111,20 @@ public class ConfoundingBreathAbility extends BreathAbility {
 
 	public static void changeTargetToRandomMob(Mob mob) {
 		if (!mob.level().isClientSide()) {
-			List<LivingEntity> list1 = mob.level().getEntitiesOfClass(LivingEntity.class, mob.getBoundingBox().inflate(getEffectRange()));
+			if (confoundedTargetingBlacklist.contains(ResourceHelper.getKey(mob).toString())) {
+				return;
+			}
+			List<LivingEntity> list1 = mob.level.getEntitiesOfClass(LivingEntity.class, mob.getBoundingBox().inflate(getEffectRange()));
 			// Remove all forest dragons from potential targets
 			// Also remove self as target
 			list1 = list1.stream().filter(e -> {
 				if (e instanceof Player p) { return (!DragonUtils.isDragonType(p, DragonTypes.FOREST)); }
 				else if (e == mob) return false;
+				else if (confoundedTargetingBlacklist.contains(ResourceHelper.getKey(e).toString())) return false;
 				return true;
 			}).toList();
 			if (list1.size() <= 0) {
-				mob.setTarget(null); // No valid targets to swap to.
+				mob.setTarget(null); // No valid targets to swap to.  Remove the current target.
 				return; 
 			}
 			int targetIndex = mob.getRandom().nextInt(list1.size());
@@ -343,6 +357,7 @@ public class ConfoundingBreathAbility extends BreathAbility {
 
 	public static void reflectDamage(LivingEntity en, int amp, float dam) {
 		if (en.level().isClientSide() || (en instanceof Player player && DragonUtils.isDragonType(player, DragonTypes.FOREST))) return;
+		if (confoundedMirrorBlacklist.contains(ResourceHelper.getKey(en).toString())) return;
 		//System.out.println("Returning " + dam * (amp + 1) * confoundingBreathEffectStrength + " damage to " + en);
 		en.hurt(ADDamageTypes.entityDamageSource(en.level(), ADDamageTypes.BLAST_DUST, en), (float) (dam * (amp + 1) * confoundingBreathEffectStrength));
 	}
@@ -361,12 +376,5 @@ public class ConfoundingBreathAbility extends BreathAbility {
 		ArrayList<Component> list = super.getLevelUpInfo();
 		list.add(Component.translatable("ds.skill.curse", "+" + confoundingBreathEffectStrength));
 		return list;
-	}
-
-	public static void produceQuestionMarks(LivingEntity entity) {
-		if (entity.level().isClientSide()) {
-			if (DragonUtils.isDragonType(entity, DragonTypes.FOREST)) return;
-			entity.level().addAlwaysVisibleParticle(ADParticles.questionMarkParticle, entity.getX(), entity.getY() + (entity.getBbHeight() * 1.1), entity.getZ(), 0.0, 0.0, 0.0);
-		}
 	}
 }

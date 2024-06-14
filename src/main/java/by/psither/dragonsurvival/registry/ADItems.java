@@ -33,6 +33,7 @@ import net.minecraftforge.registries.RegisterEvent;
 public class ADItems {
 	public static HashMap<String, Item> AD_ITEMS = new HashMap<>();
 	public static Item slipperySushi, cursedMarrow;
+	//public static Item revolvingHearts;
 	public static Item ancientCatalyst;
 	
 	@SubscribeEvent
@@ -44,6 +45,7 @@ public class ADItems {
 		slipperySushi = registerItem(event, new DragonFoodItem(defaultProperties, DragonTypes.SEA, () -> new MobEffectInstance(MobEffects.DOLPHINS_GRACE, Functions.secondsToTicks(20))), "slippery_sushi");
 		cursedMarrow = registerItem(event, new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.8f).alwaysEat().fast().effect(new MobEffectInstance(ADDragonEffects.CONFOUNDED, Functions.secondsToTicks(20), 1), 1f).build())), "cursed_marrow");
 		ancientCatalyst = registerItem(event, new AncientCatalystItem(defaultProperties.stacksTo(1).rarity(Rarity.EPIC)), "ancient_catalyst");
+		//revolvingHearts = registerItem(event, new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.8f).alwaysEat().fast().build())), "revolving_hearts");
 	}
 
 	public static Item registerItem(RegisterEvent event, String name, String description){
