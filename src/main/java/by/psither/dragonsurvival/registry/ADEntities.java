@@ -33,22 +33,6 @@ public class ADEntities {
 	public static RegistryObject<EntityType<CountdownAreaEffectCloud>> COUNTDOWN_CLOUD = ENTITY_TYPES.register("counterdown_cloud", () -> EntityType.Builder.<CountdownAreaEffectCloud>of(CountdownAreaEffectCloud::new, MobCategory.MISC).sized(6.0F, 0.5F).clientTrackingRange(10).updateInterval(Integer.MAX_VALUE).build("countdown_cloud"));
 	public static RegistryObject<EntityType<MistyBarbProjectileEntity>> MISTY_BARB = ENTITY_TYPES.register("misty_barb", () -> EntityType.Builder.<MistyBarbProjectileEntity>of(MistyBarbProjectileEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(1).build("misty_barb"));
 
-	@SubscribeEvent
-	public static void register(RegisterEvent event)
-	{
-		//AdditionalDragonsMod.LOGGER.info("Registering entities.");
-		//ResourceKey<? extends Registry<?>> key = event.getRegistryKey();
-		//if (key.equals(Registry.ENTITY_TYPE_REGISTRY))
-		//registerEntities(event);
-	}
-
-	public static void registerEntities(RegisterEvent event){
-		FAULT_LINE = register(event, "fault_line", EntityType.Builder.<FaultLineProjectileEntity>of(FaultLineProjectileEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(1).build("additionaldragons:fault_line"));
-		COUNTDOWN_CLOUD = register(event, "countdown_cloud", EntityType.Builder.<CountdownAreaEffectCloud>of(CountdownAreaEffectCloud::new, MobCategory.MISC).sized(6.0F, 0.5F).fireImmune().clientTrackingRange(10).updateInterval(Integer.MAX_VALUE).build("additionaldragons:countdown_cloud"));
-		MISTY_BARB = register(event, "misty_barb", EntityType.Builder.<MistyBarbProjectileEntity>of(MistyBarbProjectileEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(1).build("additionaldragons:misty_barb"));
-		AdditionalDragonsMod.LOGGER.info("Registered entities!");
-	}
-
 	@SuppressWarnings("rawtypes")
 	private static EntityType register(RegisterEvent event, String id, EntityType type){
 		ResourceLocation location = new ResourceLocation(AdditionalDragonsMod.MODID, id);

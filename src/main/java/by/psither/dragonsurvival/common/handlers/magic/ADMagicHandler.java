@@ -190,7 +190,7 @@ public class ADMagicHandler {
 			if(entity.hasEffect(ADDragonEffects.INVIGORATE)) {
 				if (!entity.level().isClientSide()) {
 					int amp = entity.getEffect(ADDragonEffects.INVIGORATE).getAmplifier();
-					LevelLightEngine lightManager = entity.level.getChunkSource().getLightEngine();
+					LevelLightEngine lightManager = entity.level().getChunkSource().getLightEngine();
                     changeLightModifiers(entity, amp, lightManager.getLayerListener(LightLayer.BLOCK).getLightValue(entity.blockPosition()) < 3 && lightManager.getLayerListener(LightLayer.SKY).getLightValue(entity.blockPosition()) < 3 && lightManager.getLayerListener(LightLayer.SKY).getLightValue(entity.blockPosition().above()) < 3);
 				}
 			} else {
@@ -211,7 +211,7 @@ public class ADMagicHandler {
 	public static void dropsEvent(LivingDropsEvent event) {
 		LivingEntity entity = event.getEntity();
 		Entity source = event.getSource().getEntity();
-		if (entity == null || entity.level.isClientSide())
+		if (entity == null || entity.level().isClientSide())
 			return;
 		Collection<ItemEntity> drops = event.getDrops();
 		if (entity.hasEffect(ADDragonEffects.CONFOUNDED) && !(DragonUtils.isDragon(event.getEntity()) && DragonUtils.isDragonType(event.getEntity(), DragonTypes.FOREST))) {
@@ -242,11 +242,11 @@ public class ADMagicHandler {
 					if (src.hasEffect(ADDragonEffects.SEEKING_TALONS))
 						res += (int) (SeekingTalonsAbility.seekingTalonsBonusLoot * (src.getEffect(ADDragonEffects.SEEKING_TALONS).getAmplifier() + 1));
 				}
-				drops.add(new ItemEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, res)));
+				drops.add(new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, res)));
 			}
 			if (bones > 0) {
 				//System.out.println("Dropping " + bones + " cursed bones.");
-				drops.add(new ItemEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, bones)));
+				drops.add(new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, bones)));
 			}
 		}
 	}
@@ -297,7 +297,7 @@ public class ADMagicHandler {
 			if (entity.hasEffect(ADDragonEffects.SEEKING_TALONS)) {
 				double critboost = (double) SeekingTalonsAbility.seekingTalonsCritBonus * (1 - (target.getHealth() / target.getMaxHealth()));
 				critboost *= (entity.getEffect(ADDragonEffects.SEEKING_TALONS).getAmplifier() + 1);
-				event.setDamageModifier(event.getDamageModifier() + critboost);
+				event.setDamageModifier((float) (event.getDamageModifier() + critboost));
 			}
 		}
 	}
@@ -308,43 +308,6 @@ public class ADMagicHandler {
 			if (source.hasEffect(ADDragonEffects.SEEKING_TALONS)) {
 				int bonus = (int) (SeekingTalonsAbility.seekingTalonsBonusLoot * (source.getEffect(ADDragonEffects.SEEKING_TALONS).getAmplifier() + 1));
 				event.setLootingLevel(event.getLootingLevel() + bonus);
-			}
-		}
-	}
-
-	@SubscribeEvent
-	public static void dropsEvent(LivingDropsEvent event) {
-		LivingEntity entity = event.getEntity();
-		Entity source = event.getSource().getEntity();
-		if (entity == null || entity.level().isClientSide())
-			return;
-		Collection<ItemEntity> drops = event.getDrops();
-		if (entity.hasEffect(ADDragonEffects.CONFOUNDED) && !(DragonUtils.isDragon(event.getEntity()) && DragonUtils.isDragonType(event.getEntity(), DragonTypes.FOREST))) {
-			// Look through their drops and see if we find anything forest dragons can eat.
-			boolean isEdible = false;
-			int bones = 0;
-			for (ItemEntity ie : drops) {
-				ItemStack is = ie.getItem();
-				if (is.getItem().equals(Items.BONE)) {
-					// Curse any bones that drop.
-					bones = is.getCount();
-					is.setCount(0);
-				}
-				if (DragonFoodHandler.isDragonEdible(is.getItem(), DragonTypes.FOREST)) {
-					isEdible = true;
-				}
-			}
-			if (isEdible) {
-				int res = entity.getRandom().nextInt(event.getLootingLevel()) + 1;
-				if (source instanceof LivingEntity src) {
-					if (src.hasEffect(ADDragonEffects.SEEKING_TALONS))
-						res += (int) (SeekingTalonsAbility.seekingTalonsBonusLoot * (src.getEffect(ADDragonEffects.SEEKING_TALONS).getAmplifier() + 1));
-				}
-				drops.add(new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, res)));
-			}
-			if (bones > 0) {
-				System.out.println("Dropping " + bones + " cursed bones.");
-				drops.add(new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, bones)));
 			}
 		}
 	}
@@ -364,7 +327,7 @@ public class ADMagicHandler {
 			if (!(DragonUtils.isDragon(entity) && DragonUtils.isDragonType(entity, DragonTypes.CAVE))) 
 			{
 				if (event.getEffect() == ADDragonEffects.BLAST_DUSTED) {
-					entity.getLevel().playLocalSound(entity.position().x, entity.position().y + 0.5, entity.position().z, SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.3F, 1.3F, true);
+					entity.level().playLocalSound(entity.position().x, entity.position().y + 0.5, entity.position().z, SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.3F, 1.3F, true);
 				}
 			}
 		}
@@ -373,7 +336,7 @@ public class ADMagicHandler {
 	@SubscribeEvent
 	public static void effectExpired(MobEffectEvent.Expired event) {
 		if (!(DragonUtils.isDragon(event.getEntity()) && DragonUtils.isDragonType(event.getEntity(), DragonTypes.CAVE))) {
-			if (event.getEffectInstance().getEffect() instanceof BlastDustedEffect effect)
+			if (event.getEffectInstance() != null && event.getEffectInstance().getEffect() instanceof BlastDustedEffect effect)
 				effect.detonate(event.getEntity(), event.getEffectInstance().getAmplifier());
 		}
 	}

@@ -1,5 +1,6 @@
 package by.psither.dragonsurvival.client;
 
+import by.dragonsurvivalteam.dragonsurvival.client.particles.BeaconParticle;
 import org.jetbrains.annotations.NotNull;
 
 import by.psither.dragonsurvival.client.particles.ADParticles;

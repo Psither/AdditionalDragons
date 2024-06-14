@@ -114,7 +114,7 @@ public class ConfoundingBreathAbility extends BreathAbility {
 			if (confoundedTargetingBlacklist.contains(ResourceHelper.getKey(mob).toString())) {
 				return;
 			}
-			List<LivingEntity> list1 = mob.level.getEntitiesOfClass(LivingEntity.class, mob.getBoundingBox().inflate(getEffectRange()));
+			List<LivingEntity> list1 = mob.level().getEntitiesOfClass(LivingEntity.class, mob.getBoundingBox().inflate(getEffectRange()));
 			// Remove all forest dragons from potential targets
 			// Also remove self as target
 			list1 = list1.stream().filter(e -> {

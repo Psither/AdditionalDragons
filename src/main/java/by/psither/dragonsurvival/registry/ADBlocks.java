@@ -46,7 +46,7 @@ public class ADBlocks{
 	
 	public static void registerBlockItems(final RegisterEvent event){
 		ADBlocks.AD_BLOCKS.forEach((key, value) -> {
-			registerItem(value, new Item.Properties().tab(DragonSurvivalMod.items), event);
+			registerItem(value, new Item.Properties(), event);
 		});
 	}
 
