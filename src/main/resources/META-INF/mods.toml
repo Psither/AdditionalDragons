@@ -20,7 +20,7 @@ license="${mod_license}"
 [[dependencies.${mod_id}]]
     modId = "forge"
     mandatory = true
-    versionRange = "[40.1.67,)"
+    versionRange = "${neo_version_range}"
 
 [[dependencies.${mod_id}]]
     modId="minecraft"
