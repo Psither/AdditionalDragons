@@ -1,6 +1,7 @@
 package by.psither.dragonsurvival.common.handlers.magic;
 
-import by.psither.dragonsurvival.client.particles.ForestDragon.SmallConfoundParticleData;
+import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
+import by.psither.dragonsurvival.client.particles.ForestDragon.SmallConfoundParticle;
 import by.psither.dragonsurvival.common.effects.BlastDustedEffect;
 import by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active.ConfoundingBreathAbility;
 import by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active.InvigorateAbility;
@@ -9,20 +10,19 @@ import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.Bub
 import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.HighVoltageAbility;
 
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.UUID;
 
 import by.dragonsurvivalteam.dragonsurvival.client.handlers.magic.ClientMagicHandler;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.ForestDragon.SmallPoisonParticleData;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.SeaDragon.LargeLightningParticleData;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.SeaDragon.LargeLightningParticle;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonFoodHandler;
-import by.dragonsurvivalteam.dragonsurvival.registry.DragonEffects;
 import by.psither.dragonsurvival.registry.ADDamageTypes;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.psither.dragonsurvival.registry.ADItems;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -40,33 +40,33 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.lighting.LevelLightEngine;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LootingLevelEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.event.entity.player.CriticalHitEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.*;
+import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
+
+import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
 
 @EventBusSubscriber
 public class ADMagicHandler {
-	private static final UUID INVIGORATE_MOVEMENT_SPEED = UUID.fromString("69501c08-8b19-4d85-a910-1f413fb2d407");
-	private static final UUID INVIGORATE_ATTACK_SPEED = UUID.fromString("28e81e47-dbfc-43a8-bb64-e44b4064e837");
-	private static final UUID INVIGORATE_LUCK = UUID.fromString("7b47afb3-61f0-41a0-89a4-572243a5abf0");
+	private static final ResourceLocation INVIGORATE_MOVEMENT_SPEED = ResourceLocation.fromNamespaceAndPath(MODID, "invigorate_movement_speed");
+	private static final ResourceLocation INVIGORATE_ATTACK_SPEED = ResourceLocation.fromNamespaceAndPath(MODID, "invigorate_attack_speed");
+	private static final ResourceLocation INVIGORATE_LUCK = ResourceLocation.fromNamespaceAndPath(MODID, "invigorate_luck");
 
 	public static void changeLightModifiers(LivingEntity entity, int amp, boolean inLight) {
 		AttributeInstance moveSpeedAtt = entity.getAttribute(Attributes.MOVEMENT_SPEED);
 		AttributeInstance attackSpeedAtt = entity.getAttribute(Attributes.ATTACK_SPEED);
 		AttributeInstance luckAtt = entity.getAttribute(Attributes.LUCK);
 
-		AttributeModifier MOVEMENT_SPEED_BONUS = new AttributeModifier(INVIGORATE_MOVEMENT_SPEED, "INVIGORATE_MOVEMENT_SPEED", InvigorateAbility.invigorateMovementSpeedBonus * (amp + 1), AttributeModifier.Operation.MULTIPLY_TOTAL);
-		AttributeModifier ATTACK_SPEED_BONUS = new AttributeModifier(INVIGORATE_ATTACK_SPEED, "INVIGORATE_ATTACK_SPEED", InvigorateAbility.invigorateAttackSpeedBonus * (amp + 1), AttributeModifier.Operation.ADDITION);
-		AttributeModifier LUCK_BONUS = new AttributeModifier(INVIGORATE_LUCK, "INVIGORATE_LUCK", InvigorateAbility.invigorateLuckBonus * (amp + 1), AttributeModifier.Operation.ADDITION);
+		AttributeModifier MOVEMENT_SPEED_BONUS = new AttributeModifier(INVIGORATE_MOVEMENT_SPEED, InvigorateAbility.invigorateMovementSpeedBonus * (amp + 1), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+		AttributeModifier ATTACK_SPEED_BONUS = new AttributeModifier(INVIGORATE_ATTACK_SPEED, InvigorateAbility.invigorateAttackSpeedBonus * (amp + 1), AttributeModifier.Operation.ADD_VALUE);
+		AttributeModifier LUCK_BONUS = new AttributeModifier(INVIGORATE_LUCK, InvigorateAbility.invigorateLuckBonus * (amp + 1), AttributeModifier.Operation.ADD_VALUE);
 
 		if (inLight) {
 			if (moveSpeedAtt != null && moveSpeedAtt.getModifier(INVIGORATE_MOVEMENT_SPEED) == null)
@@ -85,168 +85,102 @@ public class ADMagicHandler {
 		}
 	}
 
-	/*@SubscribeEvent
-	public static void onEat(LivingEntityUseItemEvent.Finish event) {
-		LivingEntity livingentity = event.getEntity();
-		if (event.getItem().is(ADItems.revolvingHearts)) {
-			for (int i = 0; i < 5; i++) {
-				float randX = (livingentity.getRandom().nextFloat() - 0.5f) * 0.7f;
-				float randY = (livingentity.getRandom().nextFloat() - 0.5f) * 0.7f;
-				float randZ = (livingentity.getRandom().nextFloat() - 0.5f) * 0.7f;
-				livingentity.level.addAlwaysVisibleParticle(ParticleTypes.HEART, livingentity.getX() + randX, livingentity.getY() + livingentity.getEyeHeight() + randY, livingentity.getZ() + randZ, 0.0, 0.0, 0.0);
-			}
-		}
-	}*/
-
 	@SubscribeEvent
-	public static void showParticles(LivingEvent.LivingTickEvent event) {
-		LivingEntity entity = event.getEntity();
+	public static void showParticles(EntityTickEvent.Post event) {
+		if (event.getEntity() instanceof LivingEntity entity) {
 
-		if (!entity.level().isClientSide()) {
-			return;
-		}
-		if (!ClientMagicHandler.particlesOnDragons && DragonUtils.isDragon(entity)) {
-			return;
-		}
+			if (!entity.level().isClientSide()) {
+				return;
+			}
+			if (!ClientMagicHandler.particlesOnDragons && DragonStateProvider.isDragon(entity)) {
+				return;
+			}
 
-		if (entity.tickCount % 5 == 0) {
-			if (entity.hasEffect(ADDragonEffects.CONFOUNDED)) {
-				ParticleOptions data = new SmallConfoundParticleData(37F, false);
-				for (int i = 0; i < 4; i++) {
-					ClientMagicHandler.renderEffectParticle(entity, data);
-				}
-			}
-			if (entity.hasEffect(ADDragonEffects.BUBBLE_SHIELD)) {
-				BubbleShieldAbility.produceBubbles(entity);
-			}
-			if (entity.hasEffect(ADDragonEffects.HIGH_VOLTAGE)) {
-				HighVoltageAbility.producePassiveParticles(entity, entity.getEffect(ADDragonEffects.HIGH_VOLTAGE).getAmplifier());
-				ClientMagicHandler.renderEffectParticle(entity, new LargeLightningParticleData(37, false));
-			}
-			if (entity.hasEffect(ADDragonEffects.BLAST_DUSTED)) {
-				BlastDustedEffect.showSmoke(entity, entity.getEffect(ADDragonEffects.BLAST_DUSTED));
-			}
-			if (entity.hasEffect(ADDragonEffects.CONFOUNDED)) {
-				for (int i = 0; i < 4; i++) {
-					ClientMagicHandler.renderEffectParticle(entity, new SmallConfoundParticleData(37F, false));
-				}
-			}
-		}
-	}
-
-	@SubscribeEvent
-	public static void livingTick(LivingEvent.LivingTickEvent event) {
-		LivingEntity entity = event.getEntity();
-
-		if(entity.tickCount % 5 == 0) {
-			// 4 times per second
-			if(entity.hasEffect(ADDragonEffects.BLAST_DUSTED)){
-				if (entity.isInWaterRainOrBubble()) {
-					if (!entity.level().isClientSide())
-						entity.removeEffect(ADDragonEffects.BLAST_DUSTED);
-					else
-						entity.level().playLocalSound(entity.position().x, entity.position().y + 0.5, entity.position().z, SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.3F, true);
-				}
-				if (entity.isOnFire()) {
-					MobEffectInstance instance = entity.getEffect(ADDragonEffects.BLAST_DUSTED);
-					((BlastDustedEffect) instance.getEffect()).detonate(event.getEntity(), instance.getAmplifier());
-					event.getEntity().removeEffect(instance.getEffect());
-				}
-			}
-			if (entity.hasEffect(ADDragonEffects.BUBBLE_SHIELD)) {
-				if (entity instanceof Player player)
-					BubbleShieldAbility.restoreHydrationAndAir(player);
-			}
-			if (entity.hasEffect(ADDragonEffects.HIGH_VOLTAGE)) {
-				int amp = entity.getEffect(ADDragonEffects.HIGH_VOLTAGE).getAmplifier();
-				HighVoltageAbility.attackNearbyTargets(entity, amp);
-			}
-			if (entity.hasEffect(ADDragonEffects.BLAST_DUSTED)) {
-				if (entity instanceof Player player) {
-					if (DragonUtils.isDragonType(player, DragonTypes.CAVE))
-						entity.removeEffect(ADDragonEffects.BLAST_DUSTED);
-				}
-			}
-			if (entity.hasEffect(ADDragonEffects.UNSTOPPABLE)) {
-				float healthFrac = (entity.getHealth() / entity.getMaxHealth());
-				if (healthFrac < 0.5) {
-					entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 3));
-				} else if (healthFrac < 0.6) {
-					entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 2));
-				} else if (healthFrac < 0.8) {
-					entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 1));
-				} else if (healthFrac < 0.9) {
-					entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 0));
-				}
-			}
-			if (entity.hasEffect(ADDragonEffects.CONFOUNDED)) {
-				if (entity instanceof Player player) {
-					ConfoundingBreathAbility.confoundPlayer(player, player.getEffect(ADDragonEffects.CONFOUNDED).getAmplifier());
-				}
-			}
-		}
-		if (entity.tickCount % 20 == 0) {
-			// Every second
-			if(entity.hasEffect(ADDragonEffects.INVIGORATE)) {
-				if (!entity.level().isClientSide()) {
-					int amp = entity.getEffect(ADDragonEffects.INVIGORATE).getAmplifier();
-					LevelLightEngine lightManager = entity.level().getChunkSource().getLightEngine();
-                    changeLightModifiers(entity, amp, lightManager.getLayerListener(LightLayer.BLOCK).getLightValue(entity.blockPosition()) < 3 && lightManager.getLayerListener(LightLayer.SKY).getLightValue(entity.blockPosition()) < 3 && lightManager.getLayerListener(LightLayer.SKY).getLightValue(entity.blockPosition().above()) < 3);
-				}
-			} else {
-				changeLightModifiers(entity, 0, false);
-			}
-		}
-		if (entity.tickCount % 100 == 0) {
-			// Every 5 seconds
-			if (entity.hasEffect(ADDragonEffects.CONFOUNDED)) {
-				if (entity instanceof Mob mob) {
-					ConfoundingBreathAbility.changeTargetToRandomMob(mob);
-				}
-			}
-		}
-	}
-
-	@SubscribeEvent
-	public static void dropsEvent(LivingDropsEvent event) {
-		LivingEntity entity = event.getEntity();
-		Entity source = event.getSource().getEntity();
-		if (entity == null || entity.level().isClientSide())
-			return;
-		Collection<ItemEntity> drops = event.getDrops();
-		if (entity.hasEffect(ADDragonEffects.CONFOUNDED) && !(DragonUtils.isDragon(event.getEntity()) && DragonUtils.isDragonType(event.getEntity(), DragonTypes.FOREST))) {
-			// Look through their drops and see if we find anything forest dragons can eat.
-			boolean isEdible = false;
-			int bones = 0;
-			for (ItemEntity ie : drops) {
-				ItemStack is = ie.getItem();
-				if (is.getItem().equals(Items.BONE)) {
-					// Curse any bones that drop.
-					bones = is.getCount();
-					is.setCount(0);
-				}
-				if (DragonFoodHandler.isDragonEdible(is.getItem(), DragonTypes.FOREST)) {
-					isEdible = true;
-				}
-			}
-			if (isEdible) {
-				int res = 0;
-				try {
-					if (event.getLootingLevel() + 1 >= 1 && source != null) {
-						res = (int) (entity.getRandom().nextFloat() * (event.getLootingLevel() + 1));
+			if (entity.tickCount % 5 == 0) {
+				if (entity.hasEffect(ADDragonEffects.CONFOUNDED)) {
+					ParticleOptions data = new SmallConfoundParticle.Data(37F, false);
+					for (int i = 0; i < 4; i++) {
+						ClientMagicHandler.renderEffectParticle(entity, data);
 					}
-				} catch (IllegalArgumentException e) {
-					//System.out.println(e.getMessage());
 				}
-				if (source instanceof LivingEntity src) {
-					if (src.hasEffect(ADDragonEffects.SEEKING_TALONS))
-						res += (int) (SeekingTalonsAbility.seekingTalonsBonusLoot * (src.getEffect(ADDragonEffects.SEEKING_TALONS).getAmplifier() + 1));
+				if (entity.hasEffect(ADDragonEffects.BUBBLE_SHIELD)) {
+					BubbleShieldAbility.produceBubbles(entity);
 				}
-				drops.add(new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, res)));
+				if (entity.hasEffect(ADDragonEffects.HIGH_VOLTAGE)) {
+					HighVoltageAbility.producePassiveParticles(entity, entity.getEffect(ADDragonEffects.HIGH_VOLTAGE).getAmplifier());
+					ClientMagicHandler.renderEffectParticle(entity, new LargeLightningParticle.Data(37, false));
+				}
+				if (entity.hasEffect(ADDragonEffects.BLAST_DUSTED)) {
+					BlastDustedEffect.showSmoke(entity, entity.getEffect(ADDragonEffects.BLAST_DUSTED));
+				}
 			}
-			if (bones > 0) {
-				//System.out.println("Dropping " + bones + " cursed bones.");
-				drops.add(new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, bones)));
+
+			if (entity.tickCount % 5 == 0) {
+				// 4 times per second
+				if (entity.hasEffect(ADDragonEffects.BLAST_DUSTED)) {
+					if (entity.isInWaterRainOrBubble()) {
+						if (!entity.level().isClientSide())
+							entity.removeEffect(ADDragonEffects.BLAST_DUSTED);
+						else
+							entity.level().playLocalSound(entity.position().x, entity.position().y + 0.5, entity.position().z, SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.3F, true);
+					}
+					if (entity.isOnFire()) {
+						MobEffectInstance instance = entity.getEffect(ADDragonEffects.BLAST_DUSTED);
+						((BlastDustedEffect) instance.getEffect()).detonate(event.getEntity(), instance.getAmplifier());
+						entity.removeEffect(instance.getEffect());
+					}
+				}
+				if (entity.hasEffect(ADDragonEffects.BUBBLE_SHIELD)) {
+					if (entity instanceof Player player)
+						BubbleShieldAbility.restoreHydrationAndAir(player);
+				}
+				if (entity.hasEffect(ADDragonEffects.HIGH_VOLTAGE)) {
+					int amp = entity.getEffect(ADDragonEffects.HIGH_VOLTAGE).getAmplifier();
+					HighVoltageAbility.attackNearbyTargets(entity, amp);
+				}
+				if (entity.hasEffect(ADDragonEffects.BLAST_DUSTED)) {
+					if (entity instanceof Player player) {
+						if (DragonUtils.isDragonType(player, DragonTypes.CAVE))
+							entity.removeEffect(ADDragonEffects.BLAST_DUSTED);
+					}
+				}
+				if (entity.hasEffect(ADDragonEffects.UNSTOPPABLE)) {
+					float healthFrac = (entity.getHealth() / entity.getMaxHealth());
+					if (healthFrac < 0.5) {
+						entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 3));
+					} else if (healthFrac < 0.6) {
+						entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 2));
+					} else if (healthFrac < 0.8) {
+						entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 1));
+					} else if (healthFrac < 0.9) {
+						entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 0));
+					}
+				}
+				if (entity.hasEffect(ADDragonEffects.CONFOUNDED)) {
+					if (entity instanceof Player player) {
+						ConfoundingBreathAbility.confoundPlayer(player, player.getEffect(ADDragonEffects.CONFOUNDED).getAmplifier());
+					}
+				}
+			}
+			if (entity.tickCount % 20 == 0) {
+				// Every second
+				if (entity.hasEffect(ADDragonEffects.INVIGORATE)) {
+					if (!entity.level().isClientSide()) {
+						int amp = entity.getEffect(ADDragonEffects.INVIGORATE).getAmplifier();
+						LevelLightEngine lightManager = entity.level().getChunkSource().getLightEngine();
+						changeLightModifiers(entity, amp, lightManager.getLayerListener(LightLayer.BLOCK).getLightValue(entity.blockPosition()) < 3 && lightManager.getLayerListener(LightLayer.SKY).getLightValue(entity.blockPosition()) < 3 && lightManager.getLayerListener(LightLayer.SKY).getLightValue(entity.blockPosition().above()) < 3);
+					}
+				} else {
+					changeLightModifiers(entity, 0, false);
+				}
+			}
+			if (entity.tickCount % 100 == 0) {
+				// Every 5 seconds
+				if (entity.hasEffect(ADDragonEffects.CONFOUNDED)) {
+					if (entity instanceof Mob mob) {
+						ConfoundingBreathAbility.changeTargetToRandomMob(mob);
+					}
+				}
 			}
 		}
 	}
@@ -295,14 +229,14 @@ public class ADMagicHandler {
 			if (target.getHealth() <= 0) return;
 			LivingEntity entity = event.getEntity();
 			if (entity.hasEffect(ADDragonEffects.SEEKING_TALONS)) {
-				double critboost = (double) SeekingTalonsAbility.seekingTalonsCritBonus * (1 - (target.getHealth() / target.getMaxHealth()));
+				double critboost = SeekingTalonsAbility.seekingTalonsCritBonus * (1 - (target.getHealth() / target.getMaxHealth()));
 				critboost *= (entity.getEffect(ADDragonEffects.SEEKING_TALONS).getAmplifier() + 1);
-				event.setDamageModifier((float) (event.getDamageModifier() + critboost));
+				event.setDamageMultiplier((float) (event.getDamageMultiplier() + critboost));
 			}
 		}
 	}
 
-	@SubscribeEvent
+	/*@SubscribeEvent
 	public static void lootingEvent(LootingLevelEvent event) {
 		if (event.getDamageSource() != null && event.getDamageSource().getEntity() instanceof LivingEntity source) {
 			if (source.hasEffect(ADDragonEffects.SEEKING_TALONS)) {
@@ -310,12 +244,12 @@ public class ADMagicHandler {
 				event.setLootingLevel(event.getLootingLevel() + bonus);
 			}
 		}
-	}
+	}*/
 
 	@SubscribeEvent
 	public static void livingHurt(LivingHurtEvent event) {
 		// Cave dragons are immune to their own blast dust damage.
-		if (event.getSource().is(ADDamageTypes.BLAST_DUST) && (DragonUtils.isDragon(event.getEntity()) && DragonUtils.isDragonType(event.getEntity(), DragonTypes.CAVE))) {
+		if (event.getSource().is(ADDamageTypes.BLAST_DUST) && (DragonStateProvider.isDragon(event.getEntity()) && DragonUtils.isDragonType(event.getEntity(), DragonTypes.CAVE))) {
 			event.setCanceled(true);
 		}
 	}
@@ -324,7 +258,7 @@ public class ADMagicHandler {
 	public static void effectRemoved(MobEffectEvent.Remove event) {
 		if (event.getEntity().level().isClientSide()) {
 			LivingEntity entity = event.getEntity();
-			if (!(DragonUtils.isDragon(entity) && DragonUtils.isDragonType(entity, DragonTypes.CAVE))) 
+			if (!(DragonStateProvider.isDragon(entity) && DragonUtils.isDragonType(entity, DragonTypes.CAVE)))
 			{
 				if (event.getEffect() == ADDragonEffects.BLAST_DUSTED) {
 					entity.level().playLocalSound(entity.position().x, entity.position().y + 0.5, entity.position().z, SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.3F, 1.3F, true);
@@ -335,7 +269,7 @@ public class ADMagicHandler {
 
 	@SubscribeEvent
 	public static void effectExpired(MobEffectEvent.Expired event) {
-		if (!(DragonUtils.isDragon(event.getEntity()) && DragonUtils.isDragonType(event.getEntity(), DragonTypes.CAVE))) {
+		if (!(DragonStateProvider.isDragon(event.getEntity()) && DragonUtils.isDragonType(event.getEntity(), DragonTypes.CAVE))) {
 			if (event.getEffectInstance() != null && event.getEffectInstance().getEffect() instanceof BlastDustedEffect effect)
 				effect.detonate(event.getEntity(), event.getEffectInstance().getAmplifier());
 		}

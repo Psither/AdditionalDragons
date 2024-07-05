@@ -2,65 +2,57 @@ package by.psither.dragonsurvival.client.particles;
 
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.client.particles.CaveDragon.LargeBlastDustParticle;
-import by.psither.dragonsurvival.client.particles.CaveDragon.LargeBlastDustParticleData;
 import by.psither.dragonsurvival.client.particles.ForestDragon.SmallConfoundParticle;
-import by.psither.dragonsurvival.client.particles.ForestDragon.SmallConfoundParticleData;
 import by.psither.dragonsurvival.client.particles.SeaDragon.DragonBubbleParticle;
-import by.psither.dragonsurvival.client.particles.SeaDragon.DragonBubbleParticleData;
 import by.psither.dragonsurvival.client.particles.SeaDragon.LargeGlowSlimeParticle;
-import by.psither.dragonsurvival.client.particles.SeaDragon.LargeGlowSlimeParticleData;
-import com.mojang.serialization.Codec;
+import by.psither.dragonsurvival.client.particles.SeaDragon.SmallGlowSlimeParticle;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
-@Mod.EventBusSubscriber( bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber( bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT )
 public class ADParticles{
-	public static final DeferredRegister<ParticleType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, AdditionalDragonsMod.MODID);
+	public static final DeferredRegister<ParticleType<?>> AD_PARTICLES = DeferredRegister.create(
+			BuiltInRegistries.PARTICLE_TYPE, AdditionalDragonsMod.MODID);
 
-	public static SimpleParticleType dragonBubbleParticle, questionMarkParticle;
+	public static final DeferredHolder<ParticleType<?>, ParticleType<LargeGlowSlimeParticle.Data>> LARGE_GLOWSLIME = AD_PARTICLES.register(
+			"large_glowslime",
+			() -> LargeGlowSlimeParticle.Data.TYPE
+	);
 
-	public static void register()
-	{
-		dragonBubbleParticle = new SimpleParticleType(false);
-		//questionMarkParticle = new SimpleParticleType(false);
-		REGISTRY.register("dragon_bubble", ()->dragonBubbleParticle);
-		//REGISTRY.register("question_mark", ()->questionMarkParticle);
-	}
+	public static final DeferredHolder<ParticleType<?>, ParticleType<SmallGlowSlimeParticle.Data>> SMALL_GLOWSLIME = AD_PARTICLES.register(
+			"small_glowslime",
+			() -> SmallGlowSlimeParticle.Data.TYPE
+	);
+	
+	public static final DeferredHolder<ParticleType<?>, ParticleType<LargeBlastDustParticle.Data>> LARGE_BLAST_DUST = AD_PARTICLES.register(
+			"large_blast_dust",
+			() -> LargeBlastDustParticle.Data.TYPE
+	);
+
+	public static final DeferredHolder<ParticleType<?>, ParticleType<SmallConfoundParticle.Data>> SMALL_CONFOUND = AD_PARTICLES.register(
+			"small_confound",
+			() -> SmallConfoundParticle.Data.TYPE
+	);
+
+	public static final DeferredHolder<ParticleType<?>, ParticleType<DragonBubbleParticle.Data>> DRAGON_BUBBLE = AD_PARTICLES.register(
+			"dragon_bubble",
+			() -> DragonBubbleParticle.Data.TYPE
+	);
 
 	//Insecure modifications
 	@SubscribeEvent( priority = EventPriority.LOWEST)
 	public static void registerParticles(RegisterParticleProvidersEvent event){
-		event.registerSpriteSet(ADParticles.LARGE_GLOWSLIME.get(), LargeGlowSlimeParticle.ParticleFactory::new);
-		event.registerSpriteSet(ADParticles.LARGE_BLAST_DUST.get(), LargeBlastDustParticle.ParticleFactory::new);
-		event.registerSpriteSet(ADParticles.SMALL_CONFOUND.get(), SmallConfoundParticle.ParticleFactory::new);
+		event.registerSpriteSet(ADParticles.SMALL_GLOWSLIME.get(), SmallGlowSlimeParticle.Factory::new);
+		event.registerSpriteSet(ADParticles.LARGE_GLOWSLIME.get(), LargeGlowSlimeParticle.Factory::new);
+		event.registerSpriteSet(ADParticles.LARGE_BLAST_DUST.get(), LargeBlastDustParticle.Factory::new);
+		event.registerSpriteSet(ADParticles.SMALL_CONFOUND.get(), SmallConfoundParticle.Factory::new);
+		event.registerSpriteSet(ADParticles.DRAGON_BUBBLE.get(), DragonBubbleParticle.Factory::new);
 	}
-
-	public static final RegistryObject<ParticleType<LargeGlowSlimeParticleData>> LARGE_GLOWSLIME = REGISTRY.register("large_glowslime", () -> new ParticleType<>(false, LargeGlowSlimeParticleData.DESERIALIZER){
-		@Override
-		public Codec<LargeGlowSlimeParticleData> codec(){
-			return LargeGlowSlimeParticleData.CODEC(LARGE_GLOWSLIME.get());
-		}
-	});
-	
-	public static final RegistryObject<ParticleType<LargeBlastDustParticleData>> LARGE_BLAST_DUST = REGISTRY.register("large_blast_dust", () -> new ParticleType<>(false, LargeBlastDustParticleData.DESERIALIZER){
-		@Override
-		public Codec<LargeBlastDustParticleData> codec(){
-			return LargeBlastDustParticleData.CODEC(LARGE_BLAST_DUST.get());
-		}
-	});
-
-	public static final RegistryObject<ParticleType<SmallConfoundParticleData>> SMALL_CONFOUND = REGISTRY.register("small_confound", () -> new ParticleType<>(false, SmallConfoundParticleData.DESERIALIZER) {
-		@Override
-		public Codec<SmallConfoundParticleData> codec(){
-			return SmallConfoundParticleData.CODEC(SMALL_CONFOUND.get());
-		}
-	});
 }

@@ -1,31 +1,33 @@
 package by.psither.dragonsurvival.client.particles.ForestDragon;
 
-import org.joml.AxisAngle4f;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.DragonParticle;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
-
-import by.dragonsurvivalteam.dragonsurvival.client.particles.ForestDragon.SmallPoisonParticle;
-import net.minecraft.client.Camera;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.ForestDragon.SmallPoisonParticle;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class SmallConfoundParticle extends TextureSheetParticle {
+public class SmallConfoundParticle extends DragonParticle {
 	private final float spread;
 	private final SpriteSet sprites;
 	boolean swirls;
 	private int swirlTick;
 
 	public SmallConfoundParticle(ClientLevel world, double x, double y, double z, double vX, double vY, double vZ, double duration, boolean swirls, SpriteSet sprite){
-		super(world, x, y, z);
+		super(world, x, y, z, vX, vY, vZ, duration, swirls, sprite);
 		setSize(2, 2);
 		xd = vX;
 		yd = vY;
@@ -40,77 +42,70 @@ public class SmallConfoundParticle extends TextureSheetParticle {
 	}
 
 	@Override
-	protected float getU1(){
-		return super.getU1() - (super.getU1() - super.getU0()) / 8f;
+	public void remove(){
+		if (this.level.getRandom().nextInt(100) < 5)
+			level.addParticle(new SmallPoisonParticle.Data(16, false), x, y, z, 0, 0.01, 0);
+		super.remove();
 	}
 
-	@Override
-
-	protected float getV1(){
-		return super.getV1() - (super.getV1() - super.getV0()) / 8f;
-	}
-
-
-	@Override
-	public void tick(){
-		super.tick();
-
-		if(swirls){
-			Vector3f motionVec = new Vector3f((float)xd, (float)yd, (float)zd);
-			motionVec.normalize();
-
-			float yaw = (float)Math.atan2(motionVec.x(), motionVec.z());
-			float pitch = (float)Math.atan2(motionVec.y(), 1);
-			float swirlRadius = 1f * (age / (float)lifetime) * spread;
-
-			Quaternionf quatSpin = new Quaternionf(new AxisAngle4f(swirlTick * 0.2f, motionVec.x(), motionVec.y(), motionVec.z()));
-			Quaternionf quatOrient = new Quaternionf().rotateXYZ(pitch, yaw, 0);
-
-			Vector3f vec = new Vector3f(swirlRadius, 0, 0);
-			vec = quatSpin.transform(vec);
-			vec = quatOrient.transform(vec);
-
-			x += vec.x();
-			y += vec.y();
-			z += vec.z();
-		}
-
-		if(age >= lifetime){
-			remove();
-		}
-		age++;
-		swirlTick++;
-		setSpriteFromAge(sprites);
-	}
-
-	@Override
-	public void render(VertexConsumer buffer, Camera renderInfo, float partialTicks){
-		float var = (age + partialTicks) / (float)lifetime;
-		alpha = (float)(1 - Math.exp(10 * (var - 1)) - Math.pow(2000, -var));
-		if(alpha < 0.1){
-			alpha = 0.1f;
-		}
-
-
-		super.render(buffer, renderInfo, partialTicks);
-	}
-
-	@Override
-	public ParticleRenderType getRenderType(){
-		return ParticleRenderType.PARTICLE_SHEET_LIT;
-	}
-
-	@OnlyIn( Dist.CLIENT )
-	public static final class ParticleFactory implements ParticleProvider<SmallConfoundParticleData>{
-		private final SpriteSet spriteSet;
-
-		public ParticleFactory(SpriteSet sprite){
-			spriteSet = sprite;
+	public static class Type extends ParticleType<Data> {
+		protected Type(boolean pOverrideLimitter) {
+			super(pOverrideLimitter);
 		}
 
 		@Override
-		public Particle createParticle(SmallConfoundParticleData typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed){
-			SmallConfoundParticle particle = new SmallConfoundParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, typeIn.getDuration(), typeIn.getSwirls(), spriteSet);
+		public @NotNull MapCodec<Data> codec() {
+			return Data.CODEC;
+		}
+
+		@Override
+		public @NotNull StreamCodec<? super RegistryFriendlyByteBuf, Data> streamCodec() {
+			return Data.STREAM_CODEC;
+		}
+	}
+
+	public record Data(float duration, boolean swirls) implements ParticleOptions {
+		public static MapCodec<Data> CODEC = RecordCodecBuilder.mapCodec(
+				codecBuilder -> codecBuilder.group(
+						Codec.FLOAT.fieldOf("duration").forGetter(Data::duration),
+						Codec.BOOL.fieldOf("swirls").forGetter(Data::swirls)
+				).apply(codecBuilder, Data::new));
+
+		public static final StreamCodec<ByteBuf, Data> STREAM_CODEC = StreamCodec.composite(
+				ByteBufCodecs.FLOAT,
+				Data::duration,
+				ByteBufCodecs.BOOL,
+				Data::swirls,
+				Data::new
+		);
+
+		public static final ParticleType<Data> TYPE = new SmallConfoundParticle.Type(false);
+
+		@Override
+		public float duration() {
+			return duration;
+		}
+
+		@Override
+		public boolean swirls() {
+			return swirls;
+		}
+
+		@Override
+		public @NotNull ParticleType<?> getType() {
+			return TYPE;
+		}
+	}
+
+	@OnlyIn( Dist.CLIENT )
+	public static final class Factory implements ParticleProvider<Data>{
+		private final SpriteSet spriteSet;
+
+		public Factory(SpriteSet sprite){ spriteSet = sprite; }
+
+		@Override
+		public Particle createParticle(Data typeIn, @NotNull ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed){
+			SmallConfoundParticle particle = new SmallConfoundParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, typeIn.duration(), typeIn.swirls(), spriteSet);
 			particle.setSpriteFromAge(spriteSet);
 			return particle;
 		}

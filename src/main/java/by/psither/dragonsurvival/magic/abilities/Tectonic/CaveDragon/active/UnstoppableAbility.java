@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.DSParticles;
+import by.dragonsurvivalteam.dragonsurvival.registry.DSParticles;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
@@ -63,7 +63,7 @@ public class UnstoppableAbility extends AoeBuffAbility {
 
 	@Override
 	public ParticleOptions getParticleEffect() {
-		return DSParticles.fireBeaconParticle;
+		return (ParticleOptions) DSParticles.FIRE_BEACON_PARTICLE.get();
 	}
 
 	@Override
@@ -133,9 +133,9 @@ public class UnstoppableAbility extends AoeBuffAbility {
 	@Override
 	public ResourceLocation[] getSkillTextures() {
 		return new ResourceLocation[] {
-			new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/unstoppable_0.png"),
-			new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/unstoppable_1.png"),
-			new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/unstoppable_2.png") 
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/unstoppable_0.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/unstoppable_1.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/unstoppable_2.png")
 		};
 	}
 

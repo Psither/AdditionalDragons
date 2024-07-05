@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import org.joml.Vector3f;
 
 import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.CaveDragon.LargeFireParticleData;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.CaveDragon.SmallFireParticleData;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.CaveDragon.LargeFireParticle;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.CaveDragon.SmallFireParticle;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
@@ -35,11 +38,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeMod;
 
 @RegisterDragonAbility
 public class PyroclasticRoarAbility extends ChargeCastAbility {
@@ -93,11 +94,11 @@ public class PyroclasticRoarAbility extends ChargeCastAbility {
 		if (player.level().isClientSide()) {
 			for (int i = 0; i < getRange() * getRange() * 10; i++) {
 				Vector3f vec = MathUtils.randomPointInSphere(getRange(), player.getRandom());
-				ClipContext cc = new ClipContext(player.getPosition(0), new Vec3(player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z()), ClipContext.Block.COLLIDER, ClipContext.Fluid.WATER, null);
+				ClipContext cc = new ClipContext(player.getPosition(0), new Vec3(player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z()), ClipContext.Block.COLLIDER, ClipContext.Fluid.WATER, CollisionContext.empty());
 				if (player.level().clip(cc).getType() == HitResult.Type.BLOCK) {
 					continue;
 				}
-				player.level().addAlwaysVisibleParticle(new LargeFireParticleData(27 + player.getRandom().nextInt(20), true), player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z(), (0.5D - player.getRandom().nextDouble()) * 0.15D, 0.01F, (0.5D - player.getRandom().nextDouble()) * 0.15D);
+				player.level().addAlwaysVisibleParticle(new LargeFireParticle.Data(27 + player.getRandom().nextInt(20), true), player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z(), (0.5D - player.getRandom().nextDouble()) * 0.15D, 0.01F, (0.5D - player.getRandom().nextDouble()) * 0.15D);
 			}
 			player.level().addAlwaysVisibleParticle(ParticleTypes.EXPLOSION, player.getX(), player.getY(), player.getZ(), 0.0F, 0.0F, 0.0F);
 			player.level().playLocalSound(player.position().x, player.position().y + 0.5, player.position().z, SoundEvents.ENDER_DRAGON_GROWL, SoundSource.PLAYERS, 40F, 0.9F, false);
@@ -114,7 +115,7 @@ public class PyroclasticRoarAbility extends ChargeCastAbility {
 		if (entity.equals(player)) {
 			player.addEffect(new MobEffectInstance(ADDragonEffects.VOLCANIC_RAGE, getDuration(), getLevel() - 1));
 		} else { // Shamelessly stolen from Explosion, with a few additions
-			ClipContext cc = new ClipContext(player.getPosition(0), entity.getPosition(0), ClipContext.Block.COLLIDER, ClipContext.Fluid.WATER, null);
+			ClipContext cc = new ClipContext(player.getPosition(0), entity.getPosition(0), ClipContext.Block.COLLIDER, ClipContext.Fluid.WATER, CollisionContext.empty());
 			if (player.level().clip(cc).getType() == HitResult.Type.BLOCK) {
 				return;
 			}
@@ -131,12 +132,13 @@ public class PyroclasticRoarAbility extends ChargeCastAbility {
 				double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double)f2;
 				double d10 = (getRange() - d12) * 0.3;
 				entity.hurt(this.getDamageSource(), (float) getDamage());
-				double d11 = d10;
-				if (entity instanceof LivingEntity) {
-					d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity)entity, d10);
+				if (entity instanceof LivingEntity livingentity) {
+					d10 = d13 * (1.0 - livingentity.getAttributeValue(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE));
+				} else {
+					d10 = d13;
 				}
 
-				entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
+				entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d10, d7 * d10, d9 * d10));
 			}
 		}
 	}
@@ -159,13 +161,13 @@ public class PyroclasticRoarAbility extends ChargeCastAbility {
 		if (player.level().isClientSide()) {
 			for (int i = 0; i < getRange() * getRange() * 0.2; i++) {
 				Vector3f vec = MathUtils.randomPointInSphere(getRange(), player.getRandom());
-				ClipContext cc = new ClipContext(player.getPosition(0), new Vec3(player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z()), ClipContext.Block.COLLIDER, ClipContext.Fluid.WATER, null);
+				ClipContext cc = new ClipContext(player.getPosition(0), new Vec3(player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z()), ClipContext.Block.COLLIDER, ClipContext.Fluid.WATER, CollisionContext.empty());
 				if (player.level().clip(cc).getType() == HitResult.Type.BLOCK) {
 					continue;
 				}
-				player.level().addAlwaysVisibleParticle(new SmallFireParticleData(16, true), player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z(), 0.0F, 0.04F, 0.0F);
+				player.level().addAlwaysVisibleParticle(new SmallFireParticle.Data(16, true), player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z(), 0.0F, 0.04F, 0.0F);
 			}
-			if (!DragonUtils.getHandler(player).isWingsSpread()) {
+			if (!DragonStateProvider.getOrGenerateHandler(player).isWingsSpread()) {
 				player.setDeltaMovement(0, 0, 0);
 			}
 		}
@@ -247,9 +249,9 @@ public class PyroclasticRoarAbility extends ChargeCastAbility {
 
 	@Override
 	public ResourceLocation[] getSkillTextures() {
-		return new ResourceLocation[]{new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/pyroclastic_roar_0.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/pyroclastic_roar_1.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/pyroclastic_roar_2.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/pyroclastic_roar_3.png")};
+		return new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/pyroclastic_roar_0.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/pyroclastic_roar_1.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/pyroclastic_roar_2.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/pyroclastic_roar_3.png")};
 	}
 }

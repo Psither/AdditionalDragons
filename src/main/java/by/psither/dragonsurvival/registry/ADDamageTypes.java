@@ -23,6 +23,6 @@ public class ADDamageTypes {
     }
 
     private static ResourceKey<DamageType> createKey(final String name) {
-        return ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(AdditionalDragonsMod.MODID, name));
+        return ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, name));
     }
 }

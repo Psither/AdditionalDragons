@@ -5,9 +5,11 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.LuminousBreathAbility;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -23,6 +25,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 
 public class GlowSlimeBlock extends MultifaceBlock implements SimpleWaterloggedBlock {
 	private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -31,6 +34,11 @@ public class GlowSlimeBlock extends MultifaceBlock implements SimpleWaterloggedB
 	public GlowSlimeBlock(BlockBehaviour.Properties pProperties) {
 		super(pProperties);
 	    this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(false)));
+	}
+
+	@Override
+	protected MapCodec<? extends MultifaceBlock> codec() {
+		return null;
 	}
 
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
@@ -53,11 +61,9 @@ public class GlowSlimeBlock extends MultifaceBlock implements SimpleWaterloggedB
 	}
 
 	@Override
-	public void appendHoverText(ItemStack p_190948_1_,
-		@Nullable
-			BlockGetter p_190948_2_, List<Component> p_190948_3_, TooltipFlag p_190948_4_){
-		super.appendHoverText(p_190948_1_, p_190948_2_, p_190948_3_, p_190948_4_);
-		p_190948_3_.add(Component.translatable("ad.description.glow_slime"));
+	public void appendHoverText(@NotNull ItemStack pStack, Item.@NotNull TooltipContext pContext, @NotNull List<Component> pTootipComponents, @NotNull TooltipFlag pTooltipFlag){
+		super.appendHoverText(pStack, pContext, pTootipComponents, pTooltipFlag);
+		pTootipComponents.add(Component.translatable("ad.description.glow_slime"));
 	}
 	
 	public static int getLightLevel(BlockState pState) {

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
 
 import by.psither.dragonsurvival.AdditionalDragonsMod;
@@ -24,15 +26,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 @RegisterDragonAbility
 public class GroupHealAbility extends ChargeCastAbility {
@@ -134,11 +132,11 @@ public class GroupHealAbility extends ChargeCastAbility {
 
 	@Override
 	public ResourceLocation[] getSkillTextures() {
-		return new ResourceLocation[]{new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/group_heal_0.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/group_heal_1.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/group_heal_2.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/group_heal_3.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/group_heal_4.png")};
+		return new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/group_heal_0.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/group_heal_1.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/group_heal_2.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/group_heal_3.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/group_heal_4.png")};
 	}
 
 	@Override
@@ -249,7 +247,7 @@ public class GroupHealAbility extends ChargeCastAbility {
 	}
 	
 	@Override
-	@OnlyIn( Dist.CLIENT )
+	@OnlyIn(Dist.CLIENT)
 	public ArrayList<Component> getLevelUpInfo(){
 		ArrayList<Component> list = super.getLevelUpInfo();
 		list.add(Component.translatable("ds.skill.heal.strength", "+" + groupHealStrength));

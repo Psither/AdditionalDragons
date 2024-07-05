@@ -5,8 +5,8 @@ import by.psither.dragonsurvival.common.entity.projectiles.MistyBarbProjectileEn
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn( Dist.CLIENT )
 public class MistyBarbProjectileRenderer extends ArrowRenderer<MistyBarbProjectileEntity> {
@@ -16,6 +16,6 @@ public class MistyBarbProjectileRenderer extends ArrowRenderer<MistyBarbProjecti
 
 	@Override
 	public ResourceLocation getTextureLocation(MistyBarbProjectileEntity entity){
-		return new ResourceLocation(AdditionalDragonsMod.MODID, "textures/entity/misty_barb_" + entity.getShotLevel() + ".png");
+		return ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/entity/misty_barb_" + entity.getShotLevel() + ".png");
 	}
 }

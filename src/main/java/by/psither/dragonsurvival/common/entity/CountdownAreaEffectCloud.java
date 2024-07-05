@@ -6,21 +6,18 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import by.psither.dragonsurvival.client.particles.CaveDragon.LargeBlastDustParticle;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import org.joml.Vector3f;
 
-import by.psither.dragonsurvival.client.particles.CaveDragon.LargeBlastDustParticleData;
 import by.psither.dragonsurvival.common.effects.BlastDustedEffect;
 import by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active.BlastBreathAbility;
 import by.psither.dragonsurvival.utils.MathUtils;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -32,7 +29,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 
 public class CountdownAreaEffectCloud extends AreaEffectCloud {
-	private Potion potion = Potions.EMPTY;
+	private Potion potion = Potions.WATER.value();
 	private final List<MobEffectInstance> effects = Lists.newArrayList();
 	private final Map<Entity, Integer> victims = Maps.newHashMap();
 	private int duration = 600;
@@ -72,11 +69,11 @@ public class CountdownAreaEffectCloud extends AreaEffectCloud {
 		}
 		
 		if (this.tickCount % 5 == 0) {
-			this.setParticle(new LargeBlastDustParticleData(16, false, BlastBreathAbility.getIntColorFromTimeLeft(Math.min((1f - ((float) this.tickCount) / ((float) this.duration)), 1.0f))));
+			this.setParticle(new LargeBlastDustParticle.Data(16, false, BlastBreathAbility.getIntColorFromTimeLeft(Math.min((1f - ((float) this.tickCount) / ((float) this.duration)), 1.0f))));
 		}
 
 		boolean flag = this.isWaiting();
-		flag = true;
+		//flag = true;
 		float f = this.getRadius();
 		if (this.level.isClientSide) {
 			if (flag && this.random.nextBoolean()) {
@@ -116,7 +113,7 @@ public class CountdownAreaEffectCloud extends AreaEffectCloud {
 						d7 = (0.5D - this.random.nextDouble()) * 0.15D;
 					}
 				} else {
-					int k = flag && this.random.nextBoolean() ? 16777215 : this.getColor();
+					int k = 16777215;
 					d5 = (double)((float)(k >> 16 & 255) / 255.0F);
 					d6 = (double)((float)(k >> 8 & 255) / 255.0F);
 					d7 = (double)((float)(k & 255) / 255.0F);
@@ -179,8 +176,8 @@ public class CountdownAreaEffectCloud extends AreaEffectCloud {
 									this.victims.put(livingentity, this.tickCount + this.reapplicationDelay);
 
 									for(MobEffectInstance mobeffectinstance1 : list) {
-										if (mobeffectinstance1.getEffect().isInstantenous()) {
-											mobeffectinstance1.getEffect().applyInstantenousEffect(this, this.getOwner(), livingentity, mobeffectinstance1.getAmplifier(), 0.5D);
+										if (mobeffectinstance1.getEffect().unwrap().right().orElseThrow().isInstantenous()) {
+											mobeffectinstance1.getEffect().unwrap().right().orElseThrow().applyInstantenousEffect(this, this.getOwner(), livingentity, mobeffectinstance1.getAmplifier(), 0.5D);
 										} else {
 											if (!livingentity.hasEffect(mobeffectinstance1.getEffect())) {
 												livingentity.addEffect(new MobEffectInstance(mobeffectinstance1), this);

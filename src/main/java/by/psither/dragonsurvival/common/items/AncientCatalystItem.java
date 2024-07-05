@@ -5,13 +5,18 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
+import by.dragonsurvivalteam.dragonsurvival.network.syncing.SyncComplete;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import org.joml.Vector3f;
 
-import by.dragonsurvivalteam.dragonsurvival.client.particles.CaveDragon.LargeFireParticleData;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.ForestDragon.SmallPoisonParticleData;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.SeaDragon.LargeLightningParticleData;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.CaveDragon.LargeFireParticle;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.ForestDragon.SmallPoisonParticle;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.SeaDragon.LargeLightningParticle;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.subcapabilities.MagicCap;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
@@ -20,7 +25,6 @@ import by.dragonsurvivalteam.dragonsurvival.config.ServerConfig;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.passive.PassiveDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.network.NetworkHandler;
 import by.dragonsurvivalteam.dragonsurvival.network.RequestClientData;
-import by.dragonsurvivalteam.dragonsurvival.network.player.SynchronizeDragonCap;
 import by.dragonsurvivalteam.dragonsurvival.network.status.SyncAltarCooldown;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
@@ -42,8 +46,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class AncientCatalystItem extends Item {
 	private String descriptionId = "item.additionaldragons.ancient_catalyst";
@@ -55,14 +57,14 @@ public class AncientCatalystItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> list, @NotNull TooltipFlag tooltipFlag){
-		super.appendHoverText(stack, world, list, tooltipFlag);
+	public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext pTooltip, @NotNull List<Component> list, @NotNull TooltipFlag tooltipFlag){
+		super.appendHoverText(stack, pTooltip, list, tooltipFlag);
 		list.add(Component.translatable("ad.description.ancient_catalyst"));
 	}
 
 	protected String getOrCreateDescriptionId() {
 		if (this.descriptionId == null) {
-			this.descriptionId = Util.makeDescriptionId("item", ForgeRegistries.ITEMS.getKey(this));
+			this.descriptionId = Util.makeDescriptionId("item", BuiltInRegistries.ITEM.getKey(this));
 		}
 
 		return this.descriptionId;
@@ -79,7 +81,7 @@ public class AncientCatalystItem extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack itemstack = player.getItemInHand(hand);
-		DragonStateHandler handler = DragonUtils.getHandler(player);
+		DragonStateHandler handler = DragonStateProvider.getOrGenerateHandler(player);
 
 		if(handler.altarCooldown > 0){
 			if(player.level().isClientSide){
@@ -103,22 +105,15 @@ public class AncientCatalystItem extends Item {
 	public static AbstractDragonType getNewType(Player player) {
 		AbstractDragonType type = DragonUtils.getDragonType(player);
 		if (type == null) return null;
-		switch (type.getSubtypeName()) {
-			case "sea":
-				return ADDragonTypes.PRIMORDIAL;
-			case "cave":
-				return ADDragonTypes.TECTONIC;
-			case "forest":
-				return ADDragonTypes.DEEPWOODS;
-			case "primordial":
-				return DragonTypes.SEA;
-			case "tectonic":
-				return DragonTypes.CAVE;
-			case "deepwoods":
-				return DragonTypes.FOREST;
-			default:
-				return null;
-		}
+        return switch (type.getSubtypeName()) {
+            case "sea" -> ADDragonTypes.PRIMORDIAL;
+            case "cave" -> ADDragonTypes.TECTONIC;
+            case "forest" -> ADDragonTypes.DEEPWOODS;
+            case "primordial" -> DragonTypes.SEA;
+            case "tectonic" -> DragonTypes.CAVE;
+            case "deepwoods" -> DragonTypes.FOREST;
+            default -> null;
+        };
 	}
 	
 	private static void showParticles(Player player, ParticleOptions particle) {
@@ -133,7 +128,7 @@ public class AncientCatalystItem extends Item {
 		if (player == null) return false;
 		AbstractDragonType type = getNewType(player);
 		if (type == null) return false;
-		DragonStateHandler cap = DragonUtils.getHandler(player);
+		DragonStateHandler cap = DragonStateProvider.getOrGenerateHandler(player);
 		MagicCap mc = cap.getMagicData();
 		List<PassiveDragonAbility> passives = new ArrayList<PassiveDragonAbility>();
 		for (int i = 0; i < MagicCap.passiveAbilitySlots; i++) {
@@ -151,23 +146,22 @@ public class AncientCatalystItem extends Item {
 			case "sea":
 				//player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.BELL_RESONATE, SoundSource.PLAYERS, 1.0F, 1.2F, false);
 				player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.AMBIENT_UNDERWATER_EXIT, SoundSource.PLAYERS, 0.8F, 0.9F, false);
-				showParticles(player, new LargeLightningParticleData(37, false));
+				showParticles(player, new LargeLightningParticle.Data(37, false));
 				break;
 			case "cave":
 				//player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.BELL_RESONATE, SoundSource.PLAYERS, 1.0F, 1.2F, false);
 				player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.FIRE_AMBIENT, SoundSource.PLAYERS, 4.0F, 1.2F, false);
-				showParticles(player, new LargeFireParticleData(37, false));
+				showParticles(player, new LargeFireParticle.Data(37, false));
 				break;
 			case "forest":
 				player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.BELL_RESONATE, SoundSource.PLAYERS, 1.0F, 1.2F, false);
-				showParticles(player, new SmallPoisonParticleData(37, false));
+				showParticles(player, new SmallPoisonParticle.Data(37, false));
 				break;
 			}
 		}
 		else {
-			NetworkHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player),new SyncAltarCooldown(player.getId(), Functions.secondsToTicks(ServerConfig.altarUsageCooldown)));
-			NetworkHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player),new SynchronizeDragonCap(player.getId(), cap.isHiding(), cap.getType(), cap.getBody(), cap.getSize(), cap.hasFlight(), 0));
-			NetworkHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new RequestClientData(cap.getType(), cap.getBody(), cap.getLevel()));
+			PacketDistributor.sendToPlayersTrackingEntityAndSelf(player, new SyncComplete.Data(player.getId(), cap.serializeNBT(player.registryAccess())));
+			player.refreshDimensions();
 		}
 		return true;
 	}

@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateHandler;
+import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.psither.dragonsurvival.common.entity.projectiles.MistyBarbProjectileEntity;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
@@ -22,8 +23,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @RegisterDragonAbility
 public class MistyBarbAbility extends ChargeCastAbility {
@@ -63,7 +64,7 @@ public class MistyBarbAbility extends ChargeCastAbility {
 		double d3 = vector3d.y * speed;
 		double d4 = vector3d.z * speed;
 
-		DragonStateHandler handler = DragonUtils.getHandler(player);
+		DragonStateHandler handler = DragonStateProvider.getOrGenerateHandler(player);
 		handler.getMovementData().bite = true;
 
 		MistyBarbProjectileEntity entity = new MistyBarbProjectileEntity(ADEntities.MISTY_BARB.get(), player, player.level());
@@ -166,11 +167,11 @@ public class MistyBarbAbility extends ChargeCastAbility {
 
 	@Override
 	public ResourceLocation[] getSkillTextures() {
-		return new ResourceLocation[]{new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/misty_barb_0.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/misty_barb_1.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/misty_barb_2.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/misty_barb_3.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/misty_barb_4.png")};
+		return new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/misty_barb_0.png"),
+				  					  ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/misty_barb_1.png"),
+				  					  ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/misty_barb_2.png"),
+				  					  ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/misty_barb_3.png"),
+				  					  ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/misty_barb_4.png")};
 	}
 
 }

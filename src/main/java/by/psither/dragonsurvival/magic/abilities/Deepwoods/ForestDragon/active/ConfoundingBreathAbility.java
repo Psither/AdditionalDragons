@@ -3,8 +3,7 @@ package by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.dragonsurvivalteam.dragonsurvival.client.particles.ForestDragon.LargePoisonParticleData;
-import by.dragonsurvivalteam.dragonsurvival.client.sounds.SoundRegistry;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.ForestDragon.LargePoisonParticle;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
@@ -18,12 +17,10 @@ import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.dragonsurvivalteam.dragonsurvival.util.ResourceHelper;
 import by.dragonsurvivalteam.dragonsurvival.util.TargetingFunctions;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
-import by.psither.dragonsurvival.client.particles.ADParticles;
-import by.psither.dragonsurvival.client.particles.ForestDragon.SmallConfoundParticleData;
+import by.psither.dragonsurvival.client.particles.ForestDragon.SmallConfoundParticle;
 import by.psither.dragonsurvival.client.sounds.ADSoundRegistry;
 import by.psither.dragonsurvival.client.sounds.ConfoundingBreathSound;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
-import by.psither.dragonsurvival.registry.ADDamageSources;
 import by.psither.dragonsurvival.registry.ADDamageTypes;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import net.minecraft.client.Minecraft;
@@ -43,13 +40,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.DistExecutor.SafeRunnable;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @RegisterDragonAbility
 public class ConfoundingBreathAbility extends BreathAbility {
@@ -188,7 +182,7 @@ public class ConfoundingBreathAbility extends BreathAbility {
 				pos.x,pos.y,pos.z
 		);
 		Minecraft.getInstance().getSoundManager().playDelayed(startingSound, 0);
-		Minecraft.getInstance().getSoundManager().stop(new ResourceLocation(AdditionalDragonsMod.MODID, "confounding_breath_loop"), SoundSource.PLAYERS);
+		Minecraft.getInstance().getSoundManager().stop(ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "confounding_breath_loop"), SoundSource.PLAYERS);
 		Minecraft.getInstance().getSoundManager().queueTickingSound(new ConfoundingBreathSound(this));
 	}
 	
@@ -206,7 +200,7 @@ public class ConfoundingBreathAbility extends BreathAbility {
 			Minecraft.getInstance().getSoundManager().playDelayed(endSound, 0);
 		}
 
-		Minecraft.getInstance().getSoundManager().stop(new ResourceLocation(AdditionalDragonsMod.MODID, "confounding_breath_loop"), SoundSource.PLAYERS);
+		Minecraft.getInstance().getSoundManager().stop(ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "confounding_breath_loop"), SoundSource.PLAYERS);
 	}
 
 	@Override
@@ -214,7 +208,7 @@ public class ConfoundingBreathAbility extends BreathAbility {
 		super.onChanneling(player, castDuration);
 
 		if(player.level().isClientSide && castDuration <= 0){
-			DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> (SafeRunnable)this::sound);
+			sound();
 		}
 
 		if(player.level().isClientSide){
@@ -223,14 +217,14 @@ public class ConfoundingBreathAbility extends BreathAbility {
 				double xSpeed = speed * 1f * xComp;
 				double ySpeed = speed * 1f * yComp;
 				double zSpeed = speed * 1f * zComp;
-				player.level().addParticle(new LargePoisonParticleData(37, true), dx, dy, dz, xSpeed, ySpeed, zSpeed);
+				player.level().addParticle(new LargePoisonParticle.Data(37, true), dx, dy, dz, xSpeed, ySpeed, zSpeed);
 			}
 
 			for(int i = 0; i < 6; i++){
 				double xSpeed = speed * xComp + spread * 0.7 * (random.nextFloat() * 2 - 1) * Math.sqrt(1 - xComp * xComp);
 				double ySpeed = speed * yComp + spread * 0.7 * (random.nextFloat() * 2 - 1) * Math.sqrt(1 - yComp * yComp);
 				double zSpeed = speed * zComp + spread * 0.7 * (random.nextFloat() * 2 - 1) * Math.sqrt(1 - zComp * zComp);
-				player.level().addParticle(new SmallConfoundParticleData(37, false), dx, dy, dz, xSpeed, ySpeed, zSpeed);
+				player.level().addParticle(new SmallConfoundParticle.Data(37, false), dx, dy, dz, xSpeed, ySpeed, zSpeed);
 			}
 		}
 		hitEntities();
@@ -272,11 +266,11 @@ public class ConfoundingBreathAbility extends BreathAbility {
 	@Override
 	public ResourceLocation[] getSkillTextures() {
 		return new ResourceLocation[]{
-				  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/confounding_breath_0.png"),
-				  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/confounding_breath_1.png"),
-				  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/confounding_breath_2.png"),
-				  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/confounding_breath_3.png"),
-				  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/confounding_breath_4.png")
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/confounding_breath_0.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/confounding_breath_1.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/confounding_breath_2.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/confounding_breath_3.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/confounding_breath_4.png")
 		};
 	}
 
@@ -305,10 +299,10 @@ public class ConfoundingBreathAbility extends BreathAbility {
 				AreaEffectCloud entity = new AreaEffectCloud(EntityType.AREA_EFFECT_CLOUD, player.level());
 				entity.setWaitTime(0);
 				entity.setPos(pos.above().getX(), pos.above().getY(), pos.above().getZ());
-				entity.setPotion(new Potion(new MobEffectInstance(ADDragonEffects.CONFOUNDED, /* Effect duration is normally divided by 4 */ Functions.secondsToTicks(confoundingBreathEffectDuration) * 4, getLevel() - 1)));
+				entity.addEffect(new MobEffectInstance(ADDragonEffects.CONFOUNDED, /* Effect duration is normally divided by 4 */ Functions.secondsToTicks(confoundingBreathEffectDuration) * 4, getLevel() - 1));
 				entity.setDuration(Functions.secondsToTicks(2));
 				entity.setRadius(1);
-				entity.setParticle(new SmallConfoundParticleData(37, false));
+				entity.setParticle(new SmallConfoundParticle.Data(37, false));
 				entity.setOwner(player);
 				serverLevel.addFreshEntity(entity);
 			}

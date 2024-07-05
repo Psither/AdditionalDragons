@@ -5,8 +5,8 @@ import by.psither.dragonsurvival.common.entity.projectiles.FaultLineProjectileEn
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn( Dist.CLIENT )
 public class FaultLineProjectileRenderer extends ArrowRenderer<FaultLineProjectileEntity> {
@@ -16,6 +16,6 @@ public class FaultLineProjectileRenderer extends ArrowRenderer<FaultLineProjecti
 
 	@Override
 	public ResourceLocation getTextureLocation(FaultLineProjectileEntity entity){
-		return new ResourceLocation(AdditionalDragonsMod.MODID, "textures/entity/fault_line_" + FaultLineProjectileEntity.getAmmoTypeName(entity.getAmmoType()) + ".png");
+		return ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/entity/fault_line_" + FaultLineProjectileEntity.getAmmoTypeName(entity.getAmmoType()) + ".png");
 	}
 }

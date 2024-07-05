@@ -2,18 +2,26 @@ package by.psither.dragonsurvival.client.particles.CaveDragon;
 
 import java.awt.Color;
 
-import by.dragonsurvivalteam.dragonsurvival.client.particles.DSParticles;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.CaveDragon.LargeFireParticle;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.CaveDragon.SmallFireParticleData;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.CaveDragon.SmallFireParticle;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.DragonParticle;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
-public class LargeBlastDustParticle extends LargeFireParticle {
+public class LargeBlastDustParticle extends DragonParticle {
 	private final float spread;
 	private final SpriteSet sprites;
 	private final Color color;
@@ -39,7 +47,7 @@ public class LargeBlastDustParticle extends LargeFireParticle {
 	@Override
 	public void remove(){
 		if (this.level.getRandom().nextInt(100) < 5)
-			level.addParticle(new SmallFireParticleData(16, false), x, y, z, 0, 0.01, 0);
+			level.addParticle(new SmallFireParticle.Data(16, false), x, y, z, 0, 0.01, 0);
 		super.remove();
 	}
 
@@ -50,20 +58,67 @@ public class LargeBlastDustParticle extends LargeFireParticle {
 		return new Color(red, green, blue);
 	}
 
-	@OnlyIn( Dist.CLIENT )
-	public static final class ParticleFactory implements ParticleProvider<LargeBlastDustParticleData>{
-		private final SpriteSet spriteSet;
-
-		public ParticleFactory(SpriteSet sprite){
-			spriteSet = sprite;
+	public static class Type extends ParticleType<Data> {
+		protected Type(boolean pOverrideLimitter) {
+			super(pOverrideLimitter);
 		}
 
 		@Override
-		public Particle createParticle(LargeBlastDustParticleData typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed){
-			LargeBlastDustParticle particle = new LargeBlastDustParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, typeIn.getDuration(), typeIn.getSwirls(), typeIn.getColor(), spriteSet);
+		public @NotNull MapCodec<Data> codec() {
+			return Data.CODEC;
+		}
+
+		@Override
+		public @NotNull StreamCodec<? super RegistryFriendlyByteBuf, Data> streamCodec() {
+			return Data.STREAM_CODEC;
+		}
+	}
+
+	public record Data(float duration, boolean swirls, int color) implements ParticleOptions {
+		public static MapCodec<Data> CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(Codec.FLOAT.fieldOf("duration").forGetter(Data::duration), Codec.BOOL.fieldOf("swirls").forGetter(Data::swirls), Codec.INT.fieldOf("color").forGetter(Data::color)).apply(codecBuilder, Data::new));
+
+		public static final StreamCodec<ByteBuf, Data> STREAM_CODEC = StreamCodec.composite(
+				ByteBufCodecs.FLOAT,
+				Data::duration,
+				ByteBufCodecs.BOOL,
+				Data::swirls,
+				ByteBufCodecs.INT,
+				Data::color,
+				Data::new
+		);
+
+		public static final ParticleType<Data> TYPE = new Type(false);
+
+		@Override
+		public float duration() {
+			return duration;
+		}
+
+		@Override
+		public boolean swirls() {
+			return swirls;
+		}
+
+		@Override
+		public @NotNull ParticleType<?> getType() {
+			return TYPE;
+		}
+
+		public int color() {
+			return color;
+		}
+	}
+
+	@OnlyIn( Dist.CLIENT )
+	public static final class Factory implements ParticleProvider<Data>{
+		private final SpriteSet spriteSet;
+
+		public Factory(SpriteSet sprite){ spriteSet = sprite; }
+
+		@Override
+		public Particle createParticle(Data typeIn, @NotNull ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed){
+			LargeBlastDustParticle particle = new LargeBlastDustParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, typeIn.duration(), typeIn.swirls(), typeIn.color(), spriteSet);
 			particle.setSpriteFromAge(spriteSet);
-			// TODO: Why does setColor invert the red and green colors for this particle?  It should be Red Green Blue
-			particle.setColor(particle.color.getGreen(), particle.color.getRed(), particle.color.getBlue());
 			return particle;
 		}
 	}

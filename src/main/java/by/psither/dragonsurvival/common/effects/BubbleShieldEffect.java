@@ -16,12 +16,12 @@ public class BubbleShieldEffect extends MobEffect {
 
 	public void removeAttributeModifiers(LivingEntity pLivingEntity, AttributeMap pAttributeMap, int pAmplifier) {
 		pLivingEntity.setAbsorptionAmount(pLivingEntity.getAbsorptionAmount() - (float)(BubbleShieldAbility.bubbleShieldStrength * (pAmplifier + 1)));
-		super.removeAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+		super.removeAttributeModifiers(pAttributeMap);
 	}
 
 	public void addAttributeModifiers(LivingEntity pLivingEntity, AttributeMap pAttributeMap, int pAmplifier) {
 		pLivingEntity.setAbsorptionAmount(pLivingEntity.getAbsorptionAmount() + (float)(BubbleShieldAbility.bubbleShieldStrength * (pAmplifier + 1)));
-		super.addAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+		super.addAttributeModifiers(pAttributeMap, pAmplifier);
 	}
 	
 	public double getHealth() {

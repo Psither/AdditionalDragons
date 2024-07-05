@@ -3,6 +3,7 @@ package by.psither.dragonsurvival.common.handlers;
 import java.util.HashMap;
 import java.util.List;
 
+import by.dragonsurvivalteam.dragonsurvival.DragonSurvivalMod;
 import by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonConfigHandler;
 import by.dragonsurvivalteam.dragonsurvival.config.ConfigHandler;
 import by.dragonsurvivalteam.dragonsurvival.config.ServerConfig;
@@ -12,11 +13,11 @@ import by.dragonsurvivalteam.dragonsurvival.magic.abilities.SeaDragon.active.Sto
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.config.ModConfigEvent;
 
-@EventBusSubscriber
+@EventBusSubscriber(modid = DragonSurvivalMod.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class ADDragonConfigHandler {
 
 	@SubscribeEvent

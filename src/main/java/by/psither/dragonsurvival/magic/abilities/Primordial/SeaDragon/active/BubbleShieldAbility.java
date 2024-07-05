@@ -2,6 +2,7 @@ package by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active;
 
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.client.particles.ADParticles;
+import by.psither.dragonsurvival.client.particles.SeaDragon.DragonBubbleParticle;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigSide;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.AoeBuffAbility;
-import by.dragonsurvivalteam.dragonsurvival.registry.DragonEffects;
+import by.dragonsurvivalteam.dragonsurvival.registry.DSEffects;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
@@ -29,8 +30,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biome.Precipitation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 
 @RegisterDragonAbility
@@ -84,7 +85,7 @@ public class BubbleShieldAbility extends AoeBuffAbility {
 					float randX = (entity.getRandom().nextFloat() * 1.5F) - 0.75F;
 					float randY = entity.getRandom().nextFloat() - 0.5f;
 					float randZ = (entity.getRandom().nextFloat() * 1.5F) - 0.75F;
-					entity.level().addParticle(ADParticles.dragonBubbleParticle, entity.getX() + randX, entity.getY() + (entity.getEyeHeight() / 2) + randY, entity.getZ() + randZ, 0.0, 0.0, 0.0);
+					entity.level().addParticle(new DragonBubbleParticle.Data(), entity.getX() + randX, entity.getY() + (entity.getEyeHeight() / 2) + randY, entity.getZ() + randZ, 0.0, 0.0, 0.0);
 				}
 			}
 			if (DragonUtils.isDragonType(entity, DragonTypes.CAVE) && entity.getRandom().nextInt(100) < (entity.isInWaterRainOrBubble() ? 30 : 70)) {
@@ -101,7 +102,7 @@ public class BubbleShieldAbility extends AoeBuffAbility {
 			if (DragonUtils.isDragonType(player, DragonTypes.SEA)) {
 				Level world = player.level();
 				Biome biome = world.getBiome(player.blockPosition()).value();
-				SeaDragonType sdt = (SeaDragonType) DragonUtils.getHandler(player).getType();
+				SeaDragonType sdt = (SeaDragonType) DragonUtils.getDragonType(player);
 
 				boolean hotBiome = biome.getPrecipitationAt(player.blockPosition()) == Precipitation.NONE && biome.getBaseTemperature() > 1.0;
 				double timeIncrement = (world.isNight() ? 0.5F : 1.0) * (hotBiome ? biome.getBaseTemperature() : 1F);
@@ -111,14 +112,14 @@ public class BubbleShieldAbility extends AoeBuffAbility {
 				player.setAirSupply(player.getMaxAirSupply());
 			}
 			if (DragonUtils.isDragonType(player, DragonTypes.CAVE)) {
-				player.addEffect(new MobEffectInstance(DragonEffects.FIRE, 20, 0, true, true));
+				player.addEffect(new MobEffectInstance(DSEffects.FIRE, 20, 0, true, true));
 			}
 		}
 	}
 
 	@Override
 	public ParticleOptions getParticleEffect() {
-		return ADParticles.dragonBubbleParticle;
+		return new DragonBubbleParticle.Data();
 	}
 
 	@Override
@@ -163,10 +164,10 @@ public class BubbleShieldAbility extends AoeBuffAbility {
 
 	@Override
 	public ResourceLocation[] getSkillTextures() {
-		return new ResourceLocation[]{new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/bubble_shield_0.png"),
-                					new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/bubble_shield_1.png"),
-                					new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/bubble_shield_2.png"),
-                					new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/bubble_shield_3.png")};
+		return new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/bubble_shield_0.png"),
+                					ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/bubble_shield_1.png"),
+                					ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/bubble_shield_2.png"),
+                					ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/bubble_shield_3.png")};
 	}
 
 	@Override

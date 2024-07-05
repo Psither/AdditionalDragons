@@ -21,8 +21,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @RegisterDragonAbility
 public class SeekingTalonsAbility extends ChargeCastAbility {
@@ -125,10 +125,10 @@ public class SeekingTalonsAbility extends ChargeCastAbility {
 
 	@Override
 	public ResourceLocation[] getSkillTextures(){
-		return new ResourceLocation[]{new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/seeking_talons_0.png"),
-		                              new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/seeking_talons_1.png"),
-		                              new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/seeking_talons_2.png"),
-		                              new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/seeking_talons_3.png")};
+		return new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/seeking_talons_0.png"),
+		                              ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/seeking_talons_1.png"),
+		                              ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/seeking_talons_2.png"),
+		                              ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/seeking_talons_3.png")};
 	}
 
 	public double getDuration() {

@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[40,)"
+loaderVersion="[4,)"
 license="${mod_license}"
 
 [[mods]]
@@ -18,7 +18,7 @@ license="${mod_license}"
     ordering = "BEFORE"
 
 [[dependencies.${mod_id}]]
-    modId = "forge"
+    modId = "neoforge"
     mandatory = true
     versionRange = "${neo_version_range}"
 

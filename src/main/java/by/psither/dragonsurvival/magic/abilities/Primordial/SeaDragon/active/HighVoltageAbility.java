@@ -1,5 +1,6 @@
 package by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active;
 
+import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.client.sounds.ADSoundRegistry;
 import by.psither.dragonsurvival.common.blocks.GlowSlimeBlock;
@@ -9,10 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
 
 import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.SeaDragon.LargeLightningParticleData;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.SeaDragon.LargeLightningParticle;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.EntityStateHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
@@ -25,7 +29,7 @@ import by.dragonsurvivalteam.dragonsurvival.magic.abilities.SeaDragon.active.Sto
 import by.dragonsurvivalteam.dragonsurvival.magic.common.AbilityAnimation;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.ChargeCastAbility;
-import by.dragonsurvivalteam.dragonsurvival.registry.DragonEffects;
+import by.dragonsurvivalteam.dragonsurvival.registry.DSEffects;
 import by.psither.dragonsurvival.registry.ADBlocks;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.psither.dragonsurvival.utils.MathUtils;
@@ -49,8 +53,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 @RegisterDragonAbility
 public class HighVoltageAbility extends ChargeCastAbility {
@@ -135,7 +137,7 @@ public class HighVoltageAbility extends ChargeCastAbility {
 
 	@Override
 	public int getManaCost() {
-		return 1;
+		return highVoltageManaCost;
 	}
 
 	public static void attackNearbyTargets(LivingEntity entity, int amp) {
@@ -152,7 +154,7 @@ public class HighVoltageAbility extends ChargeCastAbility {
 	}
 	
 	public static void zapTarget(LivingEntity source, Entity target, int amp) {
-		ClipContext cc = new ClipContext(source.getPosition(0), target.getPosition(0), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null);
+		ClipContext cc = new ClipContext(source.getPosition(0), target.getPosition(0), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, CollisionContext.empty());
 		if (target.level().clip(cc).getType() == HitResult.Type.BLOCK) {
 			return;
 		}
@@ -168,7 +170,7 @@ public class HighVoltageAbility extends ChargeCastAbility {
 				double stepX = source.getX() + (distV.x * distFrac);
 				double stepY = source.getY() + (source.getEyeHeight() / 2) + (distV.y * distFrac);
 				double stepZ = source.getZ() + (distV.z * distFrac);
-				source.level().addParticle(new LargeLightningParticleData(16F, false), stepX, stepY, stepZ, 0.0, 0.0, 0.0);
+				source.level().addParticle(new LargeLightningParticle.Data(16F, false), stepX, stepY, stepZ, 0.0, 0.0, 0.0);
 			}
 		} else {
 			if (target instanceof LivingEntity livingtarget) {
@@ -185,20 +187,20 @@ public class HighVoltageAbility extends ChargeCastAbility {
 	public static void onHurtTarget(LivingEntity source, Entity target) {
 		if(source.getRandom().nextInt(100) < 50){
 			if(!source.level().isClientSide){
-				source.addEffect(new MobEffectInstance(DragonEffects.CHARGED, Functions.secondsToTicks(30)));
+				source.addEffect(new MobEffectInstance(DSEffects.CHARGED, Functions.secondsToTicks(30)));
 			}
 		}
 
 		if(!target.level().isClientSide){
 			if(!StormBreathAbility.chargedBlacklist.contains(ResourceHelper.getKey(target).toString())){
 				if(source.getRandom().nextInt(100) < 40){
-					EntityStateHandler cap = DragonUtils.getEntityHandler(target);
+					EntityStateHandler cap = DragonStateProvider.getOrGenerateHandler(target);
 
 					cap.lastAfflicted = source.getId();
 					cap.chainCount = 1;
 
 					if (target instanceof LivingEntity livingtarget)
-						livingtarget.addEffect(new MobEffectInstance(DragonEffects.CHARGED, Functions.secondsToTicks(10), 0, false, true));
+						livingtarget.addEffect(new MobEffectInstance(DSEffects.CHARGED, Functions.secondsToTicks(10), 0, false, true));
 				}
 			}
 			if (target instanceof LivingEntity le)
@@ -215,7 +217,7 @@ public class HighVoltageAbility extends ChargeCastAbility {
 					float randX = (entity.getRandom().nextFloat() * 3f) - 1.5f;
 					float randY = (entity.getRandom().nextFloat() * 1f) - 0.5f;
 					float randZ = (entity.getRandom().nextFloat() * 3f) - 1.5f;
-					entity.level().addParticle(new LargeLightningParticleData(15, false), entity.getX() + loc.x(), entity.getY() + entity.getEyeHeight() + loc.y(), entity.getZ() + loc.z(), randX * 0.1, randY * 0.1, randZ * 0.1);
+					entity.level().addParticle(new LargeLightningParticle.Data(15, false), entity.getX() + loc.x(), entity.getY() + entity.getEyeHeight() + loc.y(), entity.getZ() + loc.z(), randX * 0.1, randY * 0.1, randZ * 0.1);
 				}
 			}
 		}
@@ -280,13 +282,13 @@ public class HighVoltageAbility extends ChargeCastAbility {
 
 	@Override
 	public ResourceLocation[] getSkillTextures(){
-		return new ResourceLocation[]{new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/high_voltage_0.png"),
-		                              new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/high_voltage_1.png"),
-		                              new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/high_voltage_2.png")};
+		return new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/high_voltage_0.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/high_voltage_1.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/high_voltage_2.png")};
 	}
 
 	@Override
-	@OnlyIn( Dist.CLIENT )
+	@OnlyIn(Dist.CLIENT)
 	public ArrayList<Component> getLevelUpInfo(){
 		ArrayList<Component> list = super.getLevelUpInfo();
 		list.add(Component.translatable("ds.skill.duration.seconds", "+" + highVoltageDuration));

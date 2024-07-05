@@ -1,31 +1,26 @@
 package by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.Objects;
 
-import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.CaveDragon.LargeFireParticleData;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.CaveDragon.SmallFireParticleData;
-import by.dragonsurvivalteam.dragonsurvival.client.sounds.SoundRegistry;
+import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateHandler;
+import by.dragonsurvivalteam.dragonsurvival.common.capability.EntityStateProvider;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigSide;
-import by.dragonsurvivalteam.dragonsurvival.magic.DragonAbilities;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.BreathAbility;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.dragonsurvivalteam.dragonsurvival.util.TargetingFunctions;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
-import by.psither.dragonsurvival.client.particles.CaveDragon.LargeBlastDustParticleData;
+import by.psither.dragonsurvival.client.particles.CaveDragon.LargeBlastDustParticle;
 import by.psither.dragonsurvival.client.sounds.ADSoundRegistry;
 import by.psither.dragonsurvival.client.sounds.BlastBreathSound;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.common.entity.CountdownAreaEffectCloud;
-import by.psither.dragonsurvival.registry.ADDamageSources;
 import by.psither.dragonsurvival.registry.ADDamageTypes;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.psither.dragonsurvival.registry.ADEntities;
@@ -43,22 +38,13 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Entity.RemovalReason;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.DistExecutor.SafeRunnable;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @RegisterDragonAbility
 public class BlastBreathAbility extends BreathAbility {
@@ -147,11 +133,11 @@ public class BlastBreathAbility extends BreathAbility {
 	public void onDamage(LivingEntity entity) {
 		if (!entity.level().isClientSide()) {
 			if (!entity.hasEffect(ADDragonEffects.BLAST_DUSTED)) {
-				DragonUtils.getEntityHandler(entity).lastAfflicted = player != null ? player.getId() : -1;
+				EntityStateProvider.getEntityHandler(entity).lastAfflicted = player != null ? player.getId() : -1;
 				entity.addEffect(new MobEffectInstance(ADDragonEffects.BLAST_DUSTED, Functions.secondsToTicks(blastBreathEffectDuration), getLevel() - 1));
 			} else {
 				for (int i = 0; i < blastBreathEffectSpeedupTicks; i++)
-					entity.getEffect(ADDragonEffects.BLAST_DUSTED).tick(entity, null);
+					Objects.requireNonNull(entity.getEffect(ADDragonEffects.BLAST_DUSTED)).tick(entity, null);
 			}
 		}
 	}
@@ -182,7 +168,7 @@ public class BlastBreathAbility extends BreathAbility {
 				entity.setPotion(new Potion(new MobEffectInstance(ADDragonEffects.BLAST_DUSTED, /* Effect duration is normally divided by 4 */ Functions.secondsToTicks(blastBreathEffectDuration) * 4)));
 				entity.setDuration(Functions.secondsToTicks(blastBreathEffectDuration) + player.getRandom().nextInt(20));
 				entity.setRadius(1);
-				entity.setParticle(new LargeBlastDustParticleData(16, false, getIntColorFromTimeLeft(1)));
+				entity.setParticle(new LargeBlastDustParticle.Data(16, false, getIntColorFromTimeLeft(1)));
 				entity.setOwner(player);
 				serverLevel.addFreshEntity(entity);
 			}
@@ -200,13 +186,13 @@ public class BlastBreathAbility extends BreathAbility {
 				pos.x,pos.y,pos.z
 		);
 		Minecraft.getInstance().getSoundManager().playDelayed(startingSound, 0);
-		Minecraft.getInstance().getSoundManager().stop(new ResourceLocation(AdditionalDragonsMod.MODID, "blast_breath_loop"), SoundSource.PLAYERS);
+		Minecraft.getInstance().getSoundManager().stop(ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "blast_breath_loop"), SoundSource.PLAYERS);
 		Minecraft.getInstance().getSoundManager().queueTickingSound(new BlastBreathSound(this));
 	}
 	
 	@OnlyIn( Dist.CLIENT )
 	public void stopSound(){
-		if(SoundRegistry.stormBreathEnd != null){
+		if(ADSoundRegistry.blastBreathEnd != null){
 			Vec3 pos = player.getEyePosition(1.0F);
 			SimpleSoundInstance endSound = new SimpleSoundInstance(
 					ADSoundRegistry.blastBreathEnd,
@@ -218,7 +204,7 @@ public class BlastBreathAbility extends BreathAbility {
 			Minecraft.getInstance().getSoundManager().playDelayed(endSound, 0);
 		}
 
-		Minecraft.getInstance().getSoundManager().stop(new ResourceLocation(AdditionalDragonsMod.MODID, "blast_breath_loop"), SoundSource.PLAYERS);
+		Minecraft.getInstance().getSoundManager().stop(ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "blast_breath_loop"), SoundSource.PLAYERS);
 	}
 	
 	@Override
@@ -226,7 +212,7 @@ public class BlastBreathAbility extends BreathAbility {
 		super.onChanneling(player, castDuration);
 
 		if(player.level().isClientSide() && castDuration <= 0){
-			DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> (SafeRunnable)this::sound);
+			sound();
 		}
 
 		if(player.isInWaterRainOrBubble()) {
@@ -252,7 +238,7 @@ public class BlastBreathAbility extends BreathAbility {
 					double zSpeed = speed * 1f * zComp;
 					float randAge = 1 - (random.nextFloat() * 0.2f);
 					int color = getIntColorFromTimeLeft(randAge);
-					player.level().addParticle(new LargeBlastDustParticleData(37, false, color), dx, dy, dz, xSpeed, ySpeed, zSpeed);
+					player.level().addParticle(new LargeBlastDustParticle.Data(37, false, color), dx, dy, dz, xSpeed, ySpeed, zSpeed);
 				}
 	
 				for(int i = 0; i < 6; i++){
@@ -261,7 +247,7 @@ public class BlastBreathAbility extends BreathAbility {
 					double zSpeed = speed * zComp + spread * 0.7 * (random.nextFloat() * 2 - 1) * Math.sqrt(1 - zComp * zComp);
 					float randAge = 1 - (random.nextFloat() * 0.4f);
 					int color = getIntColorFromTimeLeft(randAge);
-					player.level().addParticle(new LargeBlastDustParticleData(37, false, color), dx, dy, dz, xSpeed, ySpeed, zSpeed);
+					player.level().addParticle(new LargeBlastDustParticle.Data(37, false, color), dx, dy, dz, xSpeed, ySpeed, zSpeed);
 				}
 			}
 			hitEntities();
@@ -345,11 +331,11 @@ public class BlastBreathAbility extends BreathAbility {
 	@Override
 	public ResourceLocation[] getSkillTextures() {
 		return new ResourceLocation[]{
-				  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/blast_breath_0.png"),
-				  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/blast_breath_1.png"),
-				  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/blast_breath_2.png"),
-				  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/blast_breath_3.png"),
-				  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/blast_breath_4.png")
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/blast_breath_0.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/blast_breath_1.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/blast_breath_2.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/blast_breath_3.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/blast_breath_4.png")
 		};
 	}
 

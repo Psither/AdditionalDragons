@@ -1,9 +1,9 @@
 package by.psither.dragonsurvival.common.entity.projectiles;
 
-import by.dragonsurvivalteam.dragonsurvival.client.particles.ForestDragon.LargePoisonParticleData;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.ForestDragon.LargePoisonParticle;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.dragonsurvivalteam.dragonsurvival.magic.abilities.ForestDragon.active.SpikeAbility;
-import by.dragonsurvivalteam.dragonsurvival.registry.DragonEffects;
+import by.dragonsurvivalteam.dragonsurvival.registry.DSEffects;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.dragonsurvivalteam.dragonsurvival.util.TargetingFunctions;
@@ -13,6 +13,7 @@ import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -45,14 +46,14 @@ public class MistyBarbProjectileEntity extends AbstractArrow {
 	}
 
 	public MistyBarbProjectileEntity(EntityType<? extends AbstractArrow> type, LivingEntity entity, Level world){
-		super(type, entity, world);
+		super(type, world);
 	}
 
 	@Override
 	public void doPostHurtEffects(LivingEntity entity) {
 		if (!this.level().isClientSide()) {
 			if (!(entity instanceof Player player && !DragonUtils.isDragonType(player, DragonTypes.FOREST)))
-				entity.addEffect(new MobEffectInstance(DragonEffects.DRAIN, Functions.secondsToTicks(10), 0));
+				entity.addEffect(new MobEffectInstance(DSEffects.DRAIN, Functions.secondsToTicks(10), 0));
 			makeCloud(entity.getPosition(0));
 		}
 	}
@@ -71,11 +72,11 @@ public class MistyBarbProjectileEntity extends AbstractArrow {
 		AreaEffectCloud cloud = new AreaEffectCloud(EntityType.AREA_EFFECT_CLOUD, this.level());
 		cloud.setWaitTime(0);
 		cloud.setPos(pos.x, pos.y, pos.z);
-		cloud.setPotion(new Potion(new MobEffectInstance(DragonEffects.DRAIN, /* Effect duration is normally divided by 4 */ Functions.secondsToTicks(5) * 4, 0)));
+		cloud.addEffect(new MobEffectInstance(DSEffects.DRAIN, /* Effect duration is normally divided by 4 */ Functions.secondsToTicks(5) * 4, 0));
 		cloud.setDuration(Functions.secondsToTicks(10));
 		double rad = MistyBarbAbility.mistyBarbRadius;
 		cloud.setRadius((float) rad * getShotLevel());
-		cloud.setParticle(new LargePoisonParticleData(37, false));
+		cloud.setParticle(new LargePoisonParticle.Data(37, false));
 		if (this.getOwner() instanceof LivingEntity le)
 			cloud.setOwner(le);
 		this.level().addFreshEntity(cloud);
@@ -109,8 +110,7 @@ public class MistyBarbProjectileEntity extends AbstractArrow {
 				}
 
 				if(!level().isClientSide() && entity1 instanceof LivingEntity){
-					EnchantmentHelper.doPostHurtEffects(livingentity, entity1);
-					EnchantmentHelper.doPostDamageEffects((LivingEntity)entity1, livingentity);
+					EnchantmentHelper.doPostAttackEffects((ServerLevel)entity.level(), entity, damagesource);
 				}
 
 				doPostHurtEffects(livingentity);
@@ -135,9 +135,9 @@ public class MistyBarbProjectileEntity extends AbstractArrow {
 	}
 
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		entityData.define(ARROW_LEVEL, 1);
+	protected void defineSynchedData(SynchedEntityData.Builder pBuilder){
+		super.defineSynchedData(pBuilder);
+		pBuilder.define(ARROW_LEVEL, 1);
 	}
 
 	public int getShotLevel() {
@@ -150,6 +150,11 @@ public class MistyBarbProjectileEntity extends AbstractArrow {
 
 	@Override
 	protected ItemStack getPickupItem() {
+		return null;
+	}
+
+	@Override
+	protected ItemStack getDefaultPickupItem() {
 		return null;
 	}
 

@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.DSParticles;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.BeaconParticle;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigSide;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.AoeBuffAbility;
+import by.dragonsurvivalteam.dragonsurvival.registry.DSParticles;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
@@ -19,8 +20,8 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @RegisterDragonAbility
 public class InvigorateAbility extends AoeBuffAbility {
@@ -67,7 +68,7 @@ public class InvigorateAbility extends AoeBuffAbility {
 
 	@Override
 	public ParticleOptions getParticleEffect() {
-		return DSParticles.magicBeaconParticle;
+		return new BeaconParticle.MagicData();
 	}
 
 	@Override
@@ -141,9 +142,9 @@ public class InvigorateAbility extends AoeBuffAbility {
 
 	@Override
 	public ResourceLocation[] getSkillTextures() {
-		return new ResourceLocation[]{new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/invigorate_0.png"),
-                					new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/invigorate_1.png"),
-                					new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/invigorate_2.png")};
+		return new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/invigorate_0.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/invigorate_1.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/deepwoods/invigorate_2.png")};
 	}
 
 }

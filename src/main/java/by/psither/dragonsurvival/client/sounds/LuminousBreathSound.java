@@ -3,8 +3,8 @@ package by.psither.dragonsurvival.client.sounds;
 import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.LuminousBreathAbility;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.sounds.SoundSource;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn( Dist.CLIENT )
 public class LuminousBreathSound extends AbstractTickableSoundInstance{

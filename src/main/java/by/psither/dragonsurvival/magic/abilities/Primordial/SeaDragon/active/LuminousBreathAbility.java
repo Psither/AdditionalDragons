@@ -1,7 +1,8 @@
 package by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active;
 
+import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
-import by.psither.dragonsurvival.client.particles.SeaDragon.LargeGlowSlimeParticleData;
+import by.psither.dragonsurvival.client.particles.SeaDragon.LargeGlowSlimeParticle;
 import by.psither.dragonsurvival.client.sounds.LuminousBreathSound;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.client.sounds.ADSoundRegistry;
@@ -46,10 +47,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.DistExecutor.SafeRunnable;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @RegisterDragonAbility
 public class LuminousBreathAbility extends BreathAbility {
@@ -129,7 +128,7 @@ public class LuminousBreathAbility extends BreathAbility {
 				pos.x,pos.y,pos.z
 		);
 		Minecraft.getInstance().getSoundManager().playDelayed(startingSound, 0);
-		Minecraft.getInstance().getSoundManager().stop(new ResourceLocation(AdditionalDragonsMod.MODID, "luminous_breath_loop"), SoundSource.PLAYERS);
+		Minecraft.getInstance().getSoundManager().stop(ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "luminous_breath_loop"), SoundSource.PLAYERS);
 		Minecraft.getInstance().getSoundManager().queueTickingSound(new LuminousBreathSound(this));
 	}
 	
@@ -147,7 +146,7 @@ public class LuminousBreathAbility extends BreathAbility {
 			Minecraft.getInstance().getSoundManager().playDelayed(endSound, 0);
 		}
 
-		Minecraft.getInstance().getSoundManager().stop(new ResourceLocation(AdditionalDragonsMod.MODID, "luminous_breath_loop"), SoundSource.PLAYERS);
+		Minecraft.getInstance().getSoundManager().stop(ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "luminous_breath_loop"), SoundSource.PLAYERS);
 	}
 	
 	@Override
@@ -155,7 +154,7 @@ public class LuminousBreathAbility extends BreathAbility {
 		super.onChanneling(player, castDuration);
 
 		if(player.level().isClientSide && castDuration <= 0){
-			DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> (SafeRunnable)this::sound);
+			sound();
 		}
 
 		if(player.level().isClientSide){
@@ -164,14 +163,14 @@ public class LuminousBreathAbility extends BreathAbility {
 				double ySpeed = speed * 1f * yComp + (spread * 0.7 * (player.getRandom().nextFloat() * 2 - 1) * Math.sqrt(1 - yComp * yComp));
 				double zSpeed = speed * 1f * zComp + (spread * 1.7 * (player.getRandom().nextFloat() * 2 - 1) * Math.sqrt(1 - zComp * zComp));
 				int dur = (int) (player.getRandom().nextFloat() * 64 + 16);
-				player.level().addParticle(new LargeGlowSlimeParticleData(dur, false), dx, dy, dz, xSpeed, ySpeed, zSpeed);
+				player.level().addParticle(new LargeGlowSlimeParticle.Data(dur, false), dx, dy, dz, xSpeed, ySpeed, zSpeed);
 			}
 
 			for(int i = 0; i < 2; i++){
 				  double xSpeed = speed * xComp;
 				  double ySpeed = speed * yComp;
 				  double zSpeed = speed * zComp;
-				  player.level().addParticle(new LargeGlowSlimeParticleData(37, true), dx, dy, dz, xSpeed, ySpeed, zSpeed);
+				  player.level().addParticle(new LargeGlowSlimeParticle.Data(37, true), dx, dy, dz, xSpeed, ySpeed, zSpeed);
 			}
 		}
 
@@ -202,7 +201,7 @@ public class LuminousBreathAbility extends BreathAbility {
 		ItemStack gs = new ItemStack(ADBlocks.glowSlime, 1);
 		UseOnContext uc = new UseOnContext(player.level(), player, InteractionHand.MAIN_HAND, gs, bhr);
 		// Give closer blocks an increased chance to apply
-		double mathDist = player.position().distanceToSqr(new Vec3(pos.getX(), pos.getY(), pos.getZ())) / calculateCurrentBreathRange(DragonUtils.getHandler(player).getSize());
+		double mathDist = player.position().distanceToSqr(new Vec3(pos.getX(), pos.getY(), pos.getZ())) / calculateCurrentBreathRange(DragonStateProvider.getOrGenerateHandler(player).getSize());
 		creationChance /= mathDist;
 		if (player.getRandom().nextInt(100) < creationChance) {
 			InteractionResult ir = ADBlocks.glowSlime.asItem().useOn(uc);
@@ -239,7 +238,7 @@ public class LuminousBreathAbility extends BreathAbility {
 
 	@Override
 	public void castComplete(Player player) {
-		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> (SafeRunnable)this::stopSound); // FIXME :: dist
+		sound();
 	}
 
 	@Override
@@ -288,11 +287,11 @@ public class LuminousBreathAbility extends BreathAbility {
 
 	@Override
 	public ResourceLocation[] getSkillTextures() {
-		return new ResourceLocation[]{new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/luminous_breath_0.png"),
-									  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/luminous_breath_1.png"),
-									  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/luminous_breath_2.png"),
-									  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/luminous_breath_3.png"),
-									  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/primordial/luminous_breath_4.png")};
+		return new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/luminous_breath_0.png"),
+									  ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/luminous_breath_1.png"),
+									  ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/luminous_breath_2.png"),
+									  ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/luminous_breath_3.png"),
+									  ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/primordial/luminous_breath_4.png")};
 	}
 
 	@Override

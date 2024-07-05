@@ -1,6 +1,6 @@
 package by.psither.dragonsurvival.common.entity.projectiles;
 
-import by.dragonsurvivalteam.dragonsurvival.registry.DragonEffects;
+import by.dragonsurvivalteam.dragonsurvival.registry.DSEffects;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.dragonsurvivalteam.dragonsurvival.util.TargetingFunctions;
 import by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active.FaultLineAbility;
@@ -14,6 +14,7 @@ import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -38,7 +39,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraftforge.network.NetworkHooks;
 
 public class FaultLineProjectileEntity extends AbstractArrow {
 	public static final EntityDataAccessor<Integer> ARROW_LEVEL = SynchedEntityData.defineId(FaultLineProjectileEntity.class, EntityDataSerializers.INT);
@@ -53,14 +53,14 @@ public class FaultLineProjectileEntity extends AbstractArrow {
 	}
 
 	public FaultLineProjectileEntity(EntityType<? extends AbstractArrow> type, LivingEntity entity, Level world){
-		super(type, entity, world);
+		super(type, world);
 	}
 
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		entityData.define(ARROW_LEVEL, 1);
-		entityData.define(AMMO_TYPE, ItemStack.EMPTY);
+	protected void defineSynchedData(SynchedEntityData.Builder pBuilder){
+		super.defineSynchedData(pBuilder);
+		pBuilder.define(ARROW_LEVEL, 1);
+		pBuilder.define(AMMO_TYPE, ItemStack.EMPTY);
 	}
 
 	@Override
@@ -98,8 +98,7 @@ public class FaultLineProjectileEntity extends AbstractArrow {
 				}
 
 				if(!level().isClientSide() && entity1 instanceof LivingEntity){
-					EnchantmentHelper.doPostHurtEffects(livingentity, entity1);
-					EnchantmentHelper.doPostDamageEffects((LivingEntity)entity1, livingentity);
+					EnchantmentHelper.doPostAttackEffects((ServerLevel) level(), livingentity, damagesource);
 				}
 
 				doPostHurtEffects(livingentity);
@@ -126,13 +125,13 @@ public class FaultLineProjectileEntity extends AbstractArrow {
 	@Override
 	public void doPostHurtEffects(LivingEntity entity) {
 		if (this.isOnFire()) {
-			entity.setSecondsOnFire(5);
+			entity.setRemainingFireTicks(Functions.secondsToTicks(5));
 		}
 		if (getAmmoType().getItem().equals(Items.MUD)) {
 			entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, Functions.secondsToTicks(5)));
 			entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, Functions.secondsToTicks(5)));
 		} else if (getAmmoType().getItem().equals(Items.MAGMA_BLOCK)) {
-			entity.addEffect(new MobEffectInstance(DragonEffects.BURN, Functions.secondsToTicks(5)));
+			entity.addEffect(new MobEffectInstance(DSEffects.BURN, Functions.secondsToTicks(5)));
 		}
 	}
 
@@ -196,6 +195,11 @@ public class FaultLineProjectileEntity extends AbstractArrow {
 		return ammo == null ? ItemStack.EMPTY : ammo;
 	}
 
+	@Override
+	protected ItemStack getDefaultPickupItem() {
+		return ItemStack.EMPTY;
+	}
+
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
 		tag.putInt("level", getArrowLevel());
@@ -206,11 +210,6 @@ public class FaultLineProjectileEntity extends AbstractArrow {
 		super.readAdditionalSaveData(tag);
 		setArrowLevel(tag.getInt("level"));
 		setAmmoType(new ItemStack(FaultLineAbility.faultLineAmmoTypes.get(tag.getString("ammo"))));
-	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket(){
-		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	public void setAmmoType(ItemStack ammo) {

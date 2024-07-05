@@ -8,6 +8,7 @@ import java.util.Map;
 
 import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateHandler;
+import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
@@ -17,7 +18,7 @@ import by.dragonsurvivalteam.dragonsurvival.magic.common.active.InstantCastAbili
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
-import by.psither.dragonsurvival.client.particles.CaveDragon.LargeBlastDustParticleData;
+import by.psither.dragonsurvival.client.particles.CaveDragon.LargeBlastDustParticle;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.common.entity.projectiles.FaultLineProjectileEntity;
 import by.psither.dragonsurvival.registry.ADEntities;
@@ -32,8 +33,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @RegisterDragonAbility
 public class FaultLineAbility extends InstantCastAbility {
@@ -116,7 +117,7 @@ public class FaultLineAbility extends InstantCastAbility {
 		double d4 = vector3d.z * speed;
 		boolean creative = player.getAbilities().instabuild; // creative mode
 
-		DragonStateHandler handler = DragonUtils.getHandler(player);
+		DragonStateHandler handler = DragonStateProvider.getOrGenerateHandler(player);
 		handler.getMovementData().bite = true;
 
 		for (int i = getLevel(); i > 0; i--) {
@@ -144,7 +145,7 @@ public class FaultLineAbility extends InstantCastAbility {
 			entity.setShotLevel(getLevel());
 			entity.setSoundEvent(faultLineAmmoSounds.get(shot.getItem()));
 			if (shot.getItem().equals(Items.MAGMA_BLOCK) && !entity.isInWaterRainOrBubble())
-				entity.setSecondsOnFire(5);
+				entity.setRemainingFireTicks(Functions.secondsToTicks(5));
 			if (creative || (!faultLineMultishotConsumesMore && i > 1))
 				entity.pickup = AbstractArrow.Pickup.DISALLOWED;
 			entity.shootFromRotation(player, player.getXRot() + spreadPatternX[i], player.getYRot() + spreadPatternY[i], 0.0F, 4F, i * faultLineSpread);
@@ -255,10 +256,11 @@ public class FaultLineAbility extends InstantCastAbility {
 
 	@Override
 	public ResourceLocation[] getSkillTextures() {
-		return new ResourceLocation[]{new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/fault_line_0.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/fault_line_1.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/fault_line_2.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/fault_line_3.png"),
-				  					  new ResourceLocation(AdditionalDragonsMod.MODID, "textures/skills/tectonic/fault_line_4.png")};
+		return new ResourceLocation[]{
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/fault_line_0.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/fault_line_1.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/fault_line_2.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/fault_line_3.png"),
+				ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, "textures/skills/tectonic/fault_line_4.png")};
 	}
 }

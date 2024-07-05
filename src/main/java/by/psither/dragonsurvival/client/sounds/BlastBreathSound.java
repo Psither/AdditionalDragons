@@ -3,8 +3,8 @@ package by.psither.dragonsurvival.client.sounds;
 import by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active.BlastBreathAbility;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.sounds.SoundSource;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn( Dist.CLIENT )
 public class BlastBreathSound extends AbstractTickableSoundInstance{

@@ -1,13 +1,13 @@
 package by.psither.dragonsurvival.client.sounds;
 
 import by.psither.dragonsurvival.AdditionalDragonsMod;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ADSoundRegistry {
-	public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, AdditionalDragonsMod.MODID);
+	public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, AdditionalDragonsMod.MODID);
 	public static SoundEvent luminousBreathStart, luminousBreathLoop, luminousBreathEnd;
 	public static SoundEvent bugZapper;
 	public static SoundEvent blastBreathStart, blastBreathLoop, blastBreathEnd;
@@ -27,7 +27,7 @@ public class ADSoundRegistry {
 	}
 	
 	private static SoundEvent register(String name){
-		SoundEvent soundEvent = SoundEvent.createVariableRangeEvent(new ResourceLocation(AdditionalDragonsMod.MODID, name));
+		SoundEvent soundEvent = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(AdditionalDragonsMod.MODID, name));
 		SOUNDS.register(name, ()->soundEvent);
 		return soundEvent;
 	}
