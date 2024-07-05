@@ -1,6 +1,5 @@
 package by.psither.dragonsurvival;
 
-import by.psither.dragonsurvival.client.particles.ADParticles;
 import by.psither.dragonsurvival.client.sounds.ADSoundRegistry;
 import by.psither.dragonsurvival.registry.datagen.loot.MarrowLootModifier;
 import com.mojang.serialization.MapCodec;
@@ -19,6 +18,7 @@ import static by.psither.dragonsurvival.client.sounds.ADSoundRegistry.SOUNDS;
 import static by.psither.dragonsurvival.registry.ADEntities.ENTITY_TYPES;
 import static by.psither.dragonsurvival.registry.ADBlocks.AD_BLOCKS;
 import static by.psither.dragonsurvival.registry.ADItems.AD_ITEMS;
+import static by.psither.dragonsurvival.registry.ADDragonEffects.AD_MOB_EFFECTS;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.registry.ADCreativeTabs;
 
@@ -37,6 +37,7 @@ public class AdditionalDragonsMod {
 
 		AD_BLOCKS.register(modEventBus);
 		AD_ITEMS.register(modEventBus);
+		AD_MOB_EFFECTS.register(modEventBus);
 		AD_PARTICLES.register(modEventBus);
 		SOUNDS.register(modEventBus);
 		ENTITY_TYPES.register(modEventBus);
