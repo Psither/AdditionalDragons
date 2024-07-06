@@ -2,6 +2,7 @@ package by.psither.dragonsurvival;
 
 import by.psither.dragonsurvival.client.sounds.ADSoundRegistry;
 import by.psither.dragonsurvival.registry.datagen.loot.MarrowLootModifier;
+import by.psither.dragonsurvival.registry.datagen.loot.SeekingTalonsLootModifier;
 import com.mojang.serialization.MapCodec;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -27,10 +28,9 @@ public class AdditionalDragonsMod {
 	public static final String MODID = "additionaldragons";
 	public static final Logger LOGGER = LogManager.getLogger("Additional Dragons");
 
-	public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> GLM =
-			DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MODID);
-	public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<MarrowLootModifier>>
-			marrowLoot = AdditionalDragonsMod.GLM.register("marrow_loot", () -> MarrowLootModifier.CODEC);
+	public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> GLM = DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MODID);
+	public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<MarrowLootModifier>> MARROW_LOOT = GLM.register("marrow", MarrowLootModifier.CODEC);
+	public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<SeekingTalonsLootModifier>> SEEKING_TALONS_LOOT = GLM.register("seeking_talons", SeekingTalonsLootModifier.CODEC);
 	
 	public AdditionalDragonsMod(IEventBus modEventBus, ModContainer modContainer) {
 		ADDragonTypes.registerSubtypes();
@@ -41,11 +41,10 @@ public class AdditionalDragonsMod {
 		AD_PARTICLES.register(modEventBus);
 		SOUNDS.register(modEventBus);
 		ENTITY_TYPES.register(modEventBus);
+		GLM.register(modEventBus);
 
 		ADSoundRegistry.register();
 		
 		ADCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
-
-		//NeoForge.EVENT_BUS.register(this);
 	}
 }

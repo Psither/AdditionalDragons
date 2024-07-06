@@ -1,0 +1,22 @@
+{
+    "type": "additionaldragons:marrow",
+    "conditions": [
+        {
+            "condition": "minecraft:all_of",
+            "terms": [
+                {
+                    "condition": "minecraft:killed_by_player"
+                },
+                {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                        "effects": {
+                            "additionaldragons:confounded": {}
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

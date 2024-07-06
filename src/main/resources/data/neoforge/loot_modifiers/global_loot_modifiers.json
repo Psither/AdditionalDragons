@@ -1,6 +1,7 @@
 {
   "replace": false,
   "entries": [
-    "additionaldragons:cursed_marrow"
+    "additionaldragons:marrow",
+    "additionaldragons:seeking_talons"
   ]
 }

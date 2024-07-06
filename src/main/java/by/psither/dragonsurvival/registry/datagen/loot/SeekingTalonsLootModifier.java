@@ -1,5 +1,6 @@
 package by.psither.dragonsurvival.registry.datagen.loot;
 
+import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.psither.dragonsurvival.registry.ADItems;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
@@ -23,26 +24,22 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class MarrowLootModifier extends LootModifier {
-    public static final Supplier<MapCodec<MarrowLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(instance -> codecStart(instance).apply(instance, MarrowLootModifier::new)));
+public class SeekingTalonsLootModifier extends LootModifier {
+    public static final Supplier<MapCodec<SeekingTalonsLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(instance -> codecStart(instance).apply(instance, SeekingTalonsLootModifier::new)));
 
-    public MarrowLootModifier(LootItemCondition[] conditionsIn) { super(conditionsIn); }
+    public SeekingTalonsLootModifier(LootItemCondition[] conditionsIn) { super(conditionsIn); }
 
     @Override
     protected @NotNull ObjectArrayList<ItemStack> doApply(@NotNull ObjectArrayList<ItemStack> generatedLoot, @NotNull LootContext context) {
         Entity attacker = context.getParamOrNull(LootContextParams.ATTACKING_ENTITY);
         if (attacker instanceof LivingEntity living) {
-            int lootingLevel = EnchantmentHelper.getTagEnchantmentLevel(
-                    context.getLevel().registryAccess().registry(Registries.ENCHANTMENT).get().getHolderOrThrow(Enchantments.LOOTING),
-                    living.getWeaponItem()
-            );
-            int lootingRoll = lootingLevel < 1 ? 1 : context.getRandom().nextInt(lootingLevel);
-            generatedLoot.add(new ItemStack(ADItems.CURSED_MARROW, lootingRoll));
+            int talonBonus = 0;
+            if (living.hasEffect(ADDragonEffects.SEEKING_TALONS)) {
+                talonBonus = living.getEffect(ADDragonEffects.SEEKING_TALONS).getAmplifier() + 1;
+            }
+            talonBonus = talonBonus < 1 ? 1 : context.getRandom().nextInt(talonBonus);
             for (ItemStack itemStack : generatedLoot) {
-                if (itemStack.is(Items.BONE)) {
-                    generatedLoot.add(new ItemStack(ADItems.CURSED_MARROW, itemStack.getCount()));
-                    generatedLoot.remove(itemStack);
-                }
+                itemStack.setCount(itemStack.getCount() + talonBonus);
             }
         }
         return generatedLoot;

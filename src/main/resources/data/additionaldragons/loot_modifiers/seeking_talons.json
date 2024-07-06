@@ -1,0 +1,17 @@
+{
+  "type": "additionaldragons:seeking_talons",
+  "conditions": [
+    {
+      "condition": "minecraft:killed_by_player"
+    },
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "attacking_player",
+      "predicate": {
+        "effects": {
+          "additionaldragons:seeking_talons": {}
+        }
+      }
+    }
+  ]
+}
