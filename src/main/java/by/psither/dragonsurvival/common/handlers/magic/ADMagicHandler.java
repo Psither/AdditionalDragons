@@ -9,19 +9,13 @@ import by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active.S
 import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.BubbleShieldAbility;
 import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.HighVoltageAbility;
 
-import java.util.Collection;
-
 import by.dragonsurvivalteam.dragonsurvival.client.handlers.magic.ClientMagicHandler;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.SeaDragon.LargeLightningParticle;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
-import by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonFoodHandler;
 import by.psither.dragonsurvival.registry.ADDamageTypes;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
-import by.psither.dragonsurvival.registry.ADItems;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -36,13 +30,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.lighting.LevelLightEngine;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -53,6 +41,7 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
 
+@SuppressWarnings("unused")
 @EventBusSubscriber
 public class ADMagicHandler {
 	private static final ResourceLocation INVIGORATE_MOVEMENT_SPEED = ResourceLocation.fromNamespaceAndPath(MODID, "invigorate_movement_speed");
@@ -186,7 +175,7 @@ public class ADMagicHandler {
 	}
 
 	@SubscribeEvent
-	public static void livingDamage(LivingDamageEvent event) {
+	public static void livingDamage(LivingDamageEvent.Post event) {
 		if (event.getSource().getEntity() != null) {
 			LivingEntity damagedEntity = event.getEntity();
 			Entity damageSource = event.getSource().getEntity();
@@ -199,13 +188,14 @@ public class ADMagicHandler {
 				}
 			}
 		}
-		if (event.getEntity() != null && !event.getEntity().level().isClientSide()) {
+
+        if (!event.getEntity().level().isClientSide()) {
 			LivingEntity entity = event.getEntity();
 			DamageSource src = event.getSource();
 			if (src.getEntity() instanceof LivingEntity en && !en.equals(entity) && en.hasEffect(ADDragonEffects.CONFOUNDED)) {
-				ConfoundingBreathAbility.reflectDamage(en, en.getEffect(ADDragonEffects.CONFOUNDED).getAmplifier(), event.getAmount());
+				ConfoundingBreathAbility.reflectDamage(en, en.getEffect(ADDragonEffects.CONFOUNDED).getAmplifier(), event.getNewDamage());
 			} else if (src.getDirectEntity() instanceof LivingEntity en && !en.equals(entity) && en.hasEffect(ADDragonEffects.CONFOUNDED)) {
-				ConfoundingBreathAbility.reflectDamage(en, en.getEffect(ADDragonEffects.CONFOUNDED).getAmplifier(), event.getAmount());
+				ConfoundingBreathAbility.reflectDamage(en, en.getEffect(ADDragonEffects.CONFOUNDED).getAmplifier(), event.getNewDamage());
 			}
 			if (entity.hasEffect(ADDragonEffects.BUBBLE_SHIELD) && entity.level() instanceof ServerLevel) {
 				if (event.getEntity().getAbsorptionAmount() <= 0)
@@ -247,10 +237,10 @@ public class ADMagicHandler {
 	}*/
 
 	@SubscribeEvent
-	public static void livingHurt(LivingHurtEvent event) {
+	public static void livingHurt(LivingDamageEvent.Pre event) {
 		// Cave dragons are immune to their own blast dust damage.
 		if (event.getSource().is(ADDamageTypes.BLAST_DUST) && (DragonStateProvider.isDragon(event.getEntity()) && DragonUtils.isDragonType(event.getEntity(), DragonTypes.CAVE))) {
-			event.setCanceled(true);
+			event.setNewDamage(0);
 		}
 	}
 

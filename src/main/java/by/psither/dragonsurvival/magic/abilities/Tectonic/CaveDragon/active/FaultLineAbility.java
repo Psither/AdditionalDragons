@@ -1,24 +1,20 @@
 package by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigSide;
+import by.dragonsurvivalteam.dragonsurvival.input.Keybind;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.InstantCastAbility;
-import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
-import by.psither.dragonsurvival.client.particles.CaveDragon.LargeBlastDustParticle;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.common.entity.projectiles.FaultLineProjectileEntity;
 import by.psither.dragonsurvival.registry.ADEntities;
@@ -126,7 +122,7 @@ public class FaultLineAbility extends InstantCastAbility {
 				if (creative) {
 					// In creative, make a standard shot.
 					shot = new ItemStack(Items.STONE);
-				} else if (!faultLineMultishotConsumesMore && i > 0) {
+				} else if (!faultLineMultishotConsumesMore) {
 					// No ammo to shoot, and not in creative, make some smoke.
 					player.level().addParticle(ParticleTypes.SMOKE, player.getX(), player.getY() + player.getEyeHeight(), player.getZ(), 0.0, 0.0, 0.0);
 					continue;
@@ -218,11 +214,11 @@ public class FaultLineAbility extends InstantCastAbility {
 		ArrayList<Component> components = super.getInfo();
 		components.add(Component.translatable("ds.skill.damage", (int) getDamage()));
 
-		if(!KeyInputHandler.ABILITY2.isUnbound()){
-			String key = KeyInputHandler.ABILITY2.getKey().getDisplayName().getString().toUpperCase(Locale.ROOT);
+		if(!Keybind.ABILITY2.get().isUnbound()){
+			String key = Keybind.ABILITY2.getKey().getDisplayName().getString().toUpperCase(Locale.ROOT);
 
 			if(key.isEmpty()){
-				key = KeyInputHandler.ABILITY2.getKey().getDisplayName().getString();
+				key = Keybind.ABILITY2.getKey().getDisplayName().getString();
 			}
 			components.add(Component.translatable("ds.skill.keybind", key));
 		}

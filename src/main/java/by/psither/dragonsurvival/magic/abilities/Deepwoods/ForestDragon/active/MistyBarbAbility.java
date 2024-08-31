@@ -3,17 +3,16 @@ package by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
+import by.dragonsurvivalteam.dragonsurvival.input.Keybind;
 import by.psither.dragonsurvival.common.entity.projectiles.MistyBarbProjectileEntity;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigSide;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.ChargeCastAbility;
-import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
@@ -147,12 +146,12 @@ public class MistyBarbAbility extends ChargeCastAbility {
 		components.add(Component.translatable("ds.skill.damage", getDamage()));
 		components.add(Component.translatable("ds.skill.range.blocks", getRange()));
 
-		if(!KeyInputHandler.ABILITY2.isUnbound()){
+		if(!Keybind.ABILITY2.get().isUnbound()){
 
-			String key = KeyInputHandler.ABILITY2.getKey().getDisplayName().getString().toUpperCase(Locale.ROOT);
+			String key = Keybind.ABILITY2.getKey().getDisplayName().getString().toUpperCase(Locale.ROOT);
 
 			if(key.isEmpty()){
-				key = KeyInputHandler.ABILITY2.getKey().getDisplayName().getString();
+				key = Keybind.ABILITY2.getKey().getDisplayName().getString();
 			}
 			components.add(Component.translatable("ds.skill.keybind", key));
 		}

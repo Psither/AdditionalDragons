@@ -3,11 +3,11 @@ package by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigSide;
+import by.dragonsurvivalteam.dragonsurvival.input.Keybind;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.AbilityAnimation;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.ChargeCastAbility;
@@ -155,11 +155,11 @@ public class SeekingTalonsAbility extends ChargeCastAbility {
 		components.add(Component.translatable("ds.skill.critboost", (int) getDamage() + "x"));
 		components.add(Component.translatable("ds.skill.loot", getBonusLoot()));
 
-		if(!KeyInputHandler.ABILITY4.isUnbound()){
-			String key = KeyInputHandler.ABILITY4.getKey().getDisplayName().getString().toUpperCase(Locale.ROOT);
+		if(!Keybind.ABILITY4.get().isUnbound()){
+			String key = Keybind.ABILITY4.getKey().getDisplayName().getString().toUpperCase(Locale.ROOT);
 
 			if(key.isEmpty()){
-				key = KeyInputHandler.ABILITY4.getKey().getDisplayName().getString();
+				key = Keybind.ABILITY4.getKey().getDisplayName().getString();
 			}
 			components.add(Component.translatable("ds.skill.keybind", key));
 		}

@@ -1,7 +1,8 @@
 package by.psither.dragonsurvival.common.handlers;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Map;
 
 import by.dragonsurvivalteam.dragonsurvival.DragonSurvivalMod;
 import by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonConfigHandler;
@@ -17,6 +18,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 
+@SuppressWarnings("unused")
 @EventBusSubscriber(modid = DragonSurvivalMod.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class ADDragonConfigHandler {
 
@@ -32,7 +34,7 @@ public class ADDragonConfigHandler {
 	}
 
 	public static void rebuildSpeedupBlocksMap(){
-		HashMap<String, List<Block>> speedupMap = new HashMap<>();
+		Map<String, HashSet<Block>> speedupMap = new HashMap<>();
 		speedupMap.put(ADDragonTypes.TECTONIC.getTypeName(), ConfigHandler.getResourceElements(Block.class, ServerConfig.caveSpeedupBlocks));
 		speedupMap.put(ADDragonTypes.DEEPWOODS.getTypeName(), ConfigHandler.getResourceElements(Block.class, ServerConfig.forestSpeedupBlocks));
 		speedupMap.put(ADDragonTypes.PRIMORDIAL.getTypeName(), ConfigHandler.getResourceElements(Block.class, ServerConfig.seaSpeedupBlocks));
@@ -40,7 +42,7 @@ public class ADDragonConfigHandler {
 	}
 
 	public static void rebuildBreathBlocks(){
-		HashMap<String, List<Block>> breathMap = new HashMap<>();
+		Map<String, HashSet<Block>> breathMap = new HashMap<>();
 		breathMap.put(ADDragonTypes.TECTONIC.getTypeName(), ConfigHandler.getResourceElements(Block.class, NetherBreathAbility.fireBreathBlockBreaks));
 		breathMap.put(ADDragonTypes.DEEPWOODS.getTypeName(), ConfigHandler.getResourceElements(Block.class, ForestBreathAbility.forestBreathBlockBreaks));
 		breathMap.put(ADDragonTypes.PRIMORDIAL.getTypeName(), ConfigHandler.getResourceElements(Block.class, StormBreathAbility.stormBreathBlockBreaks));
@@ -48,9 +50,10 @@ public class ADDragonConfigHandler {
 	}
 
 	public static void rebuildManaBlocks(){
-		//HashMap<String, List<Block>> map = new HashMap<>();
+		Map<String, HashSet<Block>> map = new HashMap<>();
 		DragonConfigHandler.DRAGON_MANA_BLOCKS.put(ADDragonTypes.TECTONIC.getTypeName(), ConfigHandler.getResourceElements(Block.class, ServerConfig.caveDragonManaBlocks));
 		DragonConfigHandler.DRAGON_MANA_BLOCKS.put(ADDragonTypes.DEEPWOODS.getTypeName(), ConfigHandler.getResourceElements(Block.class, ServerConfig.forestDragonManaBlocks));
 		DragonConfigHandler.DRAGON_MANA_BLOCKS.put(ADDragonTypes.PRIMORDIAL.getTypeName(), ConfigHandler.getResourceElements(Block.class, ServerConfig.seaDragonManaBlocks));
+		DragonConfigHandler.DRAGON_MANA_BLOCKS = map;
 	}
 }

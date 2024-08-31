@@ -1,9 +1,9 @@
 package by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active;
 
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
+import by.dragonsurvivalteam.dragonsurvival.input.Keybind;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.client.sounds.ADSoundRegistry;
-import by.psither.dragonsurvival.common.blocks.GlowSlimeBlock;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 
 import java.util.ArrayList;
@@ -15,13 +15,11 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
 
-import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.SeaDragon.LargeLightningParticle;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.EntityStateHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.dragonsurvivalteam.dragonsurvival.common.entity.projectiles.BallLightningEntity;
-import by.dragonsurvivalteam.dragonsurvival.common.handlers.magic.ManaHandler;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigSide;
@@ -30,26 +28,21 @@ import by.dragonsurvivalteam.dragonsurvival.magic.common.AbilityAnimation;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.ChargeCastAbility;
 import by.dragonsurvivalteam.dragonsurvival.registry.DSEffects;
-import by.psither.dragonsurvival.registry.ADBlocks;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.psither.dragonsurvival.utils.MathUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.dragonsurvivalteam.dragonsurvival.util.ResourceHelper;
 import by.dragonsurvivalteam.dragonsurvival.util.TargetingFunctions;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.HitResult;
@@ -162,7 +155,6 @@ public class HighVoltageAbility extends ChargeCastAbility {
 		if(source.level().isClientSide){
 			// Creates a trail of particles between the entity and target(s)
 			int steps = 20;
-			Vector3f randLoc = MathUtils.randomPointInSphere((float) getPassiveRange(amp), source.getRandom());
 			for (int i = 0; i < steps; i++) {
 				Vec3 distV = new Vec3(target.getX() - source.getX(), target.getY() - source.getY(), target.getZ() - source.getZ());
 				double distFrac = (steps - (double)(i)) / steps;
@@ -215,7 +207,7 @@ public class HighVoltageAbility extends ChargeCastAbility {
 				for (int i = 0; i < (5 * (amp + 1)); i++) {
 					Vector3f loc = MathUtils.randomPointInSphere((float) getPassiveRange(amp), entity.getRandom());
 					float randX = (entity.getRandom().nextFloat() * 3f) - 1.5f;
-					float randY = (entity.getRandom().nextFloat() * 1f) - 0.5f;
+					float randY = (entity.getRandom().nextFloat()) - 0.5f;
 					float randZ = (entity.getRandom().nextFloat() * 3f) - 1.5f;
 					entity.level().addParticle(new LargeLightningParticle.Data(15, false), entity.getX() + loc.x(), entity.getY() + entity.getEyeHeight() + loc.y(), entity.getZ() + loc.z(), randX * 0.1, randY * 0.1, randZ * 0.1);
 				}
@@ -264,11 +256,11 @@ public class HighVoltageAbility extends ChargeCastAbility {
 		components.add(Component.translatable("ds.skill.range.active", (int) getActiveRange()));
 		components.add(Component.translatable("ds.skill.damage", (int) getDamage()));
 
-		if(!KeyInputHandler.ABILITY4.isUnbound()){
-			String key = KeyInputHandler.ABILITY4.getKey().getDisplayName().getString().toUpperCase(Locale.ROOT);
+		if(!Keybind.ABILITY4.get().isUnbound()){
+			String key = Keybind.ABILITY4.getKey().getDisplayName().getString().toUpperCase(Locale.ROOT);
 
 			if(key.isEmpty()){
-				key = KeyInputHandler.ABILITY4.getKey().getDisplayName().getString();
+				key = Keybind.ABILITY4.getKey().getDisplayName().getString();
 			}
 			components.add(Component.translatable("ds.skill.keybind", key));
 		}

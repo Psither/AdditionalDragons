@@ -9,9 +9,7 @@ import by.psither.dragonsurvival.client.sounds.ADSoundRegistry;
 import by.psither.dragonsurvival.registry.ADBlocks;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
-import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
@@ -21,7 +19,6 @@ import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.BreathAbility;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
-import by.dragonsurvivalteam.dragonsurvival.util.TargetingFunctions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -86,8 +83,6 @@ public class LuminousBreathAbility extends BreathAbility {
 
 	@ConfigOption (side = ConfigSide.SERVER, category = {"magic", "abilities", "primordial_dragon", "luminous_breath"}, key = "luminousBreathLightOutOfWater", comment = "Whether luminous breath's glow slime can produce light outside of water" )
 	public static boolean luminousBreathLightOutOfWater = true;
-	
-	public boolean clipsWater = false;
 
 	public static boolean getLightOutOfWater() {
 		return luminousBreathLightOutOfWater;
@@ -192,7 +187,7 @@ public class LuminousBreathAbility extends BreathAbility {
 		}
 		
 		boolean wl = false;
-		int creationChance = 30;
+		double creationChance = 30;
 		if (blockState.hasProperty(BlockStateProperties.WATERLOGGED))
 			wl = blockState.getValue(BlockStateProperties.WATERLOGGED);
 		if (wl || blockState.getBlock().equals(Blocks.WATER))
@@ -206,7 +201,7 @@ public class LuminousBreathAbility extends BreathAbility {
 		if (player.getRandom().nextInt(100) < creationChance) {
 			InteractionResult ir = ADBlocks.glowSlime.asItem().useOn(uc);
 			if (ir.consumesAction()) {
-				player.level().playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.SLIME_BLOCK_PLACE, SoundSource.BLOCKS, 2F, 1F, false);
+				serverLevel.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.SLIME_BLOCK_PLACE, SoundSource.BLOCKS, 2F, 1F, false);
 			}
 		}
 	}

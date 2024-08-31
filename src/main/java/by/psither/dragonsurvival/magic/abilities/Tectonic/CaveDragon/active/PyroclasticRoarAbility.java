@@ -2,14 +2,12 @@ package by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.joml.Vector3f;
 
-import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.CaveDragon.LargeFireParticle;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.CaveDragon.SmallFireParticle;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
@@ -19,21 +17,17 @@ import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigSide;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.AbilityAnimation;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.ChargeCastAbility;
-import by.dragonsurvivalteam.dragonsurvival.registry.DSDamageTypes;
-import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.registry.ADDamageTypes;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.psither.dragonsurvival.utils.MathUtils;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -119,8 +113,6 @@ public class PyroclasticRoarAbility extends ChargeCastAbility {
 			if (player.level().clip(cc).getType() == HitResult.Type.BLOCK) {
 				return;
 			}
-			float f2 = getRange() * 2.0F;
-			Vec3 vec3 = new Vec3(player.getX(), player.getY(), player.getZ());
 			double d5 = entity.getX() - player.getX();
 			double d7 = entity.getY() - player.getY();
 			double d9 = entity.getZ() - player.getZ();
@@ -129,8 +121,8 @@ public class PyroclasticRoarAbility extends ChargeCastAbility {
 				d5 /= d13;
 				d7 /= d13;
 				d9 /= d13;
-				double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double)f2;
-				double d10 = (getRange() - d12) * 0.3;
+                getRange();
+                double d10;
 				entity.hurt(this.getDamageSource(), (float) getDamage());
 				if (entity instanceof LivingEntity livingentity) {
 					d10 = d13 * (1.0 - livingentity.getAttributeValue(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE));

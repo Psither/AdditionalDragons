@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import by.dragonsurvivalteam.dragonsurvival.input.Keybind;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
@@ -11,7 +12,6 @@ import org.joml.Vector3f;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.utils.MathUtils;
-import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
@@ -26,12 +26,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
+@SuppressWarnings("unused")
 @RegisterDragonAbility
 public class GroupHealAbility extends ChargeCastAbility {
 
@@ -109,11 +109,11 @@ public class GroupHealAbility extends ChargeCastAbility {
 		components.add(Component.translatable("ds.skill.aoe", (int) getRange() + "x" + (int) getRange()));
 		components.add(Component.translatable("ds.skill.heal.strength", getHealStrength()));
 
-		if(!KeyInputHandler.ABILITY2.isUnbound()){
-			String key = KeyInputHandler.ABILITY2.getKey().getDisplayName().getString().toUpperCase(Locale.ROOT);
+		if(!Keybind.ABILITY2.get().isUnbound()){
+			String key = Keybind.ABILITY2.getKey().getDisplayName().getString().toUpperCase(Locale.ROOT);
 
 			if(key.isEmpty()){
-				key = KeyInputHandler.ABILITY2.getKey().getDisplayName().getString();
+				key = Keybind.ABILITY2.getKey().getDisplayName().getString();
 			}
 			components.add(Component.translatable("ds.skill.keybind", key));
 		}
@@ -207,8 +207,6 @@ public class GroupHealAbility extends ChargeCastAbility {
 		if (livingentity.isInvertedHealAndHarm()) {
 			if (!player.level().isClientSide()) {
 				float hp = livingentity.getHealth();
-				DamageSources damageSources = new DamageSources(null);
-				damageSources.magic();
 				livingentity.hurt(player.damageSources().magic(), getHealStrength() * 2);
 				return Math.min(hp, getHealStrength() * 2);
 			}
