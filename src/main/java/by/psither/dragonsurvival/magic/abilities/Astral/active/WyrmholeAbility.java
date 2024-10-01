@@ -68,11 +68,20 @@ public class WyrmholeAbility extends InstantCastAbility {
         return 2;
     }
 
+    public void onKeyPressed(Player player, Runnable onFinish, long castStartTime, long clientTime) {
+        if (canCast(player)) {
+            super.onKeyPressed(player, onFinish, castStartTime, clientTime);
+        }
+    }
+
+    public boolean canCast(Player player) {
+        return getTeleportDestination(player) != null;
+    }
+
     @Override
     public void onCast(Player player) {
         DragonStateHandler handler = DragonStateProvider.getOrGenerateHandler(player);
         Vec3 teleportDestination = getTeleportDestination(player);
-        if (teleportDestination == null) return;
 
         if (this.player.level().isClientSide()) {
             doClientStuff(player.getEyePosition(), teleportDestination, player);
@@ -90,22 +99,27 @@ public class WyrmholeAbility extends InstantCastAbility {
                 }
             }
         }
-        player.moveTo(teleportDestination);
-
+        player.moveTo(teleportDestination.subtract(player.getDeltaMovement()));
     }
 
     public static void doClientStuff(Vec3 clientEye, Vec3 destination, Player player) {
         player.level().playSound(player, BlockPos.containing(clientEye), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.1f, 1.1f);
-        player.level().addParticle(ParticleTypes.PORTAL, destination.x + Math.random() - 0.5, destination.y + Math.random() - 0.5, destination.z + Math.random() - 0.5, 0.0, 0.0, 0.0);
+        player.level().playSound(player, BlockPos.containing(destination), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.1f, 1.1f);
+        for (int i = 0; i < 5; i++) {
+            player.level().addParticle(ParticleTypes.PORTAL, destination.x + Math.random() - 0.5, destination.y + Math.random() - 0.5, destination.z + Math.random() - 0.5, 0.0, 0.0, 0.0);
+            player.level().addParticle(ParticleTypes.PORTAL, clientEye.x + Math.random() - 0.5, clientEye.y + Math.random() - 0.5, clientEye.z + Math.random() - 0.5, 0.0, 0.0, 0.0);
+        }
     }
 
     public Vec3 getTeleportDestination(Player player) {
         for (double dist = wyrmholeRange * this.getLevel(); dist > 1; dist-= 0.5) {
-            Vec3 lookAngle = player.getLookAngle().multiply(dist, dist, dist);
-            BlockHitResult res = player.level().clip(new ClipContext(player.getEyePosition(), lookAngle.add(player.getEyePosition()), ClipContext.Block.COLLIDER, ClipContext.Fluid.ANY, player));
-            if (res.getType().equals(HitResult.Type.MISS)) {
-                if (player.level().noCollision(player.getBoundingBox().move(player.getEyePosition().subtract(res.getLocation())))) {
-                    return res.getLocation();
+            for (double offsetHeight = -player.getBbHeight(); offsetHeight < player.getBbHeight(); offsetHeight += player.getBbHeight() * 0.2) {
+                Vec3 lookAngle = player.getLookAngle().multiply(dist, dist, dist);
+                BlockHitResult res = player.level().clip(new ClipContext(player.getEyePosition(), lookAngle.add(player.getEyePosition()), ClipContext.Block.COLLIDER, ClipContext.Fluid.ANY, player));
+                if (res.getType().equals(HitResult.Type.MISS)) {
+                    if (player.level().noCollision(player.getBoundingBox().move(player.getEyePosition().subtract(res.getLocation()).add(0, offsetHeight, 0)))) {
+                        return res.getLocation().add(0, offsetHeight, 0);
+                    }
                 }
             }
         }
