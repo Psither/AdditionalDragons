@@ -1,4 +1,4 @@
-package by.psither.dragonsurvival.common.dragon_types.types;
+package by.psither.dragonsurvival.common.dragon_types.subtypes;
 
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.types.CaveDragonType;
 

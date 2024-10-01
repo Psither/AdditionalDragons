@@ -2,7 +2,6 @@ package by.psither.dragonsurvival.server.handlers;
 
 import java.util.List;
 
-import by.dragonsurvivalteam.dragonsurvival.network.NetworkHandler;
 import by.dragonsurvivalteam.dragonsurvival.network.magic.SyncPotionAddedEffect;
 import by.dragonsurvivalteam.dragonsurvival.network.magic.SyncPotionRemovedEffect;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
@@ -16,12 +15,11 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-
 @EventBusSubscriber
 public class PotionSync{
 	@SubscribeEvent
 	public static void potionAdded(MobEffectEvent.Added event){
-		List<Holder<MobEffect>> effects = List.of(ADDragonEffects.BLAST_DUSTED, ADDragonEffects.BUBBLE_SHIELD, ADDragonEffects.CONFOUNDED, ADDragonEffects.HIGH_VOLTAGE, ADDragonEffects.INVIGORATE, ADDragonEffects.SEEKING_TALONS, ADDragonEffects.UNSTOPPABLE, ADDragonEffects.VOLCANIC_RAGE);
+		List<Holder<MobEffect>> effects = List.of(ADDragonEffects.BLAST_DUSTED, ADDragonEffects.BUBBLE_SHIELD, ADDragonEffects.CONFOUNDED, ADDragonEffects.HIGH_VOLTAGE, ADDragonEffects.INVIGORATE, ADDragonEffects.SEEKING_TALONS, ADDragonEffects.UNSTOPPABLE, ADDragonEffects.VOLCANIC_RAGE, ADDragonEffects.PHASE_OUT, ADDragonEffects.UNREALITY);
 		if(!effects.contains(event.getEffectInstance().getEffect())) {
 			return;
 		}
@@ -34,7 +32,7 @@ public class PotionSync{
 
 	@SubscribeEvent
 	public static void potionRemoved(MobEffectEvent.Expired event){
-		List<Holder<MobEffect>> effects = List.of(ADDragonEffects.BLAST_DUSTED, ADDragonEffects.BUBBLE_SHIELD, ADDragonEffects.CONFOUNDED, ADDragonEffects.HIGH_VOLTAGE, ADDragonEffects.INVIGORATE, ADDragonEffects.SEEKING_TALONS, ADDragonEffects.UNSTOPPABLE, ADDragonEffects.VOLCANIC_RAGE);
+		List<Holder<MobEffect>> effects = List.of(ADDragonEffects.BLAST_DUSTED, ADDragonEffects.BUBBLE_SHIELD, ADDragonEffects.CONFOUNDED, ADDragonEffects.HIGH_VOLTAGE, ADDragonEffects.INVIGORATE, ADDragonEffects.SEEKING_TALONS, ADDragonEffects.UNSTOPPABLE, ADDragonEffects.VOLCANIC_RAGE, ADDragonEffects.PHASE_OUT, ADDragonEffects.UNREALITY);
 		if(event.getEffectInstance() == null || !effects.contains(event.getEffectInstance().getEffect())) {
 			return;
 		}

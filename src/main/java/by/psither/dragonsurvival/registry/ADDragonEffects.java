@@ -16,6 +16,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.neoforge.common.EffectCure;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.jetbrains.annotations.NotNull;
 
 import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
 
@@ -64,6 +65,15 @@ public class ADDragonEffects {
 			() -> new ModifiableMobEffect(MobEffectCategory.BENEFICIAL, 0x0, false)
 	);
 
+	public static Holder<MobEffect> PHASE_OUT = AD_MOB_EFFECTS.register(
+			"phase_out",
+			() -> new ModifiableMobEffect(MobEffectCategory.NEUTRAL, 0x0, false)
+	);
+	public static Holder<MobEffect> UNREALITY = AD_MOB_EFFECTS.register(
+			"unreality",
+			() -> new ModifiableMobEffect(MobEffectCategory.NEUTRAL, 0x0, false)
+	);
+
 	private static class ModifiableMobEffect extends MobEffect{
 		private final boolean uncurable;
 
@@ -73,7 +83,7 @@ public class ADDragonEffects {
 		}
 
 		@Override
-		public void fillEffectCures(Set<EffectCure> cures, MobEffectInstance effectInstance) {
+		public void fillEffectCures(@NotNull Set<EffectCure> cures, @NotNull MobEffectInstance effectInstance) {
 			if (uncurable) {
 				cures.clear();
 			} else {
@@ -81,5 +91,4 @@ public class ADDragonEffects {
 			}
 		}
 	}
-
 }

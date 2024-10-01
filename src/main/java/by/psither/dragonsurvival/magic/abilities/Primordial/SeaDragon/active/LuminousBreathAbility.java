@@ -47,6 +47,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
+@SuppressWarnings("unused")
 @RegisterDragonAbility
 public class LuminousBreathAbility extends BreathAbility {
 
@@ -303,5 +304,4 @@ public class LuminousBreathAbility extends BreathAbility {
 	public boolean isDisabled(){
 		return super.isDisabled() || !luminousBreath;
 	}
-
 }
