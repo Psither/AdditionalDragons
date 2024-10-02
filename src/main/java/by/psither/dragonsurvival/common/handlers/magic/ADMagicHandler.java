@@ -225,7 +225,7 @@ public class ADMagicHandler {
 					bones = is.getCount();
 					is.setCount(0);
 				}
-				if (DragonFoodHandler.isDragonEdible(is.getItem(), DragonTypes.FOREST)) {
+				if (DragonFoodHandler.isEdible(is.getItem(), DragonTypes.FOREST)) {
 					isEdible = true;
 				}
 			}
