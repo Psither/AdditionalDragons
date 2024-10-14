@@ -74,6 +74,11 @@ public class ADDragonEffects {
 			() -> new ModifiableMobEffect(MobEffectCategory.NEUTRAL, 0x0, false)
 	);
 
+	public static Holder<MobEffect> ASTRAL_WINGS = AD_MOB_EFFECTS.register(
+			"astral_wings",
+			() -> new ModifiableMobEffect(MobEffectCategory.BENEFICIAL, 0x0, true)
+	);
+
 	private static class ModifiableMobEffect extends MobEffect{
 		private final boolean uncurable;
 
