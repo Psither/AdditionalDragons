@@ -72,23 +72,30 @@ public class AstralDragonType extends AbstractDragonType {
     @Override
     public void onPlayerUpdate(Player player, DragonStateHandler dragonStateHandler) {
         if (!player.isSpectator()) {
-            if (ServerConfig.penalties && (!player.isInLiquid() && !player.isInPowderSnow && !player.isInWaterRainOrBubble() && player.isFree(player.getX(), player.getY(), player.getZ()))) {
-                ticksSinceFoodGenerated++;
-            } else {
-                ticksSinceFoodGenerated = 0;
-                player.getFoodData().addExhaustion((float) (double) ADServerConfig.VOID_BODY_DRAIN);
+            if (!player.level().isClientSide()) {
+                if (ServerConfig.penaltiesEnabled && (!player.isInLiquid() && !player.isInPowderSnow && !player.isInWaterRainOrBubble() && player.isFree(player.getX(), player.getY(), player.getZ()))) {
+                    ticksSinceFoodGenerated += player.level().canSeeSky(player.getOnPos()) ? 2 : 1;
+                } else {
+                    ticksSinceFoodGenerated = 0;
+                    player.getFoodData().addExhaustion((float) (double) ADServerConfig.VOID_BODY_DRAIN);
+                }
             }
 
-            if (digestingFoodIntoManaTicks > 0) {
-                digestingFoodIntoManaTicks -= 1;
-                player.getFoodData().addExhaustion((float) (double) ADServerConfig.VOID_BODY_FOOD_DRAIN);
-            } else {
-                digestingFoodIntoManaTicks = 0;
+            if (!player.level().isClientSide()) {
+                if (digestingFoodIntoManaTicks > 0) {
+                    digestingFoodIntoManaTicks -= 1;
+                    player.getFoodData().addExhaustion((float) (double) ADServerConfig.VOID_BODY_FOOD_DRAIN);
+                } else {
+                    digestingFoodIntoManaTicks = 0;
+                }
             }
 
             if (ticksSinceFoodGenerated >= ADServerConfig.ASTRAL_FOOD_TICK_FREQUENCY) {
-                ticksSinceFoodGenerated -= ADServerConfig.ASTRAL_FOOD_TICK_FREQUENCY;
-                player.getFoodData().eat(1, 1);
+                if (!player.level().isClientSide()) {
+                    ticksSinceFoodGenerated -= ADServerConfig.ASTRAL_FOOD_TICK_FREQUENCY;
+                    FoodData foodData = player.getFoodData();
+                    foodData.eat(1, foodData.getFoodLevel() >= 20 ? 1f : 0.5f);
+                }
             }
         }
     }
