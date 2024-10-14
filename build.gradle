@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
     id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
     id 'net.neoforged.gradle.userdev' version '7.0.143'
-    //id 'com.diffplug.spotless' version "7.0.0.BETA1" // FIXME: Bring back once we can bring back the other plugins
+    id 'com.diffplug.spotless' version "7.0.0.BETA1"
 }
 
 version = minecraft_version + "-v" + mod_version + "-" + new Date().format("dd.MM.yyyy")
@@ -78,37 +78,21 @@ repositories {
     }
     maven { /* JEI */ url "https://maven.blamejared.com" }
     maven { /* Curios */ url "https://maven.theillusivec4.top/" }
-    maven { /* AppleSkin */ url "https://maven.ryanliptak.com/" }
     maven {
         url "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
         }
     }
+    maven { url "https://api.modrinth.com/maven" }
 }
 
 dependencies {
-    //minecraft "net.neoforged:forge:${minecraft_version}-${neo_version}"
-
-    //implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${property('geckolib_mc_version')}:${property('geckolib_version')}")
-    //implementation fg.deobf("dragonsurvival:dragonsurvival:1.20.1-11.06.2024")
-
-    // https://mvnrepository.com/artifact/org.joml/joml
     implementation "net.neoforged:neoforge:${neo_version}"
 
     // Dependencies
     implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
-    implementation "dragonsurvival:DragonSurvival-1.21.1-v2.0.0-beta-30.08.2024"
-
-    //implementation 'org.joml:joml:1.10.5'
-    // Compatibility
-    //compileOnly "mezz.jei:jei-1.20.4-common-api:${jei_version}"
-    //compileOnly "mezz.jei:jei-1.20.4-neoforge-api:${jei_version}"
-
-    //runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
-    //compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
-
-    //compileOnly "squeek.appleskin:appleskin-neoforge:${appleskin_version}:api"
+    implementation "dragonsurvival:DragonSurvival-1.21.1-v2.0.2-beta-13.10.2024"
 }
 
 tasks.withType(ProcessResources).configureEach {
@@ -141,37 +125,6 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
-// TODO: Parchment is not available yet for this version
-/* {
-	parchment {
-		// The Minecraft version for which the Parchment mappings were created.
-		// This does not necessarily need to match the Minecraft version your mod targets
-		// Defaults to the value of Gradle property neogradle.subsystems.parchment.minecraftVersion
-		minecraftVersion = minecraft_version
-
-		// The version of Parchment mappings to apply.
-		// See https://parchmentmc.org/docs/getting-started for a list.
-		// Defaults to the value of Gradle property neogradle.subsystems.parchment.mappingsVersion
-		mappingsVersion = mapping_version
-
-		// Overrides the full Maven coordinate of the Parchment artifact to use
-		// This is computed from the minecraftVersion and mappingsVersion properties by default.
-		// If you set this property explicitly, minecraftVersion and mappingsVersion will be ignored.
-		// The built-in default value can also be overriden using the Gradle property neogradle.subsystems.parchment.parchmentArtifact
-		// parchmentArtifact = "org.parchmentmc.data:parchment-$minecraftVersion:$mappingsVersion:checked@zip"
-
-		// Set this to false if you don't want the https://maven.parchmentmc.org/ repository to be added automatically when
-		// applying Parchment mappings is enabled
-		// The built-in default value can also be overriden using the Gradle property neogradle.subsystems.parchment.addRepository
-		// addRepository = true
-
-		// Can be used to explicitly disable this subsystem. By default, it will be enabled automatically as soon
-		// as parchmentArtifact or minecraftVersion and mappingsVersion are set.
-		// The built-in default value can also be overriden using the Gradle property neogradle.subsystems.parchment.enabled
-		// enabled = true
-	}
-}*/
-
 // IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
 idea {
     module {
@@ -187,25 +140,25 @@ minecraft {
 }
 
 // We use spotless for code formatting.
-//spotless {
-//	format 'misc', {
-// define the files to apply `misc` to
-//		target '*.gradle', '.gitattributes', '.gitignore'
+spotless {
+	format 'misc', {
+        // define the files to apply `misc` to
+		target '*.gradle', '.gitattributes', '.gitignore'
 
-// define the steps to apply to those files
-//		trimTrailingWhitespace()
-//		indentWithTabs() // or spaces. Takes an integer argument if you don't like 4
-//		endWithNewline()
-//	}
+        //define the steps to apply to those files
+		trimTrailingWhitespace()
+		indentWithTabs() // or spaces. Takes an integer argument if you don't like 4
+		endWithNewline()
+	}
 
-//	java {
-//		target 'src/*/java/**/*.java'
+	java {
+		target 'src/*/java/**/*.java'
 
-// Use the default importOrder configuration
-//		importOrder()
-//		removeUnusedImports()
+        // Use the default importOrder configuration
+		importOrder()
+		removeUnusedImports()
 
-// fixes formatting of type annotations
-//		formatAnnotations()
-//	}
-//}
+        // fixes formatting of type annotations
+		formatAnnotations()
+	}
+}
