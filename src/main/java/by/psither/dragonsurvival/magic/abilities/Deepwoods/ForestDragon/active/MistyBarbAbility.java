@@ -1,22 +1,21 @@
 package by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active;
 
-import java.util.ArrayList;
-import java.util.Locale;
-
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
-import by.dragonsurvivalteam.dragonsurvival.input.Keybind;
-import by.psither.dragonsurvival.common.entity.projectiles.MistyBarbProjectileEntity;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigSide;
+import by.dragonsurvivalteam.dragonsurvival.input.Keybind;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.ChargeCastAbility;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
+import by.psither.dragonsurvival.common.entity.projectiles.MistyBarbProjectileEntity;
 import by.psither.dragonsurvival.registry.ADEntities;
+import java.util.ArrayList;
+import java.util.Locale;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;

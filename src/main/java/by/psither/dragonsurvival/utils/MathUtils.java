@@ -1,8 +1,7 @@
 package by.psither.dragonsurvival.utils;
 
-import org.joml.Vector3f;
-
 import net.minecraft.util.RandomSource;
+import org.joml.Vector3f;
 
 public class MathUtils {
 	public static Vector3f randomPointInSphere (float radius, RandomSource random) {

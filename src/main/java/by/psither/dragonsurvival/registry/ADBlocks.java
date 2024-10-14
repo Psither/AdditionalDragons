@@ -1,5 +1,8 @@
 package by.psither.dragonsurvival.registry;
 
+import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
+import static by.psither.dragonsurvival.registry.ADItems.AD_ITEMS;
+
 import by.psither.dragonsurvival.common.blocks.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -10,9 +13,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-
-import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
-import static by.psither.dragonsurvival.registry.ADItems.AD_ITEMS;
 
 public class ADBlocks{
 	public static DeferredRegister<Block> AD_BLOCKS = DeferredRegister.create(

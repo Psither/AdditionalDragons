@@ -1,11 +1,12 @@
 package by.psither.dragonsurvival.registry;
 
-import java.util.Set;
+import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
 
 import by.psither.dragonsurvival.common.effects.BlastDustedEffect;
 import by.psither.dragonsurvival.common.effects.BubbleShieldEffect;
 import by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active.PyroclasticRoarAbility;
 import by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active.UnstoppableAbility;
+import java.util.Set;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -17,8 +18,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.neoforge.common.EffectCure;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
-
-import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
 
 public class ADDragonEffects {
 

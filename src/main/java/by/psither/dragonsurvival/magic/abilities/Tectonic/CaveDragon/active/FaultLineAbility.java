@@ -1,9 +1,5 @@
 package by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active;
 
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Map;
-
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
@@ -18,11 +14,14 @@ import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.common.entity.projectiles.FaultLineProjectileEntity;
 import by.psither.dragonsurvival.registry.ADEntities;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Map;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;

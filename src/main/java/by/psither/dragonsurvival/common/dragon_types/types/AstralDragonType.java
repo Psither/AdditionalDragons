@@ -9,6 +9,7 @@ import by.dragonsurvivalteam.dragonsurvival.magic.common.active.ActiveDragonAbil
 import by.psither.dragonsurvival.config.ADServerConfig;
 import by.psither.dragonsurvival.magic.abilities.Astral.passive.DiffusionAbility;
 import com.mojang.datafixers.util.Pair;
+import java.util.List;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -17,8 +18,6 @@ import net.minecraft.world.food.FoodData;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-
-import java.util.List;
 
 public class AstralDragonType extends AbstractDragonType {
     public int ticksSinceFoodGenerated, digestingFoodIntoManaTicks, charges;

@@ -1,21 +1,20 @@
 package by.psither.dragonsurvival.registry;
 
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
 
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.dragonsurvivalteam.dragonsurvival.common.items.food.DragonFoodItem;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.psither.dragonsurvival.common.items.AncientCatalystItem;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Item.Properties;
-
-import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
+import net.minecraft.world.item.Rarity;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ADItems {
 	public static DeferredRegister<Item> AD_ITEMS = DeferredRegister.create(

@@ -1,8 +1,5 @@
 package by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active;
 
-import java.util.ArrayList;
-import java.util.Locale;
-
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
@@ -15,6 +12,8 @@ import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
+import java.util.ArrayList;
+import java.util.Locale;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;

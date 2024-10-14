@@ -1,10 +1,9 @@
 package by.psither.dragonsurvival.server.handlers;
 
-import java.util.List;
-
 import by.dragonsurvivalteam.dragonsurvival.network.magic.SyncPotionAddedEffect;
 import by.dragonsurvivalteam.dragonsurvival.network.magic.SyncPotionRemovedEffect;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
+import java.util.List;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;

@@ -1,12 +1,12 @@
 package by.psither.dragonsurvival.magic.abilities.Astral.innate;
 
+import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
+
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.innate.DragonClawsAbility;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import net.minecraft.resources.ResourceLocation;
-
-import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
 
 @RegisterDragonAbility
 public class AstralClawsAbility extends DragonClawsAbility {

@@ -1,20 +1,16 @@
 package by.psither.dragonsurvival.common.entity;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
 import by.psither.dragonsurvival.client.particles.CaveDragon.LargeBlastDustParticle;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
-import org.joml.Vector3f;
-
 import by.psither.dragonsurvival.common.effects.BlastDustedEffect;
 import by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active.BlastBreathAbility;
 import by.psither.dragonsurvival.utils.MathUtils;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import javax.annotation.Nullable;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -27,6 +23,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
+import org.joml.Vector3f;
 
 public class CountdownAreaEffectCloud extends AreaEffectCloud {
 	private Potion potion = Potions.WATER.value();
@@ -39,10 +36,8 @@ public class CountdownAreaEffectCloud extends AreaEffectCloud {
 	private float radiusOnUse;
 	private float radiusPerTick;
 	private Level level;
-	@Nullable
-	private LivingEntity owner;
-	@Nullable
-	private UUID ownerUUID;
+	@Nullable private LivingEntity owner;
+	@Nullable private UUID ownerUUID;
 
 	public static final DynamicCommandExceptionType ERROR_UNKNOWN_PARTICLE = new DynamicCommandExceptionType((p_103941_) -> {
 		return Component.translatable("particle.notFound", p_103941_);

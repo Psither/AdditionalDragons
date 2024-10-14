@@ -1,10 +1,10 @@
 package by.psither.dragonsurvival.common.effects;
 
+import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.BubbleShieldAbility;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
-import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.BubbleShieldAbility;
 
 public class BubbleShieldEffect extends MobEffect {
 	private Double health;

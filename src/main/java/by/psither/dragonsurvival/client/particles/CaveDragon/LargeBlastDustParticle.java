@@ -1,13 +1,12 @@
 package by.psither.dragonsurvival.client.particles.CaveDragon;
 
-import java.awt.Color;
-
 import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.CaveDragon.SmallFireParticle;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.DragonParticle;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import java.awt.Color;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;

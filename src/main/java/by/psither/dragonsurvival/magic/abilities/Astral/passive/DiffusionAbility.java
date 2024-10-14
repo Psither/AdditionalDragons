@@ -1,5 +1,7 @@
 package by.psither.dragonsurvival.magic.abilities.Astral.passive;
 
+import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
+
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigSide;
@@ -7,8 +9,6 @@ import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.passive.PassiveDragonAbility;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import net.minecraft.resources.ResourceLocation;
-
-import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
 
 @RegisterDragonAbility
 public class DiffusionAbility extends PassiveDragonAbility {

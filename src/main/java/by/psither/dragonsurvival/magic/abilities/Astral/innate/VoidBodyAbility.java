@@ -1,5 +1,7 @@
 package by.psither.dragonsurvival.magic.abilities.Astral.innate;
 
+import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
+
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.config.ServerConfig;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
@@ -10,8 +12,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-
-import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
 
 @SuppressWarnings("unused")
 @RegisterDragonAbility
@@ -49,13 +49,13 @@ public class VoidBodyAbility extends InnateDragonAbility {
 
     @Override
     public int getLevel(){
-        return ServerConfig.penalties && ADServerConfig.VOID_BODY_DRAIN != 0 ? 1 : 0;
+        return ServerConfig.penaltiesEnabled && ADServerConfig.VOID_BODY_DRAIN != 0 ? 1 : 0;
     }
 
     @Override
     @OnlyIn( Dist.CLIENT )
     public boolean isDisabled(){
-        return super.isDisabled() || !ServerConfig.penalties || ADServerConfig.VOID_BODY_DRAIN == 0;
+        return super.isDisabled() || !ServerConfig.penaltiesEnabled || ADServerConfig.VOID_BODY_DRAIN == 0;
     }
 
     @Override

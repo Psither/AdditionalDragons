@@ -1,9 +1,5 @@
 package by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
-import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.EntityStateProvider;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
@@ -24,6 +20,8 @@ import by.psither.dragonsurvival.common.entity.CountdownAreaEffectCloud;
 import by.psither.dragonsurvival.registry.ADDamageTypes;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.psither.dragonsurvival.registry.ADEntities;
+import java.util.ArrayList;
+import java.util.Objects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;

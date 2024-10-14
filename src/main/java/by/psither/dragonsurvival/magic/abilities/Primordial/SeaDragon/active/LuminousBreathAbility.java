@@ -1,15 +1,6 @@
 package by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active;
 
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
-import by.psither.dragonsurvival.AdditionalDragonsMod;
-import by.psither.dragonsurvival.client.particles.SeaDragon.LargeGlowSlimeParticle;
-import by.psither.dragonsurvival.client.sounds.LuminousBreathSound;
-import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
-import by.psither.dragonsurvival.client.sounds.ADSoundRegistry;
-import by.psither.dragonsurvival.registry.ADBlocks;
-
-import java.util.ArrayList;
-
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
@@ -19,6 +10,13 @@ import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.BreathAbility;
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
+import by.psither.dragonsurvival.AdditionalDragonsMod;
+import by.psither.dragonsurvival.client.particles.SeaDragon.LargeGlowSlimeParticle;
+import by.psither.dragonsurvival.client.sounds.ADSoundRegistry;
+import by.psither.dragonsurvival.client.sounds.LuminousBreathSound;
+import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
+import by.psither.dragonsurvival.registry.ADBlocks;
+import java.util.ArrayList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;

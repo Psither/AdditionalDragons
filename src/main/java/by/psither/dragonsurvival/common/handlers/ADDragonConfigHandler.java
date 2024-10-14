@@ -1,9 +1,5 @@
 package by.psither.dragonsurvival.common.handlers;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-
 import by.dragonsurvivalteam.dragonsurvival.DragonSurvivalMod;
 import by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonConfigHandler;
 import by.dragonsurvivalteam.dragonsurvival.config.ConfigHandler;
@@ -13,6 +9,9 @@ import by.dragonsurvivalteam.dragonsurvival.magic.abilities.ForestDragon.active.
 import by.dragonsurvivalteam.dragonsurvival.magic.abilities.SeaDragon.active.StormBreathAbility;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;

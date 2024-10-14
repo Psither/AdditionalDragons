@@ -1,6 +1,15 @@
 package by.psither.dragonsurvival;
 
+import static by.psither.dragonsurvival.client.particles.ADParticles.AD_PARTICLES;
+import static by.psither.dragonsurvival.client.sounds.ADSoundRegistry.SOUNDS;
+import static by.psither.dragonsurvival.registry.ADBlocks.AD_BLOCKS;
+import static by.psither.dragonsurvival.registry.ADDragonEffects.AD_MOB_EFFECTS;
+import static by.psither.dragonsurvival.registry.ADEntities.ENTITY_TYPES;
+import static by.psither.dragonsurvival.registry.ADItems.AD_ITEMS;
+
 import by.psither.dragonsurvival.client.sounds.ADSoundRegistry;
+import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
+import by.psither.dragonsurvival.registry.ADCreativeTabs;
 import by.psither.dragonsurvival.registry.datagen.loot.MarrowLootModifier;
 import by.psither.dragonsurvival.registry.datagen.loot.SeekingTalonsLootModifier;
 import com.mojang.serialization.MapCodec;
@@ -13,15 +22,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import static by.psither.dragonsurvival.client.particles.ADParticles.AD_PARTICLES;
-import static by.psither.dragonsurvival.client.sounds.ADSoundRegistry.SOUNDS;
-import static by.psither.dragonsurvival.registry.ADEntities.ENTITY_TYPES;
-import static by.psither.dragonsurvival.registry.ADBlocks.AD_BLOCKS;
-import static by.psither.dragonsurvival.registry.ADItems.AD_ITEMS;
-import static by.psither.dragonsurvival.registry.ADDragonEffects.AD_MOB_EFFECTS;
-import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
-import by.psither.dragonsurvival.registry.ADCreativeTabs;
 
 @Mod( AdditionalDragonsMod.MODID )
 public class AdditionalDragonsMod {

@@ -1,6 +1,12 @@
 package by.psither.dragonsurvival.common.handlers.magic;
 
+import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
+
+import by.dragonsurvivalteam.dragonsurvival.client.handlers.magic.ClientMagicHandler;
+import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.SeaDragon.LargeLightningParticle;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
+import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
+import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.psither.dragonsurvival.client.particles.ForestDragon.SmallConfoundParticle;
 import by.psither.dragonsurvival.common.effects.BlastDustedEffect;
 import by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active.ConfoundingBreathAbility;
@@ -8,13 +14,8 @@ import by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active.I
 import by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active.SeekingTalonsAbility;
 import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.BubbleShieldAbility;
 import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.HighVoltageAbility;
-
-import by.dragonsurvivalteam.dragonsurvival.client.handlers.magic.ClientMagicHandler;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.SeaDragon.LargeLightningParticle;
-import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.psither.dragonsurvival.registry.ADDamageTypes;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
-import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -38,8 +39,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
-
-import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber

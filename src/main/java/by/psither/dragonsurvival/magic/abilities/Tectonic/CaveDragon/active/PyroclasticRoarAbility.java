@@ -1,15 +1,8 @@
 package by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import org.joml.Vector3f;
-
 import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.CaveDragon.LargeFireParticle;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.dragon.CaveDragon.SmallFireParticle;
+import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
@@ -23,6 +16,8 @@ import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.registry.ADDamageTypes;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.psither.dragonsurvival.utils.MathUtils;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -31,10 +26,13 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import org.joml.Vector3f;
 
 @RegisterDragonAbility
 public class PyroclasticRoarAbility extends ChargeCastAbility {

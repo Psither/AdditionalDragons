@@ -1,5 +1,8 @@
 package by.psither.dragonsurvival.magic.abilities.Astral.active;
 
+import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
+import static by.psither.dragonsurvival.common.dragon_types.types.AstralDragonType.isCharged;
+
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
@@ -12,6 +15,7 @@ import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.common.dragon_types.types.AstralDragonType;
+import java.util.ArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -23,11 +27,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-
-import java.util.ArrayList;
-
-import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
-import static by.psither.dragonsurvival.common.dragon_types.types.AstralDragonType.isCharged;
 
 @SuppressWarnings("unused")
 @RegisterDragonAbility

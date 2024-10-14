@@ -1,12 +1,11 @@
 package by.psither.dragonsurvival.mixins;
 
+import java.util.List;
+import java.util.Set;
 import net.neoforged.fml.loading.LoadingModList;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-
-import java.util.List;
-import java.util.Set;
 
 public class ApplyMixinPlugin implements IMixinConfigPlugin {
     private final static String PREFIX = ApplyMixinPlugin.class.getPackageName() + ".";

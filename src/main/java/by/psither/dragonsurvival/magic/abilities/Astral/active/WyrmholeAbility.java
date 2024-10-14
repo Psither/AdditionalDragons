@@ -1,5 +1,8 @@
 package by.psither.dragonsurvival.magic.abilities.Astral.active;
 
+import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
+import static by.psither.dragonsurvival.common.dragon_types.types.AstralDragonType.isCharged;
+
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
@@ -25,9 +28,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-
-import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
-import static by.psither.dragonsurvival.common.dragon_types.types.AstralDragonType.isCharged;
 
 @SuppressWarnings("unused")
 @RegisterDragonAbility

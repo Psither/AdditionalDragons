@@ -1,5 +1,7 @@
 package by.psither.dragonsurvival.magic.abilities.Astral.innate;
 
+import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
+
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
@@ -7,12 +9,9 @@ import by.dragonsurvivalteam.dragonsurvival.input.Keybind;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.innate.DragonWingAbility;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
+import java.util.Locale;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-
-import java.util.Locale;
-
-import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
 
 @SuppressWarnings("unused")
 @RegisterDragonAbility

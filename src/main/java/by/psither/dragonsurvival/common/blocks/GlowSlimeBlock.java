@@ -1,11 +1,8 @@
 package by.psither.dragonsurvival.common.blocks;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.LuminousBreathAbility;
 import com.mojang.serialization.MapCodec;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
