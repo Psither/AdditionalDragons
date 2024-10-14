@@ -202,7 +202,7 @@ public class LuminousBreathAbility extends BreathAbility {
 		if (player.getRandom().nextInt(100) < creationChance) {
 			InteractionResult ir = ADBlocks.glowSlime.asItem().useOn(uc);
 			if (ir.consumesAction()) {
-				serverLevel.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.SLIME_BLOCK_PLACE, SoundSource.BLOCKS, 2F, 1F, false);
+				serverLevel.playSound(player, pos, SoundEvents.SLIME_BLOCK_PLACE, SoundSource.BLOCKS, 2F, 1F);
 			}
 		}
 	}
