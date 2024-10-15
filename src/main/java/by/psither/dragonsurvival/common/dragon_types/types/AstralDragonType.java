@@ -72,7 +72,7 @@ public class AstralDragonType extends AbstractDragonType {
     public void onPlayerUpdate(Player player, DragonStateHandler dragonStateHandler) {
         if (!player.isSpectator()) {
             if (!player.level().isClientSide()) {
-                if (ServerConfig.penaltiesEnabled && (!player.isInLiquid() && !player.isInPowderSnow && !player.isInWaterRainOrBubble() && player.isFree(player.getX(), player.getY(), player.getZ()))) {
+                if (ServerConfig.penalties && (!player.isInLiquid() && !player.isInPowderSnow && !player.isInWaterRainOrBubble() && player.isFree(player.getX(), player.getY(), player.getZ()))) {
                     ticksSinceFoodGenerated += player.level().canSeeSky(player.getOnPos()) ? 2 : 1;
                 } else {
                     ticksSinceFoodGenerated = 0;

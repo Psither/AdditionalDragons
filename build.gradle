@@ -92,7 +92,7 @@ dependencies {
 
 	// Dependencies
 	implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
-	implementation "dragonsurvival:DragonSurvival-1.21.1-v2.0.2-beta-13.10.2024"
+	implementation "dragonsurvival:DragonSurvival-1.21.1-v2.0.0-beta-30.08.2024"
 }
 
 tasks.withType(ProcessResources).configureEach {
