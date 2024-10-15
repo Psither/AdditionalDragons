@@ -49,13 +49,13 @@ public class VoidBodyAbility extends InnateDragonAbility {
 
     @Override
     public int getLevel(){
-        return ServerConfig.penalties && ADServerConfig.VOID_BODY_DRAIN != 0 ? 1 : 0;
+        return ServerConfig.penaltiesEnabled && ADServerConfig.VOID_BODY_DRAIN != 0 ? 1 : 0;
     }
 
     @Override
     @OnlyIn( Dist.CLIENT )
     public boolean isDisabled(){
-        return super.isDisabled() || !ServerConfig.penalties || ADServerConfig.VOID_BODY_DRAIN == 0;
+        return super.isDisabled() || !ServerConfig.penaltiesEnabled || ADServerConfig.VOID_BODY_DRAIN == 0;
     }
 
     @Override
