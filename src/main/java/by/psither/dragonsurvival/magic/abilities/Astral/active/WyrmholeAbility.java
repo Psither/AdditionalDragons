@@ -24,7 +24,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -114,19 +113,29 @@ public class WyrmholeAbility extends InstantCastAbility {
     }
 
     public Vec3 getTeleportDestination(Player player) {
-        for (double dist = wyrmholeRange * this.getLevel(); dist > 1; dist-= 0.5) {
-            for (double offsetHeight = 0; offsetHeight < player.getBbHeight(); offsetHeight += player.getBbHeight() * 0.2) {
-                Vec3 lookAngle = player.getLookAngle().multiply(dist, dist, dist);
-                BlockHitResult res = player.level().clip(new ClipContext(player.getEyePosition(), lookAngle.add(player.getEyePosition()), ClipContext.Block.COLLIDER, ClipContext.Fluid.ANY, player));
-                if (res.getType().equals(HitResult.Type.MISS)) {
-                    if (player.level().noCollision(player.getBoundingBox().move(player.getEyePosition().subtract(res.getLocation()).add(0, offsetHeight, 0)))) {
-                        if (player.level().isLoaded(BlockPos.containing(res.getLocation().add(0, offsetHeight, 0)))) {
-                            return res.getLocation().add(0, offsetHeight, 0);
-                        }
+        if (!player.level().isLoaded(player.getOnPos()))
+            return null;
+
+        BlockHitResult res = player.level().clip(new ClipContext(
+                player.getEyePosition(),
+                player.getLookAngle().scale(wyrmholeRange * this.getLevel()).add(player.getEyePosition()),
+                ClipContext.Block.COLLIDER,
+                ClipContext.Fluid.ANY,
+                player));
+
+        Vec3 offsetFromPlayer = res.getLocation().subtract(player.position());
+
+        for (int i = 0; i < 5; i++) {
+            for (double offsetHeight = -player.getBbHeight(); offsetHeight < player.getBbHeight(); offsetHeight += player.getBbHeight() * 0.5) {
+                Vec3 newTarget = res.getLocation().add(0, offsetHeight, 0).subtract(player.getLookAngle().multiply(i, i, i));
+                if (player.level().isLoaded(BlockPos.containing(newTarget))) {
+                    if (player.level().noCollision(player.getBoundingBox().move(newTarget.subtract(player.position())))) {
+                        return newTarget;
                     }
                 }
             }
         }
+
         return null;
     }
 

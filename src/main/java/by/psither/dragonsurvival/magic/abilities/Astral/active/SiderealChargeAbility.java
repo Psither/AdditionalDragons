@@ -31,7 +31,7 @@ public class SiderealChargeAbility extends ChargeCastAbility {
 
     @ConfigRange( min = 0.05, max = 10000 )
     @ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "astral_dragon", "active", "siderealCharge"}, key = "siderealChargeCooldown", comment = "The cooldown in seconds of the sidereal charge ability" )
-    public static Double siderealChargeCastTime = 3.0;
+    public static Double siderealChargeCastTime = 2.0;
 
     @ConfigRange( min = 0, max = 100 )
     @ConfigOption( side = ConfigSide.SERVER, category = {"magic", "abilities", "astral_dragon", "active", "siderealCharge"}, key = "siderealChargeManaCost", comment = "The mana cost for using the sidereal charge ability" )

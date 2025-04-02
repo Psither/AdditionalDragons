@@ -79,6 +79,15 @@ public class AstralBreathAbility extends BreathAbility {
         return 1;
     }
 
+    public void onChanneling(Player player, int castDuration) {
+        super.onChanneling(player, castDuration);
+
+        hitEntities();
+        if(player.tickCount % 5 == 0){
+            hitBlocks();
+        }
+    }
+
     @Override
     public boolean canHitEntity(LivingEntity entity){
         return !(entity instanceof Player) || player.canHarmPlayer((Player)entity);

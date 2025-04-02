@@ -11,6 +11,7 @@ import by.psither.dragonsurvival.magic.abilities.Astral.passive.DiffusionAbility
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
@@ -19,7 +20,12 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
+import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
+
 public class AstralDragonType extends AbstractDragonType {
+    private static final ResourceLocation ASTRAL_FOOD = ResourceLocation.fromNamespaceAndPath(MODID, "textures/gui/astral_food_icons.png");
+    private static final ResourceLocation ASTRAL_MANA = ResourceLocation.fromNamespaceAndPath(MODID, "textures/gui/astral_magic_icons.png");
+
     public int ticksSinceFoodGenerated, digestingFoodIntoManaTicks, charges;
 
     public AstralDragonType() { slotForBonus = 0; }
@@ -118,6 +124,16 @@ public class AstralDragonType extends AbstractDragonType {
     @Override
     public List<TagKey<Block>> mineableBlocks() {
         return List.of(BlockTags.SWORD_EFFICIENT, BlockTags.MINEABLE_WITH_HOE);
+    }
+
+    @Override
+    public ResourceLocation getFoodIcons() {
+        return ASTRAL_FOOD;
+    }
+
+    @Override
+    public ResourceLocation getManaIcons() {
+        return ASTRAL_MANA;
     }
 
     @Override

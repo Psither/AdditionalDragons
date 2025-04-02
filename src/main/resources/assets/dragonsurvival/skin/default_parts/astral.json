@@ -1,0 +1,38 @@
+{
+	"dragonsurvival:newborn": {
+	"BASE": "base_1",
+	"BOTTOM": "bottom_1",
+	"EYES": "eyes_1",
+	"HORNS": "horns_1",
+	"CLAWS": "claw_1_astral_1",
+	"TEETH": "teeth_1",
+	"MAGIC": "astral_magic_1"
+	},
+	"dragonsurvival:young": {
+	"BASE": "base_1",
+	"BOTTOM": "bottom_1",
+	"EYES": "eyes_1",
+	"HORNS": "horns_1",
+	"CLAWS": "claw_1_astral_1",
+	"TEETH": "teeth_1",
+	"MAGIC": "astral_magic_1"
+	},
+	"dragonsurvival:adult": {
+	"BASE": "base_1",
+	"BOTTOM": "bottom_1",
+	"EYES": "eyes_1",
+	"HORNS": "horns_1",
+	"CLAWS": "claw_1_astral_1",
+	"TEETH": "teeth_1",
+	"MAGIC": "astral_magic_1"
+	},
+	"dragonsurvival:ancient": {
+	"BASE": "base_1",
+	"BOTTOM": "bottom_1",
+	"EYES": "eyes_1",
+	"HORNS": "horns_1",
+	"CLAWS": "claw_1_astral_1",
+	"TEETH": "teeth_1",
+	"MAGIC": "astral_magic_1"
+	}
+}
