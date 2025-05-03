@@ -1,23 +1,40 @@
 package by.psither.dragonsurvival.common.effects;
 
+import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
+import by.dragonsurvivalteam.dragonsurvival.common.capability.EntityStateHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.effects.ChargedEffect;
+import by.dragonsurvivalteam.dragonsurvival.common.handlers.magic.EffectHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.particles.LargeLightningParticleOption;
+import by.dragonsurvivalteam.dragonsurvival.common.particles.SmallLightningParticleOption;
+import by.dragonsurvivalteam.dragonsurvival.registry.DSDamageTypes;
+import by.dragonsurvivalteam.dragonsurvival.registry.DSEffects;
+import by.dragonsurvivalteam.dragonsurvival.registry.attachments.DSDataAttachments;
+import by.dragonsurvivalteam.dragonsurvival.registry.datagen.tags.DSEntityTypeTags;
+import by.dragonsurvivalteam.dragonsurvival.util.AdditionalEffectData;
+import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.dragonsurvivalteam.dragonsurvival.util.TargetingFunctions;
 import by.psither.dragonsurvival.registry.ADEffects;
 import by.psither.dragonsurvival.registry.ADSounds;
-import by.psither.dragonsurvival.utils.MathUtils;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
-import org.joml.Vector3f;
+
+import java.util.Iterator;
+import java.util.List;
 
 @EventBusSubscriber
 public class HighVoltageEffect extends ChargedEffect {
@@ -29,6 +46,70 @@ public class HighVoltageEffect extends ChargedEffect {
     public static void onPlayerHurt(LivingIncomingDamageEvent event) {
         if (event.getEntity().hasEffect(ADEffects.HIGH_VOLTAGE)) {
             zapTarget(event.getEntity(), event.getSource().getEntity(), event.getEntity().getEffect(ADEffects.HIGH_VOLTAGE).getAmplifier());
+        }
+    }
+
+    @Override
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
+        entity.hurt(new DamageSource(DSDamageTypes.get(entity.level(), DSDamageTypes.ELECTRIC)), damage);
+        if (!DragonStateProvider.isDragon(entity)) {
+            ParticleOptions particle = new SmallLightningParticleOption(37.0F, false);
+
+            for(int i = 0; i < 4; ++i) {
+                EffectHandler.renderEffectParticle(entity, particle);
+            }
+        }
+
+        chargedEffectChain(entity, damage);
+        return true;
+    }
+
+    public static void chargedEffectChain(LivingEntity source, float damage) {
+        List<LivingEntity> secondaryTargets = source.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), source, source.getBoundingBox().inflate((double)spreadRadius));
+        secondaryTargets.sort((c1, c2) -> Boolean.compare(c1.hasEffect(DSEffects.CHARGED), c2.hasEffect(DSEffects.CHARGED)));
+        if (secondaryTargets.size() > maxChainTargets) {
+            secondaryTargets = secondaryTargets.subList(0, maxChainTargets);
+        }
+
+        Iterator<LivingEntity> var3 = secondaryTargets.iterator();
+
+        while(true) {
+            LivingEntity target;
+            Entity effectApplier;
+            EntityStateHandler targetData;
+            do {
+                do {
+                    do {
+                        if (!var3.hasNext()) {
+                            return;
+                        }
+
+                        target = (LivingEntity)var3.next();
+                        effectApplier = null;
+                        Level var7 = source.level();
+                        if (var7 instanceof ServerLevel serverLevel) {
+                            AdditionalEffectData data = ((AdditionalEffectData)source.getEffect(ADEffects.HIGH_VOLTAGE));
+                            if (data != null) {
+                                effectApplier = data.dragonSurvival$getApplier(serverLevel);
+                            }
+                        }
+
+                        target.hurt(new DamageSource(DSDamageTypes.get(target.level(), DSDamageTypes.ELECTRIC), effectApplier), damage);
+                        drawParticleLine(source, target);
+                        if (target.level().isClientSide()) {
+                            return;
+                        }
+                    } while(target == source);
+                } while(target.getType().is(DSEntityTypeTags.CHARGED_SPREAD_BLACKLIST));
+
+                EntityStateHandler sourceData = source.getData(DSDataAttachments.ENTITY_HANDLER);
+                targetData = target.getData(DSDataAttachments.ENTITY_HANDLER);
+                targetData.chainCount = sourceData.chainCount + 1;
+            } while(targetData.chainCount >= maxChain && maxChain != -1);
+
+            if (Functions.chance(target.getRandom(), 40)) {
+                target.addEffect(new MobEffectInstance(DSEffects.CHARGED, Functions.secondsToTicks(10.0), 0, false, false), effectApplier);
+            }
         }
     }
 
@@ -58,20 +139,5 @@ public class HighVoltageEffect extends ChargedEffect {
             }
         }
         source.level().playLocalSound(target.position().x, target.position().y + 0.5, target.position().z, ADSounds.bugZapper, SoundSource.PLAYERS, 4F, 1F, false);
-    }
-
-    public static void producePassiveParticles(LivingEntity entity, int amp) {
-        if (entity.level() instanceof ClientLevel clientLevel) {
-            // Create particles sometimes because it's pretty
-            if (/* 40% 4/sec */ entity.getRandom().nextInt(100) < 40) {
-                for (int i = 0; i < (5 * (amp + 1)); i++) {
-                    Vector3f loc = MathUtils.randomPointInSphere((float) 3, entity.getRandom());
-                    float randX = (entity.getRandom().nextFloat() * 3f) - 1.5f;
-                    float randY = (entity.getRandom().nextFloat()) - 0.5f;
-                    float randZ = (entity.getRandom().nextFloat() * 3f) - 1.5f;
-                    clientLevel.addParticle(new LargeLightningParticleOption(15, false), entity.getX() + loc.x(), entity.getY() + entity.getEyeHeight() + loc.y(), entity.getZ() + loc.z(), randX * 0.1, randY * 0.1, randZ * 0.1);
-                }
-            }
-        }
     }
 }

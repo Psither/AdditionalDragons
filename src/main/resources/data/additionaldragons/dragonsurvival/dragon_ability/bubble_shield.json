@@ -1,0 +1,127 @@
+{
+  "actions": [
+    {
+      "target_selection": {
+        "applied_effects": {
+          "entity_effect": [
+            {
+              "effect_type": "dragonsurvival:potion",
+              "potion": {
+                "amplifier": {
+                  "type": "minecraft:linear",
+                  "base": 1,
+                  "per_level_above_first": 1
+                },
+                "duration": {
+                  "type": "minecraft:linear",
+                  "base": 4000,
+                  "per_level_above_first": 4000
+                },
+                "effects": "additionaldragons:bubble_shield",
+                "probability": 1
+              }
+            },
+            {
+              "effect_type": "dragonsurvival:particle",
+              "particle_count": 20,
+              "particle_data": {
+                "horizontal_position": {
+                  "type": "in_bounding_box"
+                },
+                "horizontal_velocity": {
+                  "base": 0.05
+                },
+                "particle": {
+                  "type": "additionaldragons:dragon_bubble"
+                },
+                "speed": 0.05,
+                "vertical_position": {
+                  "type": "in_bounding_box"
+                },
+                "vertical_velocity": {
+                  "base": 0.05
+                }
+              }
+            }
+          ],
+          "targeting_mode": "non_enemies"
+        },
+        "radius": 5,
+        "target_type": "dragonsurvival:area"
+      },
+      "trigger_rate": 1
+    }
+  ],
+  "activation": {
+    "activation_type": "dragonsurvival:simple",
+    "animations": {
+      "end": {
+        "animation_key": "mass_buff",
+        "layer": "BASE",
+        "locks_neck": true,
+        "locks_tail": true
+      },
+      "start_and_charging": {
+        "animation_key": "cast_mass_buff",
+        "layer": "BASE",
+        "locks_neck": true,
+        "locks_tail": true,
+        "transition_length": 2
+      }
+    },
+    "can_move_while_casting": false,
+    "cast_time": 20,
+    "cooldown": 1200,
+    "initial_mana_cost": 1,
+    "sound": {
+      "end": "minecraft:ui.toast.in"
+    }
+  },
+  "icon": {
+    "texture_entries": [
+      {
+        "from_level": 0,
+        "texture_resource": "additionaldragons:abilities/primordial/bubble_shield_0"
+      },
+      {
+        "from_level": 1,
+        "texture_resource": "additionaldragons:abilities/primordial/bubble_shield_1"
+      },
+      {
+        "from_level": 2,
+        "texture_resource": "additionaldragons:abilities/primordial/bubble_shield_2"
+      },
+      {
+        "from_level": 3,
+        "texture_resource": "additionaldragons:abilities/primordial/bubble_shield_3"
+      }
+    ]
+  },
+  "upgrade": {
+    "level_requirement": {
+      "type": "minecraft:lookup",
+      "fallback": {
+        "type": "minecraft:linear",
+        "base": 15,
+        "per_level_above_first": 15
+      },
+      "values": [
+        5,
+		15,
+        25,
+        40
+      ]
+    },
+    "maximum_level": 3,
+    "upgrade_type": "dragonsurvival:experience_levels"
+  },
+  "usage_blocked": {
+    "condition": "minecraft:entity_properties",
+    "entity": "this",
+    "predicate": {
+      "flags": {
+        "is_on_ground": false
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "activation": {
+    "activation_type": "dragonsurvival:simple",
+    "initial_mana_cost": 1,
+    "cast_time": 20,
+    "cooldown": 0
+  },
+  "actions": [
+    {
+      "target_selection": {
+        "target_type": "dragonsurvival:self",
+        "applied_effects": {
+          "entity_effect": [
+            {
+              "effect_type": "dragonsurvival:potion",
+              "potion": {
+                "amplifier": {
+                  "type": "minecraft:linear",
+                  "base": 0,
+                  "per_level_above_first": 1
+                },
+                "duration": 1200,
+                "effects": "additionaldragons:high_voltage",
+                "probability": 1
+              }
+            }
+          ],
+          "targeting_mode": "all"
+        }
+      },
+      "trigger_rate": 0
+    }
+  ],
+  "upgrade": {
+    "level_requirement": {
+      "type": "minecraft:lookup",
+      "fallback": {
+        "type": "minecraft:linear",
+        "base": 15,
+        "per_level_above_first": 15
+      },
+      "values": [
+        0,
+        5,
+        10,
+        20,
+        30
+      ]
+    },
+    "maximum_level": 4,
+    "upgrade_type": "dragonsurvival:experience_levels"
+  },
+  "icon": {
+    "texture_entries": [
+      {
+        "from_level": 0,
+        "texture_resource": "additionaldragons:abilities/primordial/high_voltage_0"
+      },
+      {
+        "from_level": 1,
+        "texture_resource": "additionaldragons:abilities/primordial/high_voltage_1"
+      },
+      {
+        "from_level": 2,
+        "texture_resource": "additionaldragons:abilities/primordial/high_voltage_2"
+      },
+      {
+        "from_level": 3,
+        "texture_resource": "additionaldragons:abilities/primordial/high_voltage_3"
+      },
+      {
+        "from_level": 4,
+        "texture_resource": "additionaldragons:abilities/primordial/high_voltage_4"
+      }
+    ]
+  }
+}

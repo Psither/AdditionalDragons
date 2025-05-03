@@ -28,6 +28,7 @@ public class AdditionalDragonsMod {
 		ADItems.REGISTRY.register(modEventBus);
 		ADParticles.REGISTRY.register(modEventBus);
 		ADSounds.REGISTRY.register(modEventBus);
+		ADEffects.REGISTRY.register(modEventBus);
 		GLM.register(modEventBus);
 
 		ADSounds.register();

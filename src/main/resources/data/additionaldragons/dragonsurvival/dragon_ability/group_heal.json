@@ -57,20 +57,14 @@
 				"per_level_above_first": 0.1
 			  },
 			  "regen_level": {
-				"type": "minecraft:lookup",
-				"values": [
-				  0,
-				  1,
-				  1,
-				  2,
-				  3
-				],
-			    "fallback": {
-				  "type": "minecraft:linear",
-				  "base": 3,
-				  "per_level_above_first": 0
-				}
-			  },
+                "type": "minecraft:lookup",
+                "values": [ 0, 1, 1, 2, 3 ],
+                "fallback": {
+                  "type": "minecraft:linear",
+                  "base": 3,
+                  "per_level_above_first": 0
+                }
+              }
 			}
           ],
           "targeting_mode": "all_except_self"
