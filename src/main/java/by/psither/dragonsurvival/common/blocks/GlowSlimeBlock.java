@@ -1,6 +1,5 @@
 package by.psither.dragonsurvival.common.blocks;
 
-import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.LuminousBreathAbility;
 import com.mojang.serialization.MapCodec;
 import java.util.List;
 import net.minecraft.core.BlockPos;
@@ -11,10 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.MultifaceBlock;
-import net.minecraft.world.level.block.MultifaceSpreader;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -25,31 +21,26 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 public class GlowSlimeBlock extends MultifaceBlock implements SimpleWaterloggedBlock {
+	public static final MapCodec<GlowSlimeBlock> CODEC = simpleCodec(GlowSlimeBlock::new);
 	private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	private final MultifaceSpreader spreader = new MultifaceSpreader(this);
 
 	public GlowSlimeBlock(BlockBehaviour.Properties pProperties) {
 		super(pProperties);
-	    this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(false)));
+	    this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.FALSE));
 	}
 
-	@Override
-	protected MapCodec<? extends MultifaceBlock> codec() {
-		return null;
+	protected @NotNull MapCodec<? extends MultifaceBlock> codec() {
+		return CODEC;
 	}
 
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> pBuilder) {
 		super.createBlockStateDefinition(pBuilder);
 		pBuilder.add(WATERLOGGED);
 	}
-	
-	/**
-	 * Update the provided state given the provided neighbor direction and neighbor state, returning a new state.
-	 * For example, fences make their connections to the passed in state if possible, and wet concrete powder immediately
-	 * returns its solidified counterpart.
-	 * Note that this method should ideally consider only the specific direction passed in.
-	 */
-	public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos) {
+
+	@Override
+	public @NotNull BlockState updateShape(BlockState pState, @NotNull Direction pDirection, @NotNull BlockState pNeighborState, @NotNull LevelAccessor pLevel, @NotNull BlockPos pCurrentPos, @NotNull BlockPos pNeighborPos) {
 		if (pState.getValue(WATERLOGGED)) {
 		   pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
 		}
@@ -64,22 +55,21 @@ public class GlowSlimeBlock extends MultifaceBlock implements SimpleWaterloggedB
 	}
 	
 	public static int getLightLevel(BlockState pState) {
-		// Underwater: 10, In air: 4, 0 if config off, Empty: 0
-		return MultifaceBlock.hasAnyFace(pState) ? pState.getValue(WATERLOGGED) ? 10 : (LuminousBreathAbility.getLightOutOfWater() ? 4 : 0) : 0;
+		// Underwater: 10, In air: 4, Empty: 0
+		return MultifaceBlock.hasAnyFace(pState) ? pState.getValue(WATERLOGGED) ? 10 : 4 : 0;
 	}
 
-	public FluidState getFluidState(BlockState pState) {
+	public @NotNull FluidState getFluidState(BlockState pState) {
 		return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
 	}
 
 	@Override
 	public boolean propagatesSkylightDown(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
 		return true;
-		//return pState.getFluidState().isEmpty();
 	}
 	
 	@Override
-	public MultifaceSpreader getSpreader() {
+	public @NotNull MultifaceSpreader getSpreader() {
 		return spreader;
 	}
 }

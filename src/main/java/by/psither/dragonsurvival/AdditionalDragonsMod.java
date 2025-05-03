@@ -1,18 +1,10 @@
 package by.psither.dragonsurvival;
 
-import static by.psither.dragonsurvival.client.particles.ADParticles.AD_PARTICLES;
-import static by.psither.dragonsurvival.client.sounds.ADSoundRegistry.SOUNDS;
-import static by.psither.dragonsurvival.registry.ADBlocks.AD_BLOCKS;
-import static by.psither.dragonsurvival.registry.ADDragonEffects.AD_MOB_EFFECTS;
-import static by.psither.dragonsurvival.registry.ADEntities.ENTITY_TYPES;
-import static by.psither.dragonsurvival.registry.ADItems.AD_ITEMS;
-
-import by.psither.dragonsurvival.client.sounds.ADSoundRegistry;
-import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
-import by.psither.dragonsurvival.registry.ADCreativeTabs;
+import by.dragonsurvivalteam.dragonsurvival.DragonSurvival;
+import by.psither.dragonsurvival.registry.*;
 import by.psither.dragonsurvival.registry.datagen.loot.MarrowLootModifier;
-import by.psither.dragonsurvival.registry.datagen.loot.SeekingTalonsLootModifier;
 import com.mojang.serialization.MapCodec;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -30,21 +22,20 @@ public class AdditionalDragonsMod {
 
 	public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> GLM = DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MODID);
 	public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<MarrowLootModifier>> MARROW_LOOT = GLM.register("marrow", MarrowLootModifier.CODEC);
-	public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<SeekingTalonsLootModifier>> SEEKING_TALONS_LOOT = GLM.register("seeking_talons", SeekingTalonsLootModifier.CODEC);
 	
 	public AdditionalDragonsMod(IEventBus modEventBus, ModContainer modContainer) {
-		ADDragonTypes.registerSubtypes();
-
-		AD_BLOCKS.register(modEventBus);
-		AD_ITEMS.register(modEventBus);
-		AD_MOB_EFFECTS.register(modEventBus);
-		AD_PARTICLES.register(modEventBus);
-		SOUNDS.register(modEventBus);
-		ENTITY_TYPES.register(modEventBus);
+		ADBlocks.REGISTRY.register(modEventBus);
+		ADItems.REGISTRY.register(modEventBus);
+		ADParticles.REGISTRY.register(modEventBus);
+		ADSounds.REGISTRY.register(modEventBus);
 		GLM.register(modEventBus);
 
-		ADSoundRegistry.register();
+		ADSounds.register();
 		
 		ADCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
+	}
+
+	public static ResourceLocation res(final String path) {
+		return DragonSurvival.location(AdditionalDragonsMod.MODID, path);
 	}
 }

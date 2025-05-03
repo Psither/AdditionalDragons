@@ -1,7 +1,6 @@
 package by.psither.dragonsurvival.registry;
 
 import static by.psither.dragonsurvival.AdditionalDragonsMod.MODID;
-import static by.psither.dragonsurvival.registry.ADItems.AD_ITEMS;
 
 import by.psither.dragonsurvival.common.blocks.*;
 import net.minecraft.core.Holder;
@@ -15,15 +14,15 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ADBlocks{
-	public static DeferredRegister<Block> AD_BLOCKS = DeferredRegister.create(
+	public static DeferredRegister<Block> REGISTRY = DeferredRegister.create(
 			BuiltInRegistries.BLOCK,
 			MODID
 	);
 
 	public static GlowSlimeBlock glowSlime;
 
-	public static final DeferredHolder<Block, GlowSlimeBlock> GLOW_SLIME = AD_BLOCKS.register(
-			"glowslime",
+	public static final DeferredHolder<Block, GlowSlimeBlock> GLOW_SLIME = REGISTRY.register(
+			"glow_slime",
 			() -> new GlowSlimeBlock(Block.Properties.of()
 					.mapColor(DyeColor.CYAN)
 					.strength(0.2F)
@@ -32,8 +31,8 @@ public class ADBlocks{
 					.noOcclusion())
 	);
 
-	public static final Holder<Item> GLOW_SLIME_ITEM = AD_ITEMS.register(
-			"glowslime",
+	public static final Holder<Item> GLOW_SLIME_ITEM = ADItems.REGISTRY.register(
+			"glow_slime",
 			() -> new BlockItem(GLOW_SLIME.get(), new Item.Properties())
 	);
 }

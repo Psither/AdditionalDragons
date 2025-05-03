@@ -1,0 +1,112 @@
+{
+  "activation": {
+    "activation_type": "dragonsurvival:simple",
+    "initial_mana_cost": 2,
+    "cast_time": 16,
+    "cooldown": 200,
+    "can_move_while_casting": true,
+    "animations": {
+      "start_and_charging": {
+        "animation_key": "cast_self_buff",
+        "layer": "BASE",
+        "locks_neck": false,
+        "locks_tail": false
+      },
+      "end": {
+        "animation_key": "self_buff",
+        "layer": "BASE",
+        "locks_neck": false,
+        "locks_tail": false
+      }
+    }
+  },
+  "upgrade": {
+    "upgrade_type": "dragonsurvival:experience_levels",
+    "maximum_level": 5,
+    "level_requirement": {
+      "type": "minecraft:lookup",
+      "values": [
+        0,
+        10,
+        25,
+        40
+      ],
+      "fallback": {
+        "type": "minecraft:linear",
+        "base": -5,
+        "per_level_above_first": 15
+      }
+    }
+  },
+  "actions": [
+    {
+      "target_selection": {
+        "target_type": "dragonsurvival:area",
+        "applied_effects": {
+          "entity_effect": [
+			{
+			  "effect_type": "additionaldragons:group_heal_unique_effect",
+			  "amount": {
+				"type": "minecraft:linear",
+				"base": 1.5,
+				"per_level_above_first": 1.5
+			  },
+			  "conversion": {
+				"type": "minecraft:linear",
+				"base": 0.5,
+				"per_level_above_first": 0.1
+			  },
+			  "regen_level": {
+				"type": "minecraft:lookup",
+				"values": [
+				  0,
+				  1,
+				  1,
+				  2,
+				  3
+				],
+			    "fallback": {
+				  "type": "minecraft:linear",
+				  "base": 3,
+				  "per_level_above_first": 0
+				}
+			  },
+			}
+          ],
+          "targeting_mode": "all_except_self"
+        },
+        "radius": {
+          "type": "minecraft:linear",
+          "base": 2,
+          "per_level_above_first": 2
+        }
+      },
+      "trigger_rate": 0
+    }
+  ],
+  "can_be_manually_disabled": false,
+  "icon": {
+    "texture_entries": [
+      {
+        "from_level": 0,
+        "texture_resource": "additionaldragons:abilities/primordial/group_heal_0"
+      },
+      {
+        "from_level": 1,
+        "texture_resource": "additionaldragons:abilities/primordial/group_heal_1"
+      },
+      {
+        "from_level": 2,
+        "texture_resource": "additionaldragons:abilities/primordial/group_heal_2"
+      },
+      {
+        "from_level": 3,
+        "texture_resource": "additionaldragons:abilities/primordial/group_heal_3"
+      },
+      {
+        "from_level": 4,
+        "texture_resource": "additionaldragons:abilities/primordial/group_heal_4"
+      }
+    ]
+  }
+}
