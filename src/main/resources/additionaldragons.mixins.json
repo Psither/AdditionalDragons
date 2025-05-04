@@ -3,9 +3,6 @@
   "package": "by.psither.dragonsurvival.mixins",
   "plugin": "by.psither.dragonsurvival.mixins.ApplyMixinPlugin",
   "mixins": [
-    "DragonFoodHandlerMixin",
-    "LivingEntityMixin",
-    "PlayerMixin"
   ],
   "client": [
   ]
