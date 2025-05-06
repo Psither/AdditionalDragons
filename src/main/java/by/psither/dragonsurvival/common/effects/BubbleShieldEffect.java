@@ -3,13 +3,19 @@ package by.psither.dragonsurvival.common.effects;
 import by.dragonsurvivalteam.dragonsurvival.DragonSurvival;
 import by.dragonsurvivalteam.dragonsurvival.registry.attachments.DSDataAttachments;
 import by.dragonsurvivalteam.dragonsurvival.registry.attachments.PenaltySupply;
+import by.dragonsurvivalteam.dragonsurvival.registry.datagen.tags.DSDamageTypeTags;
+import by.psither.dragonsurvival.registry.ADEffects;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import org.jetbrains.annotations.NotNull;
 
+@EventBusSubscriber
 public class BubbleShieldEffect extends MobEffect {
     private final ResourceLocation waterSupply = DragonSurvival.res("water_supply");
     public BubbleShieldEffect(MobEffectCategory type, int color) {
@@ -31,6 +37,13 @@ public class BubbleShieldEffect extends MobEffect {
         }
 
         return super.applyEffectTick(livingEntity, amplifier);
+    }
+
+    @SubscribeEvent
+    public static void removeWaterRainBurnDamage(final LivingIncomingDamageEvent event) {
+        if (event.getSource().is(DSDamageTypeTags.WATER_BURN) && event.getEntity().hasEffect(ADEffects.BUBBLE_SHIELD)) {
+            event.setCanceled(true);
+        }
     }
 
     @Override

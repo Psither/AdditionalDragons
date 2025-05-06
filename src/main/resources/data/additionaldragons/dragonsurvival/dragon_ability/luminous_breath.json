@@ -51,7 +51,7 @@
         "range_multiplier": 1,
         "target_type": "dragonsurvival:dragon_breath"
       },
-      "trigger_rate": 10
+      "trigger_rate": 5
     },
     {
       "target_selection": {
