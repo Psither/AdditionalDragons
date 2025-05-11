@@ -25,6 +25,6 @@ public record SmallConfoundParticleOption(float duration, boolean swirls) implem
 
     @Override
     public @NotNull ParticleType<?> getType() {
-        return ADParticles.SMALL_GLOWSLIME.value();
+        return ADParticles.SMALL_CONFOUND.value();
     }
 }
