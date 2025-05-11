@@ -3,6 +3,7 @@ package by.psither.dragonsurvival;
 import by.dragonsurvivalteam.dragonsurvival.DragonSurvival;
 import by.psither.dragonsurvival.registry.*;
 import by.psither.dragonsurvival.registry.datagen.loot.MarrowLootModifier;
+import by.psither.dragonsurvival.registry.datagen.loot.AttributeBonusLootModifier;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
@@ -22,17 +23,18 @@ public class AdditionalDragonsMod {
 
 	public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> GLM = DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MODID);
 	public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<MarrowLootModifier>> MARROW_LOOT = GLM.register("marrow", MarrowLootModifier.CODEC);
-	
+	public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<AttributeBonusLootModifier>> ATTRIBUTE_BONUS_LOOT = GLM.register("attribute_bonus_loot", AttributeBonusLootModifier.CODEC);
+
 	public AdditionalDragonsMod(IEventBus modEventBus, ModContainer modContainer) {
 		ADBlocks.REGISTRY.register(modEventBus);
 		ADItems.REGISTRY.register(modEventBus);
 		ADParticles.REGISTRY.register(modEventBus);
 		ADSounds.REGISTRY.register(modEventBus);
+		ADAttributes.REGISTRY.register(modEventBus);
 		ADEffects.REGISTRY.register(modEventBus);
+		ADSounds.register();
 		GLM.register(modEventBus);
 
-		ADSounds.register();
-		
 		ADCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
 	}
 

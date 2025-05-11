@@ -5,6 +5,8 @@ import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+
+import java.util.ArrayList;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.Entity;
@@ -35,16 +37,17 @@ public class MarrowLootModifier extends LootModifier {
             );
             int lootingRoll = lootingLevel < 1 ? 1 : context.getRandom().nextInt(lootingLevel);
             generatedLoot.add(new ItemStack(ADItems.CURSED_MARROW, lootingRoll));
+            ArrayList<ItemStack> bones = new ArrayList<>();
             for (ItemStack itemStack : generatedLoot) {
                 if (itemStack.is(Items.BONE)) {
                     generatedLoot.add(new ItemStack(ADItems.CURSED_MARROW, itemStack.getCount()));
-                    generatedLoot.remove(itemStack);
+                    bones.add(itemStack);
                 }
             }
+            generatedLoot.removeAll(bones);
         }
         return generatedLoot;
     }
-
 
     @Override
     public MapCodec<? extends IGlobalLootModifier> codec() {
