@@ -31,10 +31,13 @@ public class MarrowLootModifier extends LootModifier {
     protected @NotNull ObjectArrayList<ItemStack> doApply(@NotNull ObjectArrayList<ItemStack> generatedLoot, @NotNull LootContext context) {
         Entity attacker = context.getParamOrNull(LootContextParams.ATTACKING_ENTITY);
         if (attacker instanceof LivingEntity living) {
-            int lootingLevel = EnchantmentHelper.getTagEnchantmentLevel(
-                    context.getLevel().registryAccess().registry(Registries.ENCHANTMENT).get().getHolderOrThrow(Enchantments.LOOTING),
-                    living.getWeaponItem()
-            );
+            int lootingLevel = 0;
+            if (context.getLevel().registryAccess().registry(Registries.ENCHANTMENT).isPresent()) {
+                lootingLevel = EnchantmentHelper.getTagEnchantmentLevel(
+                        context.getLevel().registryAccess().registry(Registries.ENCHANTMENT).get().getHolderOrThrow(Enchantments.LOOTING),
+                        living.getWeaponItem()
+                );
+            }
             int lootingRoll = lootingLevel < 1 ? 1 : context.getRandom().nextInt(lootingLevel);
             generatedLoot.add(new ItemStack(ADItems.CURSED_MARROW, lootingRoll));
             ArrayList<ItemStack> bones = new ArrayList<>();
@@ -50,7 +53,7 @@ public class MarrowLootModifier extends LootModifier {
     }
 
     @Override
-    public MapCodec<? extends IGlobalLootModifier> codec() {
+    public @NotNull MapCodec<? extends IGlobalLootModifier> codec() {
         return CODEC.get();
     }
 }
