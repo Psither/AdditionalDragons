@@ -18,7 +18,10 @@ import java.util.List;
 public class VisualEffectSync {
     private static final List<Holder<MobEffect>> VISUAL_EFFECTS = List.of(
             ADEffects.HIGH_VOLTAGE,
-            ADEffects.BUBBLE_SHIELD
+            ADEffects.BUBBLE_SHIELD,
+            ADEffects.INVIGORATE,
+            ADEffects.CONFOUNDED,
+            ADEffects.SEEKING_TALONS
     );
 
     @SubscribeEvent

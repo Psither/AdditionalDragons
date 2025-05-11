@@ -1,5 +1,5 @@
 {
-  "type": "additionaldragons:seeking_talons",
+  "type": "additionaldragons:attribute_bonus_loot",
   "conditions": [
     {
       "condition": "minecraft:killed_by_player"
