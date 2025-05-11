@@ -1,0 +1,110 @@
+{
+  "general_data": {
+    "block_hit_effects": [
+	  {
+	    "block_effect": "dragonsurvival:area_cloud",
+		"particle": {
+		  "type": "dragonsurvival:large_poison",
+		  "duration": 60.0,
+		  "swirls": true
+		},
+		"potion": {
+		  "amplifier": 0.0,
+		  "duration": 200.0,
+		  "effect_particles": true,
+		  "effects": "dragonsurvival:drain"
+		},
+		"probability": 1,
+		"duration": 240,
+		"delay": 40,
+		"radius": 3
+	  }
+	],
+    "common_hit_effects": [],
+    "entity_hit_condition": {
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "type_specific": {
+          "type": "dragonsurvival:entity_check_predicate",
+          "check_for": "living_entity"
+        }
+      }
+    },
+    "entity_hit_effects": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 2.0,
+          "per_level_above_first": 2.0
+        },
+        "damage_type": "dragonsurvival:spike",
+        "entity_effect": "dragonsurvival:damage"
+      },
+	  {
+		"entity_effect": "dragonsurvival:potion",
+		"potion": {
+		  "amplifier": 0.0,
+		  "duration": 300.0,
+		  "effect_particles": true,
+		  "effects": "dragonsurvival:drain"
+		}
+	  }
+    ],
+    "name": "dragonsurvival:misty_barb",
+    "ticking_effects": [
+	  {
+		"general_data": {
+		  "effects": [
+		    {
+			  "effect": {
+			    "block_effect": "dragonsurvival:area_cloud",
+				"particle": {
+                  "type": "dragonsurvival:poison",
+                  "duration": 37.0,
+                  "swirls": true
+                },
+				"potion": {
+                  "amplifier": 0.0,
+                  "duration": 100.0,
+				  "effect_particles": true,
+                  "effects": "dragonsurvival:drain"
+                },
+				"probability": 1,
+				"duration": 30,
+				"delay": 10,
+				"radius": 0.5
+			  }
+		    }
+		  ],
+		  "tick_rate": 3,
+		  "chance": 1
+		},
+        "target_type": "dragonsurvival:point"
+	  }
+	]
+  },
+  "type_data": {
+    "piercing_level": 0,
+    "texture": {
+      "texture_entries": [
+        {
+          "from_level": 1,
+          "texture_resource": "additionaldragons:misty_barb_1"
+        },
+        {
+          "from_level": 2,
+          "texture_resource": "additionaldragons:misty_barb_2"
+        },
+        {
+          "from_level": 3,
+          "texture_resource": "additionaldragons:misty_barb_3"
+        },
+        {
+          "from_level": 4,
+          "texture_resource": "additionaldragons:misty_barb_4"
+        }
+      ]
+    }
+  }
+}
