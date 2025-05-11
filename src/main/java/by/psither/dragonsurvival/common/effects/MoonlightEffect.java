@@ -6,8 +6,8 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 
-public class InvigorateEffect extends ModifiableMobEffect {
-    public InvigorateEffect(MobEffectCategory type, int color, boolean incurable) {
+public class MoonlightEffect extends ModifiableMobEffect {
+    public MoonlightEffect(MobEffectCategory type, int color, boolean incurable) {
         super(type, color, incurable);
     }
 
