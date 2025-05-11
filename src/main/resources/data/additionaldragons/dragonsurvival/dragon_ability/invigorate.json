@@ -80,19 +80,19 @@
     "texture_entries": [
       {
         "from_level": 0,
-        "texture_resource": "dragonsurvival:abilities/deepwoods/invigorate_0"
+        "texture_resource": "additionaldragons:abilities/deepwoods/invigorate_0"
       },
       {
         "from_level": 1,
-        "texture_resource": "dragonsurvival:abilities/deepwoods/invigorate_1"
+        "texture_resource": "additionaldragons:abilities/deepwoods/invigorate_1"
       },
       {
         "from_level": 2,
-        "texture_resource": "dragonsurvival:abilities/deepwoods/invigorate_2"
+        "texture_resource": "additionaldragons:abilities/deepwoods/invigorate_2"
       },
       {
         "from_level": 3,
-        "texture_resource": "dragonsurvival:abilities/deepwoods/invigorate_3"
+        "texture_resource": "additionaldragons:abilities/deepwoods/invigorate_3"
       }
     ]
   },
