@@ -28,10 +28,7 @@ public class LargeBlastDustParticle extends DragonParticle {
 	}
 
 	public static Color getColorFromInt(int color) {
-		int red = Math.max(color % 255, 0);
-		int green = Math.max((color / 255) % 255, 0);
-		int blue = Math.max((color / 65025) % 255, 0);
-		return new Color(red, green, blue);
+		return new Color(color);
 	}
 
 	public static final class Factory implements ParticleProvider<LargeBlastDustParticleOption>{
@@ -43,7 +40,7 @@ public class LargeBlastDustParticle extends DragonParticle {
 		public Particle createParticle(LargeBlastDustParticleOption type, @NotNull ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed){
 			LargeBlastDustParticle particle = new LargeBlastDustParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, type.duration(), type.swirls(), type.color(), spriteSet);
 			particle.setSpriteFromAge(spriteSet);
-			particle.setColor(particle.color.getGreen(), particle.color.getRed(), particle.color.getBlue());
+			particle.setColor(particle.color.getRed() / 255f, particle.color.getGreen() / 255f, particle.color.getBlue() / 255f);
 			return particle;
 		}
 	}
