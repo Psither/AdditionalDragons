@@ -9,20 +9,20 @@
               "potion": {
                 "amplifier": {
                   "type": "minecraft:linear",
-                  "base": 1.0,
-                  "per_level_above_first": 1.0
+                  "base": 1,
+                  "per_level_above_first": 1
                 },
                 "duration": {
                   "type": "minecraft:linear",
-                  "base": 600.0,
-                  "per_level_above_first": 600.0
+                  "base": 600,
+                  "per_level_above_first": 600
                 },
                 "effects": "additionaldragons:seeking_talons"
               }
             },
             {
               "effect_type": "dragonsurvival:particle",
-              "particle_count": 20.0,
+              "particle_count": 20,
               "particle_data": {
                 "horizontal_position": {
                   "type": "in_bounding_box"
@@ -45,35 +45,16 @@
           ],
           "targeting_mode": "non_enemies"
         },
-        "radius": 5.0,
-        "target_type": "dragonsurvival:area"
+        "target_type": "dragonsurvival:self"
       },
-      "trigger_rate": 1.0
+      "trigger_rate": 0
     }
   ],
   "activation": {
-    "activation_type": "dragonsurvival:simple",
-    "animations": {
-      "end": {
-        "animation_key": "self_buff",
-        "layer": "BASE",
-        "locks_neck": true,
-        "locks_tail": true
-      },
-      "start_and_charging": {
-        "animation_key": "cast_self_buff",
-        "layer": "BASE",
-        "locks_neck": true,
-        "locks_tail": true,
-        "transition_length": 2
-      }
-    },
-    "can_move_while_casting": false,
-    "cast_time": 60.0,
-    "cooldown": 600.0,
-    "initial_mana_cost": 3.0,
-    "sound": {
-      "end": "minecraft:ui.toast.in"
+    "activation_type": "dragonsurvival:passive",
+    "cooldown": 0,
+    "trigger": {
+      "trigger_type": "dragonsurvival:on_target_killed"
     }
   },
   "icon": {
@@ -105,14 +86,14 @@
       "type": "minecraft:lookup",
       "fallback": {
         "type": "minecraft:linear",
-        "base": 15.0,
-        "per_level_above_first": 15.0
+        "base": 15,
+        "per_level_above_first": 15
       },
       "values": [
-        0.0,
-        25.0,
-        35.0,
-        55.0
+        0,
+        25,
+        35,
+        55
       ]
     },
     "maximum_level": 4,
