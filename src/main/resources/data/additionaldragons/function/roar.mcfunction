@@ -1,0 +1,1 @@
+playsound entity.ender_dragon.growl player @p ~ ~ ~ 2 0.9

@@ -59,6 +59,10 @@
         "applied_effects": {
           "entity_effect": [
             {
+              "effect_type": "dragonsurvival:run_function",
+              "function": "additionaldragons:roar"
+            },
+            {
               "effect_type": "dragonsurvival:heal",
               "percentage": 0.3
             },
@@ -87,11 +91,6 @@
           ],
           "target_conditions": {
             "condition": "minecraft:inverted",
-            "predicate": {
-              "fluid": {
-                "fluids": "#minecraft:water"
-              }
-            },
             "term": {
               "condition": "minecraft:location_check",
               "predicate": {
