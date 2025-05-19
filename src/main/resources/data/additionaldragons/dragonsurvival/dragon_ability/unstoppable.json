@@ -1,0 +1,290 @@
+{
+  "activation": {
+    "activation_type": "dragonsurvival:passive",
+    "continuous_mana_cost": {
+      "type": "reserved",
+      "amount": 1
+    },
+    "trigger": {
+      "trigger_type": "dragonsurvival:constant"
+    }
+  },
+  "upgrade": {
+    "upgrade_type": "dragonsurvival:experience_levels",
+    "maximum_level": 2,
+    "level_requirement": {
+      "type": "minecraft:lookup",
+      "values": [
+        10,
+        25
+      ],
+      "fallback": {
+        "type": "minecraft:linear",
+        "base": 10,
+        "per_level_above_first": 15
+      }
+    }
+  },
+  "actions": [
+    {
+      "target_selection": {
+        "target_type": "dragonsurvival:self",
+        "applied_effects": {
+          "entity_effect": [
+            {
+              "effect_type": "dragonsurvival:modifier",
+              "modifiers": [
+                {
+                  "base": {
+                    "id": "additionaldragons:unstoppable_movement_speed_1",
+                    "should_remove_automatically": true,
+                    "is_hidden": true
+                  },
+                  "modifiers": [
+                    {
+                      "attribute": "minecraft:generic.movement_speed",
+                      "amount": 0.1,
+                      "operation": "add_multiplied_total"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "target_conditions": {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type_specific": {
+                "type": "dragonsurvival:custom_predicates",
+                "health_percentage": {
+                  "max": 0.8
+                }
+              }
+            }
+          },
+          "targeting_mode": "all"
+        }
+      },
+      "trigger_rate": 0
+    },
+    {
+      "target_selection": {
+        "target_type": "dragonsurvival:self",
+        "applied_effects": {
+          "entity_effect": [
+            {
+              "effect_type": "dragonsurvival:modifier",
+              "modifiers": [
+                {
+                  "base": {
+                    "id": "additionaldragons:unstoppable_movement_speed_2",
+                    "should_remove_automatically": true,
+                    "is_hidden": true
+                  },
+                  "modifiers": [
+                    {
+                      "attribute": "minecraft:generic.movement_speed",
+                      "amount": 0.1,
+                      "operation": "add_multiplied_total"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "target_conditions": {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type_specific": {
+                "type": "dragonsurvival:custom_predicates",
+                "health_percentage": {
+                  "max": 0.65
+                }
+              }
+            }
+          },
+          "targeting_mode": "all"
+        }
+      },
+      "trigger_rate": 0
+    },
+    {
+      "target_selection": {
+        "target_type": "dragonsurvival:self",
+        "applied_effects": {
+          "entity_effect": [
+            {
+              "effect_type": "dragonsurvival:modifier",
+              "modifiers": [
+                {
+                  "base": {
+                    "id": "additionaldragons:unstoppable_movement_speed_3",
+                    "should_remove_automatically": true,
+                    "is_hidden": true
+                  },
+                  "modifiers": [
+                    {
+                      "attribute": "minecraft:generic.movement_speed",
+                      "amount": 0.1,
+                      "operation": "add_multiplied_total"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "target_conditions": {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type_specific": {
+                "type": "dragonsurvival:custom_predicates",
+                "health_percentage": {
+                  "max": 0.5
+                }
+              }
+            }
+          },
+          "targeting_mode": "all"
+        }
+      },
+      "trigger_rate": 0
+    },
+    {
+      "target_selection": {
+        "target_type": "dragonsurvival:self",
+        "applied_effects": {
+          "entity_effect": [
+            {
+              "effect_type": "dragonsurvival:modifier",
+              "modifiers": [
+                {
+                  "base": {
+                    "id": "additionaldragons:unstoppable_movement_speed_4",
+                    "should_remove_automatically": true,
+                    "is_hidden": true
+                  },
+                  "modifiers": [
+                    {
+                      "attribute": "minecraft:generic.movement_speed",
+                      "amount": 0.1,
+                      "operation": "add_multiplied_total"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "target_conditions": {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type_specific": {
+                "type": "dragonsurvival:custom_predicates",
+                "health_percentage": {
+                  "max": 0.3
+                }
+              }
+            }
+          },
+          "targeting_mode": "all"
+        }
+      },
+      "trigger_rate": 0
+    },
+    {
+      "target_selection": {
+        "target_type": "dragonsurvival:self",
+        "applied_effects": {
+          "entity_effect": [
+            {
+              "effect_type": "dragonsurvival:modifier",
+              "modifiers": [
+                {
+                  "base": {
+                    "id": "additionaldragons:unstoppable_movement_speed_5",
+                    "should_remove_automatically": true,
+                    "is_hidden": true
+                  },
+                  "modifiers": [
+                    {
+                      "attribute": "minecraft:generic.movement_speed",
+                      "amount": 0.1,
+                      "operation": "add_multiplied_total"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "target_conditions": {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type_specific": {
+                "type": "dragonsurvival:custom_predicates",
+                "health_percentage": {
+                  "max": 0.1
+                }
+              }
+            }
+          },
+          "targeting_mode": "all"
+        }
+      },
+      "trigger_rate": 0
+    },
+    {
+      "target_selection": {
+        "target_type": "dragonsurvival:self",
+        "applied_effects": {
+          "entity_effect": [
+            {
+              "effect_type": "dragonsurvival:modifier",
+              "modifiers": [
+                {
+                  "base": {
+                    "id": "additionaldragons:unstoppable_knockback_resistance",
+                    "is_hidden": false
+                  },
+                  "modifiers": [
+                    {
+                      "attribute": "minecraft:generic.knockback_resistance",
+                      "amount": {
+                        "type": "minecraft:linear",
+                        "base": 0.1,
+                        "per_level_above_first": 0.1
+                      },
+                      "operation": "add_value"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "targeting_mode": "all"
+        }
+      },
+      "trigger_rate": 0
+    }
+  ],
+  "can_be_manually_disabled": true,
+  "icon": {
+    "texture_entries": [
+      {
+        "from_level": 0,
+        "texture_resource": "additionaldragons:abilities/tectonic/unstoppable_0"
+      },
+      {
+        "from_level": 1,
+        "texture_resource": "additionaldragons:abilities/tectonic/unstoppable_1"
+      },
+      {
+        "from_level": 2,
+        "texture_resource": "additionaldragons:abilities/tectonic/unstoppable_2"
+      }
+    ]
+  }
+}

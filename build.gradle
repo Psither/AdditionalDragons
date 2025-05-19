@@ -50,7 +50,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
 	flatDir {
-		dir './libs'
+		dir 'C:/libs'
 	}
 	maven {
 		name = 'GeckoLib'
@@ -75,7 +75,7 @@ dependencies {
 
 	// Dependencies
 	implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
-	implementation "dragonsurvival:DragonSurvival-1.21.1-v2.0.20-04.05.2025"
+	implementation "dragonsurvival:DragonSurvival-1.21.1-v2.0.22-17.05.2025-all"
 }
 
 tasks.withType(ProcessResources).configureEach {

@@ -1,5 +1,6 @@
 package by.psither.dragonsurvival.registry;
 
+import by.dragonsurvivalteam.dragonsurvival.common.effects.BlastDustedEffect;
 import by.dragonsurvivalteam.dragonsurvival.common.effects.ConfoundedEffect;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.effects.BubbleShieldEffect;
@@ -32,4 +33,5 @@ public class ADEffects {
             .addAttributeModifier(ADAttributes.CRIT_MULTIPLIER, res("effect.seeking_talons.crit_multiplier"), 0.4, AttributeModifier.Operation.ADD_VALUE)
             .addAttributeModifier(ADAttributes.BONUS_LOOT, res("effect.seeking_talons.bonus_loot"), 0.5, AttributeModifier.Operation.ADD_VALUE)
     );
+    public static Holder<MobEffect> BLAST_DUSTED = REGISTRY.register("blast_dusted", () -> new BlastDustedEffect(MobEffectCategory.HARMFUL, 0x0, false));
 }

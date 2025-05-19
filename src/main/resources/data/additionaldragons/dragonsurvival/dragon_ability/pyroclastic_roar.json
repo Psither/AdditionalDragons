@@ -1,0 +1,131 @@
+{
+  "activation": {
+    "activation_type": "dragonsurvival:passive",
+    "cooldown": {
+      "type": "minecraft:linear",
+      "base": 72000,
+      "per_level_above_first": -6000
+    },
+    "trigger": {
+      "trigger_type": "dragonsurvival:on_death"
+    }
+  },
+  "upgrade": {
+    "upgrade_type": "dragonsurvival:dragon_growth",
+    "maximum_level": 3,
+    "growth_requirement": {
+      "type": "minecraft:lookup",
+      "values": [
+        0,
+        15,
+        40,
+        60
+      ],
+      "fallback": 100
+    }
+  },
+  "usage_blocked": {
+    "condition": "minecraft:location_check",
+    "predicate": {
+      "fluid": {
+        "fluids": "#minecraft:water"
+      }
+    }
+  },
+  "actions": [
+    {
+      "target_selection": {
+        "target_type": "dragonsurvival:self",
+        "applied_effects": {
+          "block_effect": [
+            {
+              "effect_type": "dragonsurvival:explosion",
+              "probability": 1,
+              "power": {
+                "type": "minecraft:linear",
+                "base": 5,
+                "per_level_above_first": 2
+              },
+              "damage_type": "dragonsurvival:blast_dust"
+            }
+          ]
+        }
+      },
+      "trigger_rate": 0
+    },
+    {
+      "target_selection": {
+        "target_type": "dragonsurvival:self",
+        "applied_effects": {
+          "entity_effect": [
+            {
+              "effect_type": "dragonsurvival:heal",
+              "percentage": 0.3
+            },
+            {
+              "effect_type": "dragonsurvival:potion",
+              "potion": {
+                "effects": "minecraft:resistance",
+                "amplifier": 2,
+                "duration": 200,
+                "probability": 1,
+                "effect_particles": true,
+                "show_icon": true
+              }
+            },
+            {
+              "effect_type": "dragonsurvival:potion",
+              "potion": {
+                "effects": "minecraft:hunger",
+                "amplifier": 3,
+                "duration": 600,
+                "probability": 1,
+                "effect_particles": true,
+                "show_icon": true
+              }
+            }
+          ],
+          "target_conditions": {
+            "condition": "minecraft:inverted",
+            "predicate": {
+              "fluid": {
+                "fluids": "#minecraft:water"
+              }
+            },
+            "term": {
+              "condition": "minecraft:location_check",
+              "predicate": {
+                "fluid": {
+                  "fluids": "#minecraft:water"
+                }
+              }
+            }
+          },
+          "targeting_mode": "all"
+        }
+      },
+      "trigger_rate": 0
+    }
+  ],
+  "can_be_manually_disabled": false,
+  "icon": {
+    "texture_entries": [
+      {
+        "texture_resource": "additionaldragons:abilities/tectonic/pyroclastic_roar_0",
+        "from_level": 0
+      },
+      {
+        "texture_resource": "additionaldragons:abilities/tectonic/pyroclastic_roar_1",
+        "from_level": 1
+      },
+      {
+        "texture_resource": "additionaldragons:abilities/tectonic/pyroclastic_roar_2",
+        "from_level": 2
+      },
+      {
+        "texture_resource": "additionaldragons:abilities/tectonic/pyroclastic_roar_3",
+        "from_level": 3
+      }
+    ]
+  }
+}

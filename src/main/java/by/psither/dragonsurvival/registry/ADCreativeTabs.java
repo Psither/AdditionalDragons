@@ -13,7 +13,9 @@ public class ADCreativeTabs {
 	@SubscribeEvent
 	public static void addItems(BuildCreativeModeTabContentsEvent event) {
 		if (event.getTabKey().isFor(Registries.CREATIVE_MODE_TAB)) {
-			event.accept(ADItems.ANCIENT_CATALYST_SEA::value);
+			event.accept(ADItems.ANCIENT_CATALYST_DEEPWOODS::value);
+			event.accept(ADItems.ANCIENT_CATALYST_PRIMORDIAL::value);
+			event.accept(ADItems.ANCIENT_CATALYST_TECTONIC::value);
 			event.accept(ADBlocks.GLOW_SLIME_ITEM::value);
 			event.accept(ADItems.SLIPPERY_SUSHI::value);
 			event.accept(ADItems.CURSED_MARROW::value);
