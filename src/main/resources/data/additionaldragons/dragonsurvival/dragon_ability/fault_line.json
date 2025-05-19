@@ -8,7 +8,58 @@
       "per_level_above_first": 10
     }
   },
+  "usage_blocked": {
+    "condition": "minecraft:location_check",
+    "predicate": {
+      "fluid": {
+        "fluids": "#minecraft:water"
+      }
+    }
+  },
   "actions": [
+    {
+      "target_selection": {
+        "target_type": "dragonsurvival:disc",
+        "applied_effects": {
+          "block_effect": [
+            {
+              "effect_type": "dragonsurvival:block_break",
+              "valid_blocks": {
+                "type": "minecraft:all_of",
+                "predicates": [
+                  {
+                    "type": "minecraft:matching_block_tag",
+                    "tag": "minecraft:base_stone_nether"
+                  },
+                  {
+                    "type": "minecraft:matching_block_tag",
+                    "tag": "minecraft:base_stone_overworld"
+                  },
+                  {
+                    "type": "minecraft:matching_block_tag",
+                    "tag": "minecraft:dirt"
+                  }
+                ]
+              },
+              "probability": 0.5,
+              "drop_loot": true
+            }
+          ]
+        },
+        "radius": {
+          "type": "minecraft:linear",
+          "base": 1,
+          "per_level_above_first": 0.25
+        },
+        "height": {
+          "type": "minecraft:linear",
+          "base": 1,
+          "per_level_above_first": 0.25
+        },
+        "height_starts_below": false
+      },
+      "trigger_rate": 5
+    },
     {
       "target_selection": {
         "target_type": "dragonsurvival:disc",
