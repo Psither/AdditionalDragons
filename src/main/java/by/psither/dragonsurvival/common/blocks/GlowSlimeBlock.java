@@ -51,7 +51,7 @@ public class GlowSlimeBlock extends MultifaceBlock implements SimpleWaterloggedB
 	@Override
 	public void appendHoverText(@NotNull ItemStack pStack, Item.@NotNull TooltipContext pContext, @NotNull List<Component> pTootipComponents, @NotNull TooltipFlag pTooltipFlag){
 		super.appendHoverText(pStack, pContext, pTootipComponents, pTooltipFlag);
-		pTootipComponents.add(Component.translatable("ad.description.glow_slime"));
+		pTootipComponents.add(Component.translatable("block.additionaldragons.glow_slime.desc"));
 	}
 	
 	public static int getLightLevel(BlockState pState) {

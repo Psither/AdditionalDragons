@@ -5,15 +5,25 @@ import by.dragonsurvivalteam.dragonsurvival.common.codecs.DragonAbilityHolder;
 import by.dragonsurvivalteam.dragonsurvival.registry.data_components.DSDataComponents;
 import by.dragonsurvivalteam.dragonsurvival.registry.dragon.DragonSpecies;
 import by.dragonsurvivalteam.dragonsurvival.registry.dragon.ability.DragonAbility;
+import by.psither.dragonsurvival.items.AncientCatalystItem;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Optional;
 
 import static by.psither.dragonsurvival.AdditionalDragonsMod.*;
@@ -25,10 +35,44 @@ public class ADItems {
 			MODID
 	);
 
-	private static final Properties defaultProperties = new Item.Properties();
-	public static final Holder<Item> SLIPPERY_SUSHI = REGISTRY.register("slippery_sushi", () -> new Item(defaultProperties));
-	public static final Holder<Item> CURSED_MARROW = REGISTRY.register("cursed_marrow", () -> new Item(defaultProperties));
-	public static final Holder<Item> ANCIENT_CATALYST_DEEPWOODS = REGISTRY.register("ancient_catalyst_deepwoods", () -> new Item(
+	public static final Holder<Item> SLIPPERY_SUSHI = REGISTRY.register(
+			"slippery_sushi", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationModifier(0.75f).effect(() -> new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 400), 1f).build())) {
+		@Override
+		public void appendHoverText(@NotNull ItemStack pStack, Item.@NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag){
+			super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+			pTooltipComponents.add(Component.translatable("item.additionaldragons.slippery_sushi.desc"));
+		}
+	});
+	public static final Holder<Item> CURSED_MARROW = REGISTRY.register(
+			"cursed_marrow", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.8f).fast().effect(() -> new MobEffectInstance(ADEffects.CONFOUNDED, 400, 1), 1).build())) {
+				@Override
+				public void appendHoverText(@NotNull ItemStack pStack, Item.@NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag){
+					super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+					pTooltipComponents.add(Component.translatable("item.additionaldragons.cursed_marrow.desc"));
+				}
+			});
+
+	public static final Holder<Item> ANCIENT_CATALYST_EMPTY = REGISTRY.register("ancient_catalyst_empty", () -> new AncientCatalystItem(
+			new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)
+	) {
+		@Override
+		public void appendHoverText(@NotNull ItemStack pStack, Item.@NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag){
+			super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+			pTooltipComponents.add(Component.translatable("item.additionaldragons.ancient_catalyst_empty.desc"));
+		}
+	});
+
+	public static final Holder<Item> ANCIENT_CATALYST_HUMAN = REGISTRY.register("ancient_catalyst_human", () -> new AncientCatalystItem(
+			new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)
+	) {
+		@Override
+		public void appendHoverText(@NotNull ItemStack pStack, Item.@NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag){
+			super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+			pTooltipComponents.add(Component.translatable("item.additionaldragons.ancient_catalyst_human.desc"));
+		}
+	});
+
+	public static final Holder<Item> ANCIENT_CATALYST_DEEPWOODS = REGISTRY.register("ancient_catalyst_deepwoods", () -> new AncientCatalystItem(
 			new Item.Properties().component(
 					DSDataComponents.DRAGON_ABILITIES,
 					new DragonAbilityHolder(
@@ -40,9 +84,16 @@ public class ADItems {
 							),
 							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("forest_dragon"))))),
 					false)
-			)
-	));
-	public static final Holder<Item> ANCIENT_CATALYST_PRIMORDIAL = REGISTRY.register("ancient_catalyst_primordial", () -> new Item(
+			).stacksTo(1).rarity(Rarity.EPIC)
+	) {
+		@Override
+		public void appendHoverText(@NotNull ItemStack pStack, Item.@NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag){
+			super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+			pTooltipComponents.add(Component.translatable("item.additionaldragons.ancient_catalyst_deepwoods.desc"));
+		}
+	});
+
+	public static final Holder<Item> ANCIENT_CATALYST_PRIMORDIAL = REGISTRY.register("ancient_catalyst_primordial", () -> new AncientCatalystItem(
 			new Item.Properties().component(
 					DSDataComponents.DRAGON_ABILITIES,
 					new DragonAbilityHolder(
@@ -54,9 +105,16 @@ public class ADItems {
 							),
 							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("sea_dragon"))))),
 							false)
-			)
-	));
-	public static final Holder<Item> ANCIENT_CATALYST_TECTONIC = REGISTRY.register("ancient_catalyst_tectonic", () -> new Item(
+			).stacksTo(1).rarity(Rarity.EPIC)
+	) {
+		@Override
+		public void appendHoverText(@NotNull ItemStack pStack, Item.@NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag){
+			super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+			pTooltipComponents.add(Component.translatable("item.additionaldragons.ancient_catalyst_primordial.desc"));
+		}
+	});
+
+	public static final Holder<Item> ANCIENT_CATALYST_TECTONIC = REGISTRY.register("ancient_catalyst_tectonic", () -> new AncientCatalystItem(
 			new Item.Properties().component(
 					DSDataComponents.DRAGON_ABILITIES,
 					new DragonAbilityHolder(
@@ -69,6 +127,12 @@ public class ADItems {
 							),
 							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("cave_dragon"))))),
 							false)
-			)
-	));
+			).stacksTo(1).rarity(Rarity.EPIC)
+	) {
+		@Override
+		public void appendHoverText(@NotNull ItemStack pStack, Item.@NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag){
+			super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+			pTooltipComponents.add(Component.translatable("item.additionaldragons.ancient_catalyst_tectonic.desc"));
+		}
+	});
 }

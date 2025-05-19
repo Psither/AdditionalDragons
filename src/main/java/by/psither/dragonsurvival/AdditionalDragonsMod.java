@@ -34,8 +34,6 @@ public class AdditionalDragonsMod {
 		ADEffects.REGISTRY.register(modEventBus);
 		ADSounds.register();
 		GLM.register(modEventBus);
-
-		ADCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
 	}
 
 	public static ResourceLocation res(final String path) {
