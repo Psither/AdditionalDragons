@@ -42,7 +42,7 @@
                 ]
               },
               "probability": 0.5,
-              "drop_loot": true
+              "drop_loot": false
             }
           ]
         },
@@ -75,7 +75,8 @@
                 "type": "minecraft:linear",
                 "base": 0.3,
                 "per_level_above_first": 0.08
-              }
+              },
+              "drop_loot": false
             },
             {
               "effect_type": "dragonsurvival:block_break",
@@ -88,7 +89,7 @@
                 "base": 0.2,
                 "per_level_above_first": 0.04
               },
-              "drop_loot": true
+              "drop_loot": false
             },
             {
               "effect_type": "dragonsurvival:block_break",
@@ -101,7 +102,7 @@
                 "base": 0.3,
                 "per_level_above_first": 0.08
               },
-              "drop_loot": true
+              "drop_loot": false
             }
           ]
         },
