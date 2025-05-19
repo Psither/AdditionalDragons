@@ -38,7 +38,7 @@ public class ADItems {
 									DeferredHolder.create(DragonAbility.REGISTRY, res("invigorate")),
 									DeferredHolder.create(DragonAbility.REGISTRY, res("seeking_talons"))
 							),
-							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("sea_dragon"))))),
+							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("forest_dragon"))))),
 					false)
 			)
 	));
@@ -67,7 +67,7 @@ public class ADItems {
 									DeferredHolder.create(DragonAbility.REGISTRY, res("pyroclastic_roar")),
 									DeferredHolder.create(DragonAbility.REGISTRY, res("unstoppable"))
 							),
-							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("sea_dragon"))))),
+							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("cave_dragon"))))),
 							false)
 			)
 	));
