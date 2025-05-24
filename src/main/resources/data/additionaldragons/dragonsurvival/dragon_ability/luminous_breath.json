@@ -124,9 +124,9 @@
     },
     "cooldown": 40,
     "sound": {
-      "end": "dragonsurvival:storm_breath_end",
-      "looping": "dragonsurvival:storm_breath_loop",
-      "start": "dragonsurvival:storm_breath_start"
+      "end": "additionaldragons:luminous_breath_end",
+      "looping": "additionaldragons:luminous_breath_loop",
+      "start": "additionaldragons:luminous_breath_start"
     }
   },
   "icon": {
