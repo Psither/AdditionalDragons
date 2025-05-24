@@ -1,9 +1,7 @@
 package by.psither.dragonsurvival.magic.abilities.Deepwoods.ForestDragon.active;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
-import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.DSParticles;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;

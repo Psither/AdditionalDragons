@@ -1,12 +1,8 @@
 package by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
-import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
@@ -17,7 +13,6 @@ import by.dragonsurvivalteam.dragonsurvival.magic.common.active.InstantCastAbili
 import by.dragonsurvivalteam.dragonsurvival.util.DragonUtils;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
-import by.psither.dragonsurvival.client.particles.CaveDragon.LargeBlastDustParticleData;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.common.entity.projectiles.FaultLineProjectileEntity;
 import by.psither.dragonsurvival.registry.ADEntities;
@@ -217,14 +212,6 @@ public class FaultLineAbility extends InstantCastAbility {
 		ArrayList<Component> components = super.getInfo();
 		components.add(Component.translatable("ds.skill.damage", (int) getDamage()));
 
-		if(!KeyInputHandler.ABILITY2.isUnbound()){
-			String key = KeyInputHandler.ABILITY2.getKey().getDisplayName().getString().toUpperCase(Locale.ROOT);
-
-			if(key.isEmpty()){
-				key = KeyInputHandler.ABILITY2.getKey().getDisplayName().getString();
-			}
-			components.add(Component.translatable("ds.skill.keybind", key));
-		}
 		return components;
 	}
 

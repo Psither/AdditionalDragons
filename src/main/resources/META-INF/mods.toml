@@ -14,7 +14,7 @@ license="${mod_license}"
 [[dependencies.${mod_id}]]
     modId = "dragonsurvival"
     mandatory = true
-    versionRange = "[1.5.57,]"
+    versionRange = "[1.5.58,]"
     ordering = "BEFORE"
 
 [[dependencies.${mod_id}]]

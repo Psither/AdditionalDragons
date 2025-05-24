@@ -2,14 +2,12 @@ package by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.joml.Vector3f;
 
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.utils.MathUtils;
-import by.dragonsurvivalteam.dragonsurvival.client.handlers.KeyInputHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigRange;
@@ -24,8 +22,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -111,14 +107,6 @@ public class GroupHealAbility extends ChargeCastAbility {
 		components.add(Component.translatable("ds.skill.aoe", (int) getRange() + "x" + (int) getRange()));
 		components.add(Component.translatable("ds.skill.heal.strength", getHealStrength()));
 
-		if(!KeyInputHandler.ABILITY2.isUnbound()){
-			String key = KeyInputHandler.ABILITY2.getKey().getDisplayName().getString().toUpperCase(Locale.ROOT);
-
-			if(key.isEmpty()){
-				key = KeyInputHandler.ABILITY2.getKey().getDisplayName().getString();
-			}
-			components.add(Component.translatable("ds.skill.keybind", key));
-		}
 		return components;
 	}
 

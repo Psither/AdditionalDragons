@@ -2,23 +2,18 @@ package by.psither.dragonsurvival.client.particles.CaveDragon;
 
 import java.awt.Color;
 
-import by.dragonsurvivalteam.dragonsurvival.client.particles.DSParticles;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.CaveDragon.LargeFireParticle;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.CaveDragon.SmallFireParticleData;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class LargeBlastDustParticle extends LargeFireParticle {
-	private final float spread;
-	private final SpriteSet sprites;
 	private final Color color;
 	boolean swirls;
-	private int swirlTick;
 
 	public LargeBlastDustParticle(ClientLevel world, double x, double y, double z, double vX, double vY, double vZ, double duration, boolean swirls, int color, SpriteSet sprite){
 		super(world, x, y, z, vX, vY, vZ, duration, swirls, sprite);
@@ -27,13 +22,10 @@ public class LargeBlastDustParticle extends LargeFireParticle {
 		yd = vY;
 		zd = vZ;
 		lifetime = (int)duration;
-		swirlTick = random.nextInt(120);
-		spread = random.nextFloat();
 		hasPhysics = false;
 		this.swirls = swirls;
 		this.color = getColorFromInt(color);
 		setSpriteFromAge(sprite);
-		sprites = sprite;
 	}
 
 	@Override
