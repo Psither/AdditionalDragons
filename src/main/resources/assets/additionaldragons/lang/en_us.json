@@ -1,4 +1,8 @@
 {
+    "attribute.additionaldragons.crit_damage": "Talon Honing (Critical Damage)",
+    "attribute.additionaldragons.crit_damage.desc": "Additional damage added to the critical hit multiplier",
+    "attribute.additionaldragons.bonus_loot": "Talon Honing (Looting)",
+    "attribute.additionaldragons.bonus_loot.desc": "Additional amount of Looting you gain when killing a living entity",
     "dragon_ability.additionaldragons.luminous_breath": "Luminous Breath",
     "dragon_ability.additionaldragons.luminous_breath.desc": "■ You spray large quantities of §bglowing slime§r. The §bslime§r can cling to nearby surfaces, providing §flight§r underwater, or it can attach to §eenemies§r, applying §f«Glowing»§r and §f«Slowness»§r to them.",
     "dragon_ability.additionaldragons.group_heal": "Group Heal",
