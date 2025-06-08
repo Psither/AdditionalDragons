@@ -25,10 +25,11 @@ public class ADBlocks{
 			"glow_slime",
 			() -> new GlowSlimeBlock(Block.Properties.of()
 					.mapColor(DyeColor.CYAN)
-					.strength(0.2F)
+					.strength(0.8F)
 					.sound(SoundType.SLIME_BLOCK)
 					.lightLevel(GlowSlimeBlock::getLightLevel)
-					.noOcclusion())
+					.noOcclusion()
+					.requiresCorrectToolForDrops())
 	);
 
 	public static final Holder<Item> GLOW_SLIME_ITEM = ADItems.REGISTRY.register(
