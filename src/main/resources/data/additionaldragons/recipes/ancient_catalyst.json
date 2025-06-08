@@ -7,7 +7,7 @@
         { "item": "dragonsurvival:weak_dragon_heart" }
     ],
     "result": {
-        "item": "additionaldragons:ancient_catalyst",
+        "id": "additionaldragons:ancient_catalyst_empty",
         "count": 1
-      }
+    }
 }
