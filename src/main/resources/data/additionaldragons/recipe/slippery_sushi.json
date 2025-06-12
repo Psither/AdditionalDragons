@@ -10,7 +10,7 @@
         "item": "minecraft:kelp"
       },
       "F": {
-        "tag": "forge:raw_fishes"
+        "tag": "c:foods/raw_fish"
       },
       "G": {
         "item": "additionaldragons:glow_slime"
