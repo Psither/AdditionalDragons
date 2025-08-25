@@ -106,7 +106,7 @@
       "trigger_rate": 0
     }
   ],
-  "can_be_manually_disabled": false,
+  "can_be_manually_disabled": true,
   "icon": {
     "texture_entries": [
       {
