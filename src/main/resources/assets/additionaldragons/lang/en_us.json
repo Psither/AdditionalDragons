@@ -52,6 +52,8 @@
     "item.additionaldragons.ancient_catalyst_primordial.desc": "■§7 This is enough volatility in one spot to bend reality and re-write your own source of magic.\n\n■ It is attuned to a Sea Dragon, and will grant the power of Primordial Magic.§r",
     "item.additionaldragons.ancient_catalyst_tectonic": "Ancient Catalyst",
     "item.additionaldragons.ancient_catalyst_tectonic.desc": "■§7 This is enough volatility in one spot to bend reality and re-write your own source of magic.\n\n■ It is attuned to a Cave Dragon, and will grant the power of Tectonic Magic.§r",
+    "item.additionaldragons.ancient_catalyst_astral": "Ancient Catalyst",
+    "item.additionaldragons.ancient_catalyst_astral.desc": "■§7 This is enough volatility in one spot to bend reality and re-write your own source of magic.\n\n■ It is attuned to an Astral Dragon, and will grant the power of Time-Space Magic.§r",
     "effect.additionaldragons.bubble_shield": "Bubble Shield",
     "effect.additionaldragons.bubble_shield.desc": "A bubbly film protects you from harm, grants oxygen and protection from water damage, and helps you retain moisture.",
     "effect.additionaldragons.blast_dusted": "Blast Dusted",

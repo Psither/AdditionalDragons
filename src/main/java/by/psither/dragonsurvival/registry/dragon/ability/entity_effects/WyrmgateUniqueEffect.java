@@ -39,6 +39,12 @@ public record WyrmgateUniqueEffect(ResourceKey<Level> dimension, ResourceKey<Blo
                 BlockPos startPos = worldborder.clampToBounds(target.getX() * scale, target.getY(), target.getZ() * scale);
                 int targetHeight = (int) target.getBbHeight() + 1;
                 serverLevel.getPoiManager().ensureLoadedAndValid(dimensionLevel, startPos, 1);
+                if (startPos.getY() < dimensionLevel.dimensionType().minY()) {
+                    startPos = startPos.atY(dimensionLevel.dimensionType().minY());
+                }
+                if (startPos.getY() > dimensionLevel.getLogicalHeight()) {
+                    startPos = startPos.atY(dimensionLevel.dimensionType().logicalHeight());
+                }
                 for (int i = startPos.getY(); i >= dimensionLevel.dimensionType().minY(); i--) {
                     if (i > dimensionLevel.dimensionType().logicalHeight()) {
                         break;
@@ -74,9 +80,6 @@ public record WyrmgateUniqueEffect(ResourceKey<Level> dimension, ResourceKey<Blo
                     }
                 }
                 for (int i = startPos.getY(); i < dimensionLevel.dimensionType().logicalHeight() - targetHeight; i++) {
-                    if (i <= dimensionLevel.dimensionType().minY()) {
-                        break;
-                    }
                     BlockPos pos = new BlockPos(startPos.getX(), i, startPos.getZ());
                     if (dimensionLevel.getBlockState(pos).isSolid() || dimensionLevel.getBlockState(pos).isEmpty()) {
                         boolean flag = true;
