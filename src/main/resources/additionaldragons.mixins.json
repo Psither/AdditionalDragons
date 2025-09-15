@@ -2,7 +2,10 @@
   "required": true,
   "package": "by.psither.dragonsurvival.mixins",
   "plugin": "by.psither.dragonsurvival.mixins.ApplyMixinPlugin",
+  "refmap": "additionaldragons.refmap.json",
   "mixins": [
+    "LivingEntityMixin",
+    "PlayerMixin"
   ],
   "client": [
   ]

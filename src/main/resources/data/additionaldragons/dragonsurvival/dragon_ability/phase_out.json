@@ -1,0 +1,81 @@
+{
+  "activation": {
+    "activation_type": "dragonsurvival:simple",
+    "initial_mana_cost": 1,
+    "cast_time": 40,
+    "cooldown": 1000,
+    "can_move_while_casting": false,
+    "animations": {
+      "start_and_charging": {
+        "animation_key": "cast_mass_buff",
+        "layer": "BASE",
+        "locks_neck": false,
+        "locks_tail": false
+      },
+      "end": {
+        "animation_key": "mass_buff",
+        "layer": "BASE",
+        "locks_neck": false,
+        "locks_tail": false
+      }
+    }
+  },
+  "upgrade": {
+    "upgrade_type": "dragonsurvival:experience_points",
+    "maximum_level": 3,
+    "experience_cost": {
+      "type": "minecraft:linear",
+      "base": 27,
+      "per_level_above_first": 27
+    }
+  },
+  "actions": [
+    {
+      "target_selection": {
+        "target_type": "dragonsurvival:self",
+        "applied_effects": {
+          "entity_effect": [
+            {
+              "effect_type": "dragonsurvival:potion",
+              "potion": {
+                "effects": "additionaldragons:phase_out",
+                "amplifier": 0,
+                "duration": {
+                  "type": "minecraft:linear",
+                  "base": 600,
+                  "per_level_above_first": 200
+                },
+                "probability": 1,
+                "effect_particles": false,
+                "show_icon": true
+              }
+            }
+          ],
+          "targeting_mode": "all"
+        }
+      },
+      "trigger_rate": 0
+    }
+  ],
+  "can_be_manually_disabled": true,
+  "icon": {
+    "texture_entries": [
+      {
+        "texture_resource": "additionaldragons:abilities/astral/phase_out_0",
+        "from_level": 0
+      },
+      {
+        "texture_resource": "additionaldragons:abilities/astral/phase_out_1",
+        "from_level": 1
+      },
+      {
+        "texture_resource": "additionaldragons:abilities/astral/phase_out_2",
+        "from_level": 2
+      },
+      {
+        "texture_resource": "additionaldragons:abilities/astral/phase_out_3",
+        "from_level": 3
+      }
+    ]
+  }
+}

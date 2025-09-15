@@ -3,10 +3,7 @@ package by.psither.dragonsurvival.registry;
 import by.dragonsurvivalteam.dragonsurvival.common.effects.BlastDustedEffect;
 import by.dragonsurvivalteam.dragonsurvival.common.effects.ConfoundedEffect;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
-import by.psither.dragonsurvival.common.effects.BubbleShieldEffect;
-import by.psither.dragonsurvival.common.effects.HighVoltageEffect;
-import by.psither.dragonsurvival.common.effects.MoonlightEffect;
-import by.psither.dragonsurvival.common.effects.SeekingTalonsEffect;
+import by.psither.dragonsurvival.common.effects.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
@@ -34,4 +31,5 @@ public class ADEffects {
             .addAttributeModifier(ADAttributes.BONUS_LOOT, res("effect.seeking_talons.bonus_loot"), 0.5, AttributeModifier.Operation.ADD_VALUE)
     );
     public static Holder<MobEffect> BLAST_DUSTED = REGISTRY.register("blast_dusted", () -> new BlastDustedEffect(MobEffectCategory.HARMFUL, 0x0, false));
+    public static Holder<MobEffect> PHASE_OUT = REGISTRY.register("phase_out", () -> new PhaseOutEffect(MobEffectCategory.NEUTRAL, 0x0).addAttributeModifier(Attributes.BLOCK_BREAK_SPEED, res("out_of_phase"), -1.0, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
 }

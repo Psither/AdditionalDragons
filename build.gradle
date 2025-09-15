@@ -59,6 +59,7 @@ repositories {
 			includeGroup("software.bernie.geckolib")
 		}
 	}
+	maven { /* Mixin Squared */ url "https://maven.bawnorton.com/releases" }
 	maven { /* JEI */ url "https://maven.blamejared.com" }
 	maven { /* Curios */ url "https://maven.theillusivec4.top/" }
 	maven {
@@ -82,6 +83,13 @@ dependencies {
 	// JEI
 	compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
 	runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+
+	// --- Mixin --- //
+
+	implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${mixin_squared_version}"))
+	implementation(jarJar("com.github.bawnorton.mixinsquared:mixinsquared-forge:${mixin_squared_version}")) {
+		jarJar.ranged(it, "[${mixin_squared_version},)")
+	}
 }
 
 tasks.withType(ProcessResources).configureEach {

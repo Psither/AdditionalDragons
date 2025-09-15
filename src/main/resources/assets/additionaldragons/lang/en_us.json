@@ -37,6 +37,8 @@
     "dragon_ability.additionaldragons.wyrmgate_end.desc": "■ Create a short-lived §5Wyrmgate§r portal that pulls nearby entities into §dthe End§r.\n\n■ You §4cannot§r §5Wyrmgate§r there until you have already visited §dthe End§r at least once.",
     "dragon_ability.additionaldragons.gravity_control": "Gravity Control",
     "dragon_ability.additionaldragons.gravity_control.desc": "Your control over your §bpersonal gravity§r improves, allowing you to §bignore more of it§r, and gain §asuperior mobility§r.",
+    "dragon_ability.additionaldragons.phase_out": "Phase Out",
+    "dragon_ability.additionaldragons.phase_out.desc": "■ Pull nearby entities §oout of phase§r §9with reality§r with you, preventing other entities from being able to §4inflict harm§r upon them.\n\n■ §oOut of phase§r entities will be §4unable to§r harvest blocks or attack any entities who are not similarly §oout of phase§r.\n\n■ They can still be harmed by §aenvironmental hazards§r.",
     "gui.dragonsurvival.gui.ability.dimension_travel_blocked": "You must have visited this dimension at least once, before you are able to Wyrmgate there",
     "block.additionaldragons.glow_slime": "Glow Slime",
     "block.additionaldragons.glow_slime.desc": "■§7 Primordial dragons regularly expel this watery substance to light up the oceans.",
