@@ -78,27 +78,27 @@
   "icon": {
     "texture_entries": [
       {
-        "texture_resource": "additionaldragons:gravity_control_0",
+        "texture_resource": "additionaldragons:abilities/astral/gravity_control_0",
         "from_level": 0
       },
       {
-        "texture_resource": "additionaldragons:gravity_control_1",
+        "texture_resource": "additionaldragons:abilities/astral/gravity_control_1",
         "from_level": 1
       },
       {
-        "texture_resource": "additionaldragons:gravity_control_2",
+        "texture_resource": "additionaldragons:abilities/astral/gravity_control_2",
         "from_level": 2
       },
       {
-        "texture_resource": "additionaldragons:gravity_control_3",
+        "texture_resource": "additionaldragons:abilities/astral/gravity_control_3",
         "from_level": 3
       },
       {
-        "texture_resource": "additionaldragons:gravity_control_4",
+        "texture_resource": "additionaldragons:abilities/astral/gravity_control_4",
         "from_level": 4
       },
       {
-        "texture_resource": "additionaldragons:gravity_control_5",
+        "texture_resource": "additionaldragons:abilities/astral/gravity_control_5",
         "from_level": 5
       }
     ]
