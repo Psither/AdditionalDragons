@@ -70,5 +70,7 @@
     "effect.additionaldragons.invigorate.desc": "While exposed to moonlight, grants bonus movement and attack speed, and boosts luck.",
     "effect.additionaldragons.seeking_talons": "Seeking Talons",
     "effect.additionaldragons.seeking_talons.desc": "Entities you attack will suffer more critical damage, and you gain additional Looting on kill.",
+    "effect.additionaldragons.phase_out": "Out of Phase",
+    "effect.additionaldragons.phase_out.desc": "You are out of phase with this dimension.  You will be unable to directly interact with blocks, or entities that are not similarly out of phase.",
     "dragonsurvival.gui.ability.wyrmgate_dimension": "Target dimension: %s's %s"
 }

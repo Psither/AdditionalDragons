@@ -8,5 +8,8 @@
     "PlayerMixin"
   ],
   "client": [
+    "DragonModelMixin",
+    "DragonRendererMixin",
+    "LivingEntityRendererMixin"
   ]
 }
