@@ -134,4 +134,19 @@ public class ADItems {
 			pTooltipComponents.add(Component.translatable("item.additionaldragons.ancient_catalyst_tectonic.desc"));
 		}
 	});
+
+	public static final Holder<Item> ANCIENT_CATALYST_ASTRAL = REGISTRY.register("ancient_catalyst_astral", () -> new AncientCatalystItem(
+			new Item.Properties().component(
+					DSDataComponents.DRAGON_ABILITIES,
+					new DragonAbilityHolder(
+							HolderSet.direct(
+									DeferredHolder.create(DragonAbility.REGISTRY, res("wyrmgate_overworld")),
+									DeferredHolder.create(DragonAbility.REGISTRY, res("wyrmgate_nether")),
+									DeferredHolder.create(DragonAbility.REGISTRY, res("wyrmgate_end"))
+							),
+							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("astral_dragon"))))),
+							false
+					)
+			)
+	));
 }

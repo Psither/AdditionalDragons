@@ -12,6 +12,7 @@ public class ADAbilityEntityEffects {
     public static void registerEntries(final RegisterEvent event) {
         if (event.getRegistry() == AbilityEntityEffect.REGISTRY) {
             event.register(AbilityEntityEffect.REGISTRY_KEY, AdditionalDragonsMod.res("group_heal_unique_effect"), () -> GroupHealUniqueEffect.CODEC);
+            event.register(AbilityEntityEffect.REGISTRY_KEY, AdditionalDragonsMod.res("wyrmgate"), () -> WyrmgateUniqueEffect.CODEC);
         }
     }
 }

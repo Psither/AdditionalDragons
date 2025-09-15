@@ -1,0 +1,103 @@
+{
+  "upgrade": {
+    "upgrade_type": "dragonsurvival:experience_levels",
+    "maximum_level": 1,
+    "level_requirement": {
+      "type": "minecraft:linear",
+      "base": 0,
+      "per_level_above_first": 0
+    }
+  },
+  "usage_blocked": {
+    "condition": "minecraft:entity_properties",
+    "entity": "this",
+    "predicate": {
+      "type_specific": {
+        "type": "minecraft:player",
+        "advancements": {
+          "story/enter_the_end": false
+        }
+      }
+    }
+  },
+  "actions": [
+    {
+      "target_selection": {
+        "target_type": "dragonsurvival:area",
+        "applied_effects": {
+          "entity_effect": [
+            {
+              "effect_type": "additionaldragons:wyrmgate",
+              "dimension": "minecraft:the_end",
+              "block": "minecraft:end_stone"
+            },
+            {
+              "effect_type": "dragonsurvival:particle",
+              "particle_count": 20,
+              "particle_data": {
+                "horizontal_position": {
+                  "type": "in_bounding_box"
+                },
+                "horizontal_velocity": {
+                  "base": 0.05
+                },
+                "particle": {
+                  "type": "minecraft:portal"
+                },
+                "speed": 0.05,
+                "vertical_position": {
+                  "type": "in_bounding_box"
+                },
+                "vertical_velocity": {
+                  "base": 0.05
+                }
+              }
+            }
+          ],
+          "targeting_mode": "all"
+        },
+        "radius": 5
+      },
+      "trigger_rate": 0
+    }
+  ],
+  "activation": {
+    "activation_type": "dragonsurvival:simple",
+    "initial_mana_cost": 2,
+    "cast_time": 70,
+    "cooldown": 6000,
+    "notification": {
+      "usage_blocked": {
+        "translate": "dragonsurvival.gui.ability.dimension_travel_blocked"
+      }
+    },
+    "can_move_while_casting": false,
+    "sound": {
+      "charging": "minecraft:block.portal.trigger"
+    },
+    "animations": {
+      "end": {
+        "animation_key": "magic_alt",
+        "layer": "BASE",
+        "locks_neck": false,
+        "locks_tail": false
+      },
+      "start_and_charging": {
+        "animation_key": "cast_magic_alt",
+        "layer": "BASE",
+        "locks_neck": false,
+        "locks_tail": false,
+        "transition_length": 2
+      }
+    }
+  },
+  "can_be_manually_disabled": true,
+  "icon": {
+    "texture_entries": [
+      {
+        "from_level": 1,
+        "texture_resource": "additionaldragons:abilities/astral/wyrmgate_end"
+      }
+    ]
+  }
+}

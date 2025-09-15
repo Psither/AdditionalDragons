@@ -1,5 +1,6 @@
 package by.psither.dragonsurvival.items;
 
+import by.dragonsurvivalteam.dragonsurvival.DragonSurvival;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateProvider;
 import by.dragonsurvivalteam.dragonsurvival.registry.datagen.tags.DSDragonSpeciesTags;
 import by.dragonsurvivalteam.dragonsurvival.registry.dragon.DragonSpecies;
@@ -33,6 +34,10 @@ public class AncientCatalystItem extends Item {
                 } else if (species.is(DSDragonSpeciesTags.CAVE_DRAGONS)) {
                     if (!stack.is(ADItems.ANCIENT_CATALYST_TECTONIC)) {
                         player.getInventory().setItem(slotId, new ItemStack(ADItems.ANCIENT_CATALYST_TECTONIC));
+                    }
+                } else if (species.is(DragonSurvival.res("astral_dragon"))) {
+                    if (!stack.is(ADItems.ANCIENT_CATALYST_ASTRAL)) {
+                        player.getInventory().setItem(slotId, new ItemStack(ADItems.ANCIENT_CATALYST_ASTRAL));
                     }
                 } else if (!stack.is(ADItems.ANCIENT_CATALYST_EMPTY)) {
                     player.getInventory().setItem(slotId, new ItemStack(ADItems.ANCIENT_CATALYST_EMPTY));
