@@ -142,11 +142,18 @@ public class ADItems {
 							HolderSet.direct(
 									DeferredHolder.create(DragonAbility.REGISTRY, res("wyrmgate_overworld")),
 									DeferredHolder.create(DragonAbility.REGISTRY, res("wyrmgate_nether")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("wyrmgate_end"))
+									DeferredHolder.create(DragonAbility.REGISTRY, res("wyrmgate_end")),
+									DeferredHolder.create(DragonAbility.REGISTRY, res("gravity_control"))
 							),
 							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("astral_dragon"))))),
 							false
 					)
 			)
-	));
+	) {
+		@Override
+		public void appendHoverText(@NotNull ItemStack pStack, Item.@NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag){
+			super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+			pTooltipComponents.add(Component.translatable("item.additionaldragons.ancient_catalyst_astral.desc"));
+		}
+	});
 }
