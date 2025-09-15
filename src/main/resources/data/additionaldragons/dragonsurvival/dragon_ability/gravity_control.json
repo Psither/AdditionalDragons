@@ -28,15 +28,24 @@
                   },
                   "modifiers": [
                     {
-                      "attribute": "minecraft:fall_damage_multiplier",
+                      "attribute": "minecraft:generic.fall_damage_multiplier",
                       "amount": {
                         "type": "minecraft:linear",
-                        "base": 0.2,
+                        "base": -0.2,
                         "per_level_above_first": -0.1
                       },
                       "operation": "add_multiplied_total"
                     },
                     {
+                      "attribute": "minecraft:generic.gravity",
+                      "amount": {
+                        "type": "minecraft:linear",
+                        "base": -0.04,
+                        "per_level_above_first": -0.02
+                      },
+                      "operation": "add_multiplied_total"
+                    },
+					{
                       "attribute": "dragonsurvival:flight_speed",
                       "amount": {
                         "type": "minecraft:linear",
@@ -51,24 +60,6 @@
                         "type": "minecraft:linear",
                         "base": 0.4,
                         "per_level_above_first": 0.2
-                      },
-                      "operation": "add_value"
-                    },
-                    {
-                      "attribute": "minecraft:gravity",
-                      "amount": {
-                        "type": "minecraft:linear",
-                        "base": -0.01,
-                        "per_level_above_first": -0.01
-                      },
-                      "operation": "add_value"
-                    },
-                    {
-                      "attribute": "minecraft:jump_strength",
-                      "amount": {
-                        "type": "minecraft:linear",
-                        "base": 0.002,
-                        "per_level_above_first": 0.001
                       },
                       "operation": "add_value"
                     }
