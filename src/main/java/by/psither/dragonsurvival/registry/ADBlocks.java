@@ -10,6 +10,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -36,4 +37,14 @@ public class ADBlocks{
 			"glow_slime",
 			() -> new BlockItem(GLOW_SLIME.get(), new Item.Properties())
 	);
+
+	/*public static final DeferredHolder<Block, WyrmgateBlock> WYRMGATE_BLOCK = REGISTRY.register(
+			"wyrmgate_platform",
+			() -> new WyrmgateBlock(Block.Properties.of()
+					.mapColor(MapColor.COLOR_BLACK)
+					.strength(0)
+					.sound(SoundType.AMETHYST)
+					.lightLevel(level -> 3)
+					)
+	);*/
 }
