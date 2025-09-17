@@ -144,7 +144,8 @@ public class ADItems {
 									DeferredHolder.create(DragonAbility.REGISTRY, res("wyrmgate_nether")),
 									DeferredHolder.create(DragonAbility.REGISTRY, res("wyrmgate_end")),
 									DeferredHolder.create(DragonAbility.REGISTRY, res("gravity_control")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("phase_out"))
+									DeferredHolder.create(DragonAbility.REGISTRY, res("phase_out")),
+									DeferredHolder.create(DragonAbility.REGISTRY, res("personal_wyrmhole"))
 							),
 							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("astral_dragon"))))),
 							false
