@@ -15,7 +15,6 @@ import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.dragonsurvivalteam.dragonsurvival.util.TargetingFunctions;
 import by.psither.dragonsurvival.registry.ADEffects;
 import by.psither.dragonsurvival.registry.ADSounds;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -119,7 +118,13 @@ public class HighVoltageEffect extends ChargedEffect {
             return;
         }
         float damage = (float) (amp + 1) * ChargedEffect.damage;
-        if(source.level() instanceof ClientLevel clientLevel){
+        if (source.level() instanceof ServerLevel) {
+            if (target instanceof LivingEntity livingTarget) {
+                if (TargetingFunctions.attackTargets(source, entity -> entity.hurt(source.damageSources().lightningBolt(), damage), target)) {
+                    livingTarget.setDeltaMovement(livingTarget.getDeltaMovement().multiply(0.25, 1, 0.25));
+                }
+            }
+        } else {
             // Creates a trail of particles between the entity and target(s)
             int steps = 20;
             for (int i = 0; i < steps; i++) {
@@ -129,13 +134,7 @@ public class HighVoltageEffect extends ChargedEffect {
                 double stepX = source.getX() + (distV.x * distFrac);
                 double stepY = source.getY() + (source.getEyeHeight() / 2) + (distV.y * distFrac);
                 double stepZ = source.getZ() + (distV.z * distFrac);
-                clientLevel.addParticle(new LargeLightningParticleOption(16F, false), stepX, stepY, stepZ, 0.0, 0.0, 0.0);
-            }
-        } else {
-            if (target instanceof LivingEntity livingtarget) {
-                if (TargetingFunctions.attackTargets(source, entity -> entity.hurt(source.damageSources().lightningBolt(), damage), target)) {
-                    livingtarget.setDeltaMovement(livingtarget.getDeltaMovement().multiply(0.25, 1, 0.25));
-                }
+                source.level().addParticle(new LargeLightningParticleOption(16F, false), stepX, stepY, stepZ, 0.0, 0.0, 0.0);
             }
         }
         source.level().playLocalSound(target.position().x, target.position().y + 0.5, target.position().z, ADSounds.bugZapper, SoundSource.PLAYERS, 4F, 1F, false);
