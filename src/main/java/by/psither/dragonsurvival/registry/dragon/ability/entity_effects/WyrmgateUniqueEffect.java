@@ -43,7 +43,7 @@ public record WyrmgateUniqueEffect(ResourceKey<Level> dimension, ResourceKey<Blo
                     startPos = startPos.atY(dimensionLevel.dimensionType().minY());
                 }
                 if (startPos.getY() > dimensionLevel.getLogicalHeight()) {
-                    startPos = startPos.atY(dimensionLevel.dimensionType().logicalHeight());
+                    startPos = startPos.atY(dimensionLevel.dimensionType().logicalHeight() - targetHeight);
                 }
                 for (int i = startPos.getY(); i >= dimensionLevel.dimensionType().minY(); i--) {
                     if (i > dimensionLevel.dimensionType().logicalHeight()) {
