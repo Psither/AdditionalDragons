@@ -14,7 +14,7 @@ public class MoonlightEffect extends ModifiableMobEffect {
     @Override
     public boolean applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
         float daytime = livingEntity.level().getTimeOfDay(0);
-        if (livingEntity.level().dimensionType().hasSkyLight() && CustomPredicates.getSunLightLevel(livingEntity) > 4 && (daytime > 0.25 || daytime < 0.75)) { // In skylight & the moon is out
+        if (livingEntity.level().dimensionType().hasSkyLight() && CustomPredicates.getSunLightLevel(livingEntity) > 4 && (daytime < 0.25 || daytime > 0.75)) { // In skylight & the moon is out
             this.addAttributeModifiers(livingEntity.getAttributes(), amplifier);
         } else {
             this.removeAttributeModifiers(livingEntity.getAttributes());
