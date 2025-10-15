@@ -43,7 +43,7 @@ public class HighVoltageEffect extends ChargedEffect {
 
     @SubscribeEvent
     public static void onPlayerHurt(LivingIncomingDamageEvent event) {
-        if (event.getEntity().hasEffect(ADEffects.HIGH_VOLTAGE)) {
+        if (event.getEntity().hasEffect(ADEffects.HIGH_VOLTAGE) && event.getSource().getEntity() != null && !event.getEntity().equals(event.getSource().getEntity())) {
             zapTarget(event.getEntity(), event.getSource().getEntity(), event.getEntity().getEffect(ADEffects.HIGH_VOLTAGE).getAmplifier());
         }
     }
