@@ -13,25 +13,21 @@ public abstract class LivingEntityMixin {
     @ModifyReturnValue(method = "isInvulnerableTo", at = @At("RETURN"))
     private boolean additionalDragons$isInvulnerableTo(final boolean original, @Local(argsOnly = true) DamageSource source) {
         if (((LivingEntity) (Object) this).hasEffect(ADEffects.PHASE_OUT)) {
-            if (source.getEntity() instanceof LivingEntity livingEntity) {
-                if (!livingEntity.hasEffect(ADEffects.PHASE_OUT)) {
-                    return true;
-                }
-            }
             if (source.isDirect() && source.getDirectEntity() instanceof LivingEntity livingEntity) {
                 if (!livingEntity.hasEffect(ADEffects.PHASE_OUT)) {
                     return true;
                 }
-            }
-            if (source.isDirect() && source.getEntity() instanceof LivingEntity livingEntity) {
+            } else if (source.getEntity() instanceof LivingEntity livingEntity) {
                 if (!livingEntity.hasEffect(ADEffects.PHASE_OUT)) {
                     return true;
                 }
             }
-        } else if (source.getDirectEntity() instanceof LivingEntity sourceEntity && sourceEntity.hasEffect(ADEffects.PHASE_OUT)) {
-            return true;
-        } else if (source.getEntity() instanceof LivingEntity sourceEntity && sourceEntity.hasEffect(ADEffects.PHASE_OUT)) {
-            return true;
+        } else {
+            if (source.isDirect() && source.getDirectEntity() instanceof LivingEntity sourceEntity && sourceEntity.hasEffect(ADEffects.PHASE_OUT)) {
+                return true;
+            } else if (source.getEntity() instanceof LivingEntity sourceEntity && sourceEntity.hasEffect(ADEffects.PHASE_OUT)) {
+                return true;
+            }
         }
         return original;
     }
