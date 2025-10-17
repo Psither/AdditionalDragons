@@ -23,7 +23,14 @@ public abstract class LivingEntityMixin {
                     return true;
                 }
             }
+            if (source.isDirect() && source.getEntity() instanceof LivingEntity livingEntity) {
+                if (!livingEntity.hasEffect(ADEffects.PHASE_OUT)) {
+                    return true;
+                }
+            }
         } else if (source.getDirectEntity() instanceof LivingEntity sourceEntity && sourceEntity.hasEffect(ADEffects.PHASE_OUT)) {
+            return true;
+        } else if (source.getEntity() instanceof LivingEntity sourceEntity && sourceEntity.hasEffect(ADEffects.PHASE_OUT)) {
             return true;
         }
         return original;
