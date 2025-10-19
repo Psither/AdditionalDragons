@@ -1,5 +1,6 @@
 package by.psither.dragonsurvival.registry;
 
+import by.dragonsurvivalteam.dragonsurvival.DragonSurvivalMod;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.blocks.*;
 import by.dragonsurvivalteam.dragonsurvival.util.ResourceHelper;
@@ -47,7 +48,7 @@ public class ADBlocks{
 	
 	public static void registerBlockItems(final RegisterEvent event){
 		ADBlocks.AD_BLOCKS.forEach((key, value) -> {
-			registerItem(value, new Item.Properties(), event);
+			registerItem(value, new Item.Properties().tab(DragonSurvivalMod.items), event);
 		});
 	}
 

@@ -27,8 +27,6 @@ public class AdditionalDragonsMod {
 		ADSoundRegistry.SOUNDS.register(modEventBus);
 		ADParticles.REGISTRY.register(modEventBus);
 		ADEntities.ENTITY_TYPES.register(modEventBus);
-		
-		//ADCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
 
 		MinecraftForge.EVENT_BUS.register(this);
 	}

@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import javax.annotation.Nullable;
 
+import by.dragonsurvivalteam.dragonsurvival.DragonSurvivalMod;
 import org.jetbrains.annotations.NotNull;
 
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
@@ -41,9 +42,9 @@ public class ADItems {
 		if (!Objects.equals(event.getForgeRegistry(), ForgeRegistries.ITEMS)) {
 			return;
 		}
-		Properties defaultProperties = new Item.Properties();
+		Properties defaultProperties = new Item.Properties().tab(DragonSurvivalMod.items);
 		slipperySushi = registerItem(event, new DragonFoodItem(defaultProperties, DragonTypes.SEA, () -> new MobEffectInstance(MobEffects.DOLPHINS_GRACE, Functions.secondsToTicks(20))), "slippery_sushi");
-		cursedMarrow = registerItem(event, new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.8f).alwaysEat().fast().effect(new MobEffectInstance(ADDragonEffects.CONFOUNDED, Functions.secondsToTicks(20), 1), 1f).build())), "cursed_marrow");
+		cursedMarrow = registerItem(event, new Item(new Item.Properties().tab(DragonSurvivalMod.items).food(new FoodProperties.Builder().nutrition(4).saturationMod(0.8f).alwaysEat().fast().effect(new MobEffectInstance(ADDragonEffects.CONFOUNDED, Functions.secondsToTicks(20), 1), 1f).build())), "cursed_marrow");
 		ancientCatalyst = registerItem(event, new AncientCatalystItem(defaultProperties.stacksTo(1).rarity(Rarity.EPIC)), "ancient_catalyst");
 		//revolvingHearts = registerItem(event, new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.8f).alwaysEat().fast().build())), "revolving_hearts");
 	}
