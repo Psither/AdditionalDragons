@@ -60,7 +60,7 @@ public class SeekingTalonsAbility extends ChargeCastAbility {
 	@Override
 	public void castingComplete(Player player){
 		player.addEffect(new MobEffectInstance(ADDragonEffects.SEEKING_TALONS, Functions.secondsToTicks(getDuration()), getLevel() - 1));
-		player.level().playLocalSound(player.position().x, player.position().y + 0.5, player.position().z, SoundEvents.UI_TOAST_IN, SoundSource.PLAYERS, 5F, 0.1F, true);
+		player.level.playLocalSound(player.position().x, player.position().y + 0.5, player.position().z, SoundEvents.UI_TOAST_IN, SoundSource.PLAYERS, 5F, 0.1F, true);
 	}
 
 	@Override

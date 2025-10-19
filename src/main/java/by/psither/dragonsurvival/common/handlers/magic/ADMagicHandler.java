@@ -9,15 +9,12 @@ import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.Bub
 import by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active.HighVoltageAbility;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.UUID;
 
 import by.dragonsurvivalteam.dragonsurvival.client.handlers.magic.ClientMagicHandler;
-import by.dragonsurvivalteam.dragonsurvival.client.particles.ForestDragon.SmallPoisonParticleData;
 import by.dragonsurvivalteam.dragonsurvival.client.particles.SeaDragon.LargeLightningParticleData;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.dragonsurvivalteam.dragonsurvival.common.handlers.DragonFoodHandler;
-import by.dragonsurvivalteam.dragonsurvival.registry.DragonEffects;
 import by.psither.dragonsurvival.registry.ADDamageTypes;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import by.psither.dragonsurvival.registry.ADItems;
@@ -26,7 +23,6 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -43,7 +39,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.lighting.LevelLightEngine;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -102,7 +97,7 @@ public class ADMagicHandler {
 	public static void showParticles(LivingEvent.LivingTickEvent event) {
 		LivingEntity entity = event.getEntity();
 
-		if (!entity.level().isClientSide()) {
+		if (!entity.level.isClientSide()) {
 			return;
 		}
 		if (!ClientMagicHandler.particlesOnDragons && DragonUtils.isDragon(entity)) {
@@ -142,10 +137,10 @@ public class ADMagicHandler {
 			// 4 times per second
 			if(entity.hasEffect(ADDragonEffects.BLAST_DUSTED)){
 				if (entity.isInWaterRainOrBubble()) {
-					if (!entity.level().isClientSide())
+					if (!entity.level.isClientSide())
 						entity.removeEffect(ADDragonEffects.BLAST_DUSTED);
 					else
-						entity.level().playLocalSound(entity.position().x, entity.position().y + 0.5, entity.position().z, SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.3F, true);
+						entity.level.playLocalSound(entity.position().x, entity.position().y + 0.5, entity.position().z, SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.3F, true);
 				}
 				if (entity.isOnFire()) {
 					MobEffectInstance instance = entity.getEffect(ADDragonEffects.BLAST_DUSTED);
@@ -188,9 +183,9 @@ public class ADMagicHandler {
 		if (entity.tickCount % 20 == 0) {
 			// Every second
 			if(entity.hasEffect(ADDragonEffects.INVIGORATE)) {
-				if (!entity.level().isClientSide()) {
+				if (!entity.level.isClientSide()) {
 					int amp = entity.getEffect(ADDragonEffects.INVIGORATE).getAmplifier();
-					LevelLightEngine lightManager = entity.level().getChunkSource().getLightEngine();
+					LevelLightEngine lightManager = entity.level.getChunkSource().getLightEngine();
                     changeLightModifiers(entity, amp, lightManager.getLayerListener(LightLayer.BLOCK).getLightValue(entity.blockPosition()) < 3 && lightManager.getLayerListener(LightLayer.SKY).getLightValue(entity.blockPosition()) < 3 && lightManager.getLayerListener(LightLayer.SKY).getLightValue(entity.blockPosition().above()) < 3);
 				}
 			} else {
@@ -211,7 +206,7 @@ public class ADMagicHandler {
 	public static void dropsEvent(LivingDropsEvent event) {
 		LivingEntity entity = event.getEntity();
 		Entity source = event.getSource().getEntity();
-		if (entity == null || entity.level().isClientSide())
+		if (entity == null || entity.level.isClientSide())
 			return;
 		Collection<ItemEntity> drops = event.getDrops();
 		if (entity.hasEffect(ADDragonEffects.CONFOUNDED) && !(DragonUtils.isDragon(event.getEntity()) && DragonUtils.isDragonType(event.getEntity(), DragonTypes.FOREST))) {
@@ -225,7 +220,7 @@ public class ADMagicHandler {
 					bones = is.getCount();
 					is.setCount(0);
 				}
-				if (DragonFoodHandler.isEdible(is.getItem(), DragonTypes.FOREST)) {
+				if (DragonFoodHandler.isDragonEdible(is.getItem(), DragonTypes.FOREST)) {
 					isEdible = true;
 				}
 			}
@@ -242,11 +237,11 @@ public class ADMagicHandler {
 					if (src.hasEffect(ADDragonEffects.SEEKING_TALONS))
 						res += (int) (SeekingTalonsAbility.seekingTalonsBonusLoot * (src.getEffect(ADDragonEffects.SEEKING_TALONS).getAmplifier() + 1));
 				}
-				drops.add(new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, res)));
+				drops.add(new ItemEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, res)));
 			}
 			if (bones > 0) {
 				//System.out.println("Dropping " + bones + " cursed bones.");
-				drops.add(new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, bones)));
+				drops.add(new ItemEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), new ItemStack(ADItems.cursedMarrow, bones)));
 			}
 		}
 	}
@@ -265,7 +260,7 @@ public class ADMagicHandler {
 				}
 			}
 		}
-		if (event.getEntity() != null && !event.getEntity().level().isClientSide()) {
+		if (event.getEntity() != null && !event.getEntity().level.isClientSide()) {
 			LivingEntity entity = event.getEntity();
 			DamageSource src = event.getSource();
 			if (src.getEntity() instanceof LivingEntity en && !en.equals(entity) && en.hasEffect(ADDragonEffects.CONFOUNDED)) {
@@ -273,12 +268,13 @@ public class ADMagicHandler {
 			} else if (src.getDirectEntity() instanceof LivingEntity en && !en.equals(entity) && en.hasEffect(ADDragonEffects.CONFOUNDED)) {
 				ConfoundingBreathAbility.reflectDamage(en, en.getEffect(ADDragonEffects.CONFOUNDED).getAmplifier(), event.getAmount());
 			}
-			if (entity.hasEffect(ADDragonEffects.BUBBLE_SHIELD) && entity.level() instanceof ServerLevel) {
+			if (entity.hasEffect(ADDragonEffects.BUBBLE_SHIELD) && entity.level instanceof ServerLevel) {
 				if (event.getEntity().getAbsorptionAmount() <= 0)
 					event.getEntity().removeEffect(ADDragonEffects.BUBBLE_SHIELD);
 			}
 
-			if (event.getSource().is(DamageTypeTags.IS_FIRE) && entity.hasEffect(ADDragonEffects.BLAST_DUSTED)) {
+
+			if (event.getSource().isFire() && entity.hasEffect(ADDragonEffects.BLAST_DUSTED)) {
 				if (event.getEntity() instanceof Player player)
 					if (DragonUtils.isDragonType(player, DragonTypes.CAVE))
 						player.removeEffect(ADDragonEffects.BLAST_DUSTED);
@@ -315,19 +311,19 @@ public class ADMagicHandler {
 	@SubscribeEvent
 	public static void livingHurt(LivingHurtEvent event) {
 		// Cave dragons are immune to their own blast dust damage.
-		if (event.getSource().is(ADDamageTypes.BLAST_DUST) && (DragonUtils.isDragon(event.getEntity()) && DragonUtils.isDragonType(event.getEntity(), DragonTypes.CAVE))) {
+		if (event.getSource().equals(ADDamageTypes.BLAST_DUST) && (DragonUtils.isDragon(event.getEntity()) && DragonUtils.isDragonType(event.getEntity(), DragonTypes.CAVE))) {
 			event.setCanceled(true);
 		}
 	}
 
 	@SubscribeEvent
 	public static void effectRemoved(MobEffectEvent.Remove event) {
-		if (event.getEntity().level().isClientSide()) {
+		if (event.getEntity().level.isClientSide()) {
 			LivingEntity entity = event.getEntity();
 			if (!(DragonUtils.isDragon(entity) && DragonUtils.isDragonType(entity, DragonTypes.CAVE))) 
 			{
 				if (event.getEffect() == ADDragonEffects.BLAST_DUSTED) {
-					entity.level().playLocalSound(entity.position().x, entity.position().y + 0.5, entity.position().z, SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.3F, 1.3F, true);
+					entity.level.playLocalSound(entity.position().x, entity.position().y + 0.5, entity.position().z, SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.3F, 1.3F, true);
 				}
 			}
 		}

@@ -64,13 +64,13 @@ public class MistyBarbAbility extends ChargeCastAbility {
 		DragonStateHandler handler = DragonUtils.getHandler(player);
 		handler.getMovementData().bite = true;
 
-		MistyBarbProjectileEntity entity = new MistyBarbProjectileEntity(ADEntities.MISTY_BARB.get(), player, player.level());
+		MistyBarbProjectileEntity entity = new MistyBarbProjectileEntity(ADEntities.MISTY_BARB.get(), player, player.level);
 		entity.setPos(entity.getX() + d2, entity.getY() + d3, entity.getZ() + d4);
 		entity.setShotLevel(getLevel());
 		entity.setBaseDamage(getDamage());
 		entity.pickup = AbstractArrow.Pickup.DISALLOWED;
 		entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 4F, 1.0F);
-		player.level().addFreshEntity(entity);
+		player.level.addFreshEntity(entity);
 	}
 
 	@Override

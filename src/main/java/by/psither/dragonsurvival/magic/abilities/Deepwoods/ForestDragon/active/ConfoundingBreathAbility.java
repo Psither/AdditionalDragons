@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.dragonsurvivalteam.dragonsurvival.client.particles.ForestDragon.LargePoisonParticleData;
-import by.dragonsurvivalteam.dragonsurvival.client.sounds.SoundRegistry;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.AbstractDragonType;
 import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.dragonsurvivalteam.dragonsurvival.config.obj.ConfigOption;
@@ -18,12 +17,10 @@ import by.dragonsurvivalteam.dragonsurvival.util.Functions;
 import by.dragonsurvivalteam.dragonsurvival.util.ResourceHelper;
 import by.dragonsurvivalteam.dragonsurvival.util.TargetingFunctions;
 import by.psither.dragonsurvival.AdditionalDragonsMod;
-import by.psither.dragonsurvival.client.particles.ADParticles;
 import by.psither.dragonsurvival.client.particles.ForestDragon.SmallConfoundParticleData;
 import by.psither.dragonsurvival.client.sounds.ADSoundRegistry;
 import by.psither.dragonsurvival.client.sounds.ConfoundingBreathSound;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
-import by.psither.dragonsurvival.registry.ADDamageSources;
 import by.psither.dragonsurvival.registry.ADDamageTypes;
 import by.psither.dragonsurvival.registry.ADDragonEffects;
 import net.minecraft.client.Minecraft;
@@ -110,11 +107,11 @@ public class ConfoundingBreathAbility extends BreathAbility {
 	}
 
 	public static void changeTargetToRandomMob(Mob mob) {
-		if (!mob.level().isClientSide()) {
+		if (!mob.level.isClientSide()) {
 			if (confoundedTargetingBlacklist.contains(ResourceHelper.getKey(mob).toString())) {
 				return;
 			}
-			List<LivingEntity> list1 = mob.level().getEntitiesOfClass(LivingEntity.class, mob.getBoundingBox().inflate(getEffectRange()));
+			List<LivingEntity> list1 = mob.level.getEntitiesOfClass(LivingEntity.class, mob.getBoundingBox().inflate(getEffectRange()));
 			// Remove all forest dragons from potential targets
 			// Also remove self as target
 			list1 = list1.stream().filter(e -> {
@@ -133,7 +130,7 @@ public class ConfoundingBreathAbility extends BreathAbility {
 	}
 
 	public static void confoundPlayer(Player player, int amp) {
-		if (!player.level().isClientSide()) {
+		if (!player.level.isClientSide()) {
 			if (DragonUtils.isDragonType(player, DragonTypes.FOREST) || !confoundingBreathAffectsPlayers) return;
 
 			player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100));
@@ -213,24 +210,24 @@ public class ConfoundingBreathAbility extends BreathAbility {
 	public void onChanneling(Player player, int castDuration) {
 		super.onChanneling(player, castDuration);
 
-		if(player.level().isClientSide && castDuration <= 0){
+		if(player.level.isClientSide && castDuration <= 0){
 			DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> (SafeRunnable)this::sound);
 		}
 
-		if(player.level().isClientSide){
+		if(player.level.isClientSide){
 			RandomSource random = player.getRandom();
 			for(int i = 0; i < 4; i++){
 				double xSpeed = speed * 1f * xComp;
 				double ySpeed = speed * 1f * yComp;
 				double zSpeed = speed * 1f * zComp;
-				player.level().addParticle(new LargePoisonParticleData(37, true), dx, dy, dz, xSpeed, ySpeed, zSpeed);
+				player.level.addParticle(new LargePoisonParticleData(37, true), dx, dy, dz, xSpeed, ySpeed, zSpeed);
 			}
 
 			for(int i = 0; i < 6; i++){
 				double xSpeed = speed * xComp + spread * 0.7 * (random.nextFloat() * 2 - 1) * Math.sqrt(1 - xComp * xComp);
 				double ySpeed = speed * yComp + spread * 0.7 * (random.nextFloat() * 2 - 1) * Math.sqrt(1 - yComp * yComp);
 				double zSpeed = speed * zComp + spread * 0.7 * (random.nextFloat() * 2 - 1) * Math.sqrt(1 - zComp * zComp);
-				player.level().addParticle(new SmallConfoundParticleData(37, false), dx, dy, dz, xSpeed, ySpeed, zSpeed);
+				player.level.addParticle(new SmallConfoundParticleData(37, false), dx, dy, dz, xSpeed, ySpeed, zSpeed);
 			}
 		}
 		hitEntities();
@@ -296,13 +293,13 @@ public class ConfoundingBreathAbility extends BreathAbility {
 
 	@Override
 	public void onBlock(BlockPos pos, BlockState blockState, Direction direction) {
-		if (!(player.level() instanceof ServerLevel serverLevel)) {
+		if (!(player.level instanceof ServerLevel serverLevel)) {
 			return;
 		}
 
-		if (blockState.isSolid()) {
+		if (blockState.getMaterial().isSolidBlocking()) {
 			if (/* 30% */ player.getRandom().nextInt(100) < 30) {
-				AreaEffectCloud entity = new AreaEffectCloud(EntityType.AREA_EFFECT_CLOUD, player.level());
+				AreaEffectCloud entity = new AreaEffectCloud(EntityType.AREA_EFFECT_CLOUD, player.level);
 				entity.setWaitTime(0);
 				entity.setPos(pos.above().getX(), pos.above().getY(), pos.above().getZ());
 				entity.setPotion(new Potion(new MobEffectInstance(ADDragonEffects.CONFOUNDED, /* Effect duration is normally divided by 4 */ Functions.secondsToTicks(confoundingBreathEffectDuration) * 4, getLevel() - 1)));
@@ -317,7 +314,7 @@ public class ConfoundingBreathAbility extends BreathAbility {
 
 	@Override
 	public void onEntityHit(LivingEntity entity) {
-		if (!entity.level().isClientSide()) {
+		if (!entity.level.isClientSide()) {
 			if (!DragonUtils.isDragonType(entity, DragonTypes.FOREST)) {
 				if (getDamage() > 0) {
 					hurtTarget(entity);
@@ -328,7 +325,7 @@ public class ConfoundingBreathAbility extends BreathAbility {
 	}
 
 	public void hurtTarget(LivingEntity entity) {
-		TargetingFunctions.attackTargets(getPlayer(), e -> e.hurt(ADDamageTypes.entityDamageSource(player.level(), ADDamageTypes.MIRROR_CURSE, player), getDamage()), entity);
+		TargetingFunctions.attackTargets(getPlayer(), e -> e.hurt(ADDamageTypes.MIRROR_CURSE, getDamage()), entity);
 	}
 
 	public static boolean isValidTarget(LivingEntity attacker, LivingEntity target){
@@ -345,7 +342,7 @@ public class ConfoundingBreathAbility extends BreathAbility {
 
 	@Override
 	public void onDamage(LivingEntity entity) {
-		if (!entity.level().isClientSide()) {
+		if (!entity.level.isClientSide()) {
 			entity.addEffect(new MobEffectInstance(ADDragonEffects.CONFOUNDED, getEffectDuration(), getLevel() - 1));
 			if (entity instanceof Mob mob)
 				changeTargetToRandomMob(mob);
@@ -356,10 +353,10 @@ public class ConfoundingBreathAbility extends BreathAbility {
 	}
 
 	public static void reflectDamage(LivingEntity en, int amp, float dam) {
-		if (en.level().isClientSide() || (en instanceof Player player && DragonUtils.isDragonType(player, DragonTypes.FOREST))) return;
+		if (en.level.isClientSide() || (en instanceof Player player && DragonUtils.isDragonType(player, DragonTypes.FOREST))) return;
 		if (confoundedMirrorBlacklist.contains(ResourceHelper.getKey(en).toString())) return;
 		//System.out.println("Returning " + dam * (amp + 1) * confoundingBreathEffectStrength + " damage to " + en);
-		en.hurt(ADDamageTypes.entityDamageSource(en.level(), ADDamageTypes.BLAST_DUST, en), (float) (dam * (amp + 1) * confoundingBreathEffectStrength));
+		en.hurt(ADDamageTypes.MIRROR_CURSE, (float) (dam * (amp + 1) * confoundingBreathEffectStrength));
 	}
 
 	@Override

@@ -1,12 +1,9 @@
 package by.psither.dragonsurvival.client.particles.ForestDragon;
 
-import org.joml.AxisAngle4f;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
-
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
-import by.dragonsurvivalteam.dragonsurvival.client.particles.ForestDragon.SmallPoisonParticle;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -14,7 +11,6 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -58,18 +54,14 @@ public class SmallConfoundParticle extends TextureSheetParticle {
 		if(swirls){
 			Vector3f motionVec = new Vector3f((float)xd, (float)yd, (float)zd);
 			motionVec.normalize();
-
 			float yaw = (float)Math.atan2(motionVec.x(), motionVec.z());
 			float pitch = (float)Math.atan2(motionVec.y(), 1);
 			float swirlRadius = 1f * (age / (float)lifetime) * spread;
-
-			Quaternionf quatSpin = new Quaternionf(new AxisAngle4f(swirlTick * 0.2f, motionVec.x(), motionVec.y(), motionVec.z()));
-			Quaternionf quatOrient = new Quaternionf().rotateXYZ(pitch, yaw, 0);
-
+			Quaternion quatSpin = motionVec.rotation(swirlTick * 0.2f);
+			Quaternion quatOrient = new Quaternion(pitch, yaw, 0, false);
 			Vector3f vec = new Vector3f(swirlRadius, 0, 0);
-			vec = quatSpin.transform(vec);
-			vec = quatOrient.transform(vec);
-
+			vec.transform(quatOrient);
+			vec.transform(quatSpin);
 			x += vec.x();
 			y += vec.y();
 			z += vec.z();

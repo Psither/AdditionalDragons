@@ -10,6 +10,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -35,7 +36,7 @@ public class ADBlocks{
 		}
 	}
 	protected static void registerBlocks(final RegisterEvent event){
-		glowSlime = registerBlock(new GlowSlimeBlock(Block.Properties.of(/*Material.SNOW*/).strength(0.2F).noOcclusion().sound(SoundType.SLIME_BLOCK).lightLevel(GlowSlimeBlock::getLightLevel)), "glow_slime", event);
+		glowSlime = registerBlock(new GlowSlimeBlock(Block.Properties.of(Material.SNOW).strength(0.2F).noOcclusion().sound(SoundType.SLIME_BLOCK).lightLevel(GlowSlimeBlock::getLightLevel)), "glow_slime", event);
 	}
 
 	private static <B extends Block> B registerBlock(B block, String identifier, RegisterEvent event){

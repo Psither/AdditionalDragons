@@ -1,10 +1,8 @@
 package by.psither.dragonsurvival.client;
 
-import by.dragonsurvivalteam.dragonsurvival.client.particles.BeaconParticle;
 import org.jetbrains.annotations.NotNull;
 
 import by.psither.dragonsurvival.client.particles.ADParticles;
-import by.psither.dragonsurvival.client.particles.ForestDragon.QuestionMarkParticle;
 import by.psither.dragonsurvival.client.particles.SeaDragon.DragonBubbleParticle;
 import by.psither.dragonsurvival.client.render.projectiles.FaultLineProjectileRenderer;
 import by.psither.dragonsurvival.client.render.projectiles.MistyBarbProjectileRenderer;
@@ -32,11 +30,14 @@ public class ClientModEvents {
 	}
 
 	@SubscribeEvent
-	public static void registerParticleFactories(RegisterParticleProvidersEvent event){
-		event.registerSpriteSet(ADParticles.dragonBubbleParticle, spriteSet -> (particleType, clientWorld, x, y, z, speedX, speedY, speedZ) -> {
-			BeaconParticle beaconParticle = new BeaconParticle(clientWorld, x, y, z, speedX, speedY, speedZ);
-			beaconParticle.pickSprite(spriteSet);
-			return beaconParticle;
+	public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
+		event.register(ADParticles.dragonBubbleParticle, p_create_1_ -> new ParticleProvider<SimpleParticleType>() {
+			@Override
+			public @NotNull Particle createParticle(@NotNull SimpleParticleType p_199234_1_, @NotNull ClientLevel clientWorld, double v, double v1, double v2, double v3, double v4, double v5) {
+				DragonBubbleParticle dragonBubbleParticle = new DragonBubbleParticle(clientWorld, v, v1, v2, v3, v4, v5);
+				dragonBubbleParticle.pickSprite(p_create_1_);
+				return dragonBubbleParticle;
+			}
 		});
 	}
 }

@@ -9,18 +9,15 @@ import javax.annotation.Nullable;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
-import org.joml.Vector3f;
 
 import by.psither.dragonsurvival.client.particles.CaveDragon.LargeBlastDustParticleData;
 import by.psither.dragonsurvival.common.effects.BlastDustedEffect;
 import by.psither.dragonsurvival.magic.abilities.Tectonic.CaveDragon.active.BlastBreathAbility;
 import by.psither.dragonsurvival.utils.MathUtils;
+import com.mojang.math.Vector3f;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -122,7 +119,7 @@ public class CountdownAreaEffectCloud extends AreaEffectCloud {
 					d7 = (double)((float)(k & 255) / 255.0F);
 				}
 
-				this.level().addAlwaysVisibleParticle(particleoptions, loc.x() + this.getX(), loc.y() + this.getY(), loc.z() + this.getZ(), d5, d6, d7);
+				this.level.addAlwaysVisibleParticle(particleoptions, loc.x() + this.getX(), loc.y() + this.getY(), loc.z() + this.getZ(), d5, d6, d7);
 			}
 		} else {
 			if (this.tickCount >= this.waitTime + this.duration) {
@@ -168,7 +165,7 @@ public class CountdownAreaEffectCloud extends AreaEffectCloud {
 				if (list.isEmpty()) {
 					this.victims.clear();
 				} else {
-					List<LivingEntity> list1 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox());
+					List<LivingEntity> list1 = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox());
 					if (!list1.isEmpty()) {
 						for(LivingEntity livingentity : list1) {
 							if (!this.victims.containsKey(livingentity) && livingentity.isAffectedByPotions()) {

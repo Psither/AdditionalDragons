@@ -3,8 +3,6 @@ package by.psither.dragonsurvival.magic.abilities.Primordial.SeaDragon.active;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joml.Vector3f;
-
 import by.psither.dragonsurvival.AdditionalDragonsMod;
 import by.psither.dragonsurvival.common.dragon_types.ADDragonTypes;
 import by.psither.dragonsurvival.utils.MathUtils;
@@ -16,13 +14,14 @@ import by.dragonsurvivalteam.dragonsurvival.magic.common.AbilityAnimation;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.RegisterDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.ChargeCastAbility;
 import by.dragonsurvivalteam.dragonsurvival.util.Functions;
+import com.mojang.math.Vector3f;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSources;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -157,7 +156,7 @@ public class GroupHealAbility extends ChargeCastAbility {
 	@Override
 	public void castingComplete(Player player){
 		// Reused from AoeBuffAbility
-		if (player.level().isClientSide()) {
+		if (player.level.isClientSide()) {
 			float f5 = (float)Math.PI * getRange() * getRange() * 0.4f;
 	
 			for(int i = 0; i < 5; i++)
@@ -168,12 +167,12 @@ public class GroupHealAbility extends ChargeCastAbility {
 					//float f7 = Mth.sqrt(player.getRandom().nextFloat()) * getRange();
 					//float f8 = Mth.cos(f6) * f7;
 					//float f9 = Mth.sin(f6) * f7;
-					player.level().addAlwaysVisibleParticle(getParticleEffect(), player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z(), (0.5D - player.getRandom().nextDouble()) * 0.15D, 0.01F, (0.5D - player.getRandom().nextDouble()) * 0.15D);
-					//player.level().addAlwaysVisibleParticle(getParticleEffect(), player.getX() + (double)f8, player.getY(), player.getZ() + (double)f9, (0.5D - player.getRandom().nextDouble()) * 0.15D, 0.01F, (0.5D - player.getRandom().nextDouble()) * 0.15D);
+					player.level.addAlwaysVisibleParticle(getParticleEffect(), player.getX() + vec.x(), player.getY() + vec.y(), player.getZ() + vec.z(), (0.5D - player.getRandom().nextDouble()) * 0.15D, 0.01F, (0.5D - player.getRandom().nextDouble()) * 0.15D);
+					//player.level.addAlwaysVisibleParticle(getParticleEffect(), player.getX() + (double)f8, player.getY(), player.getZ() + (double)f9, (0.5D - player.getRandom().nextDouble()) * 0.15D, 0.01F, (0.5D - player.getRandom().nextDouble()) * 0.15D);
 				}
-			player.level().playLocalSound(player.position().x, player.position().y + 0.5, player.position().z, SoundEvents.UI_TOAST_OUT, SoundSource.PLAYERS, 2F, 0.1F, false);
+			player.level.playLocalSound(player.position().x, player.position().y + 0.5, player.position().z, SoundEvents.UI_TOAST_OUT, SoundSource.PLAYERS, 2F, 0.1F, false);
 		}
-		List<LivingEntity> list1 = player.level().getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(getRange()));
+		List<LivingEntity> list1 = player.level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(getRange()));
 		if(!list1.isEmpty())
 			for(LivingEntity livingentity : list1){
 				double d0 = livingentity.getX() - player.getX();
@@ -195,11 +194,9 @@ public class GroupHealAbility extends ChargeCastAbility {
 			return getSelfHealStrength();
 		}
 		if (livingentity.isInvertedHealAndHarm()) {
-			if (!player.level().isClientSide()) {
+			if (!player.level.isClientSide()) {
 				float hp = livingentity.getHealth();
-				DamageSources damageSources = new DamageSources(null);
-				damageSources.magic();
-				livingentity.hurt(player.damageSources().magic(), getHealStrength() * 2);
+				livingentity.hurt(DamageSource.playerAttack(player).setMagic().bypassArmor(), getHealStrength() * 2);
 				return Math.min(hp, getHealStrength() * 2);
 			}
 			else {
@@ -207,14 +204,14 @@ public class GroupHealAbility extends ChargeCastAbility {
 					float randX = (player.getRandom().nextFloat() - 0.5f) * 0.7f;
 					float randY = (player.getRandom().nextFloat() - 0.5f) * 0.7f;
 					float randZ = (player.getRandom().nextFloat() - 0.5f) * 0.7f;
-					player.level().addAlwaysVisibleParticle(ParticleTypes.DAMAGE_INDICATOR, livingentity.getX() + randX, livingentity.getY() + livingentity.getEyeHeight() + randY, livingentity.getZ() + randZ, 0.0, 0.0, 0.0);
+					player.level.addAlwaysVisibleParticle(ParticleTypes.DAMAGE_INDICATOR, livingentity.getX() + randX, livingentity.getY() + livingentity.getEyeHeight() + randY, livingentity.getZ() + randZ, 0.0, 0.0, 0.0);
 					
 				}
 				return 0;
 			}
 		} else {
 			float missingHealth = livingentity.getMaxHealth() - livingentity.getHealth();
-			if (!player.level().isClientSide()) {
+			if (!player.level.isClientSide()) {
 				livingentity.heal(getHealStrength());
 				return (Math.min(missingHealth, getHealStrength()));
 			}
@@ -223,8 +220,8 @@ public class GroupHealAbility extends ChargeCastAbility {
 					float randX = (player.getRandom().nextFloat() - 0.5f) * 0.7f;
 					float randY = (player.getRandom().nextFloat() - 0.5f) * 0.7f;
 					float randZ = (player.getRandom().nextFloat() - 0.5f) * 0.7f;
-					player.level().addAlwaysVisibleParticle(ParticleTypes.HEART, livingentity.getX() + randX, livingentity.getY() + livingentity.getEyeHeight() + randY, livingentity.getZ() + randZ, 0.0, 0.0, 0.0);
-					player.level().playLocalSound(livingentity.position().x, livingentity.position().y + 0.5, livingentity.position().z, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 2F, 1.4F, true);
+					player.level.addAlwaysVisibleParticle(ParticleTypes.HEART, livingentity.getX() + randX, livingentity.getY() + livingentity.getEyeHeight() + randY, livingentity.getZ() + randZ, 0.0, 0.0, 0.0);
+					player.level.playLocalSound(livingentity.position().x, livingentity.position().y + 0.5, livingentity.position().z, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 2F, 1.4F, true);
 					
 				}
 				return 0;

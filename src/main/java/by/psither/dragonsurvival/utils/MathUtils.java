@@ -1,7 +1,6 @@
 package by.psither.dragonsurvival.utils;
 
-import org.joml.Vector3f;
-
+import com.mojang.math.Vector3f;
 import net.minecraft.util.RandomSource;
 
 public class MathUtils {

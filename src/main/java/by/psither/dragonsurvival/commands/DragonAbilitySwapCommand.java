@@ -13,7 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.PacketDistributor;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.DragonStateHandler;
 import by.dragonsurvivalteam.dragonsurvival.common.capability.subcapabilities.MagicCap;
-import by.dragonsurvivalteam.dragonsurvival.common.dragon_types.DragonTypes;
 import by.dragonsurvivalteam.dragonsurvival.magic.DragonAbilities;
 import by.dragonsurvivalteam.dragonsurvival.magic.common.active.ActiveDragonAbility;
 import by.dragonsurvivalteam.dragonsurvival.network.NetworkHandler;
@@ -113,7 +112,7 @@ public class DragonAbilitySwapCommand {
 		}
 		mc.activeDragonAbilities.put(slot, ability.getName());
 		
-		if(player.level().isClientSide){
+		if(player.level.isClientSide){
 			NetworkHandler.CHANNEL.sendToServer(new SyncMagicCap(player.getId(), mc));
 		}else{
 			NetworkHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player), new SyncMagicCap(player.getId(), mc));
