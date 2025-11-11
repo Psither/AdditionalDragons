@@ -81,6 +81,7 @@ public class ADItems {
 									DeferredHolder.create(DragonAbility.REGISTRY, res("invigorate")),
 									DeferredHolder.create(DragonAbility.REGISTRY, res("seeking_talons"))
 							),
+							Optional.empty(),
 							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("forest_dragon"))))),
 					false)
 			).stacksTo(1).rarity(Rarity.EPIC)
@@ -102,6 +103,7 @@ public class ADItems {
 									DeferredHolder.create(DragonAbility.REGISTRY, res("high_voltage")),
 									DeferredHolder.create(DragonAbility.REGISTRY, res("bubble_shield"))
 							),
+							Optional.empty(),
 							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("sea_dragon"))))),
 							false)
 			).stacksTo(1).rarity(Rarity.EPIC)
@@ -124,6 +126,7 @@ public class ADItems {
 									DeferredHolder.create(DragonAbility.REGISTRY, res("pyroclastic_roar")),
 									DeferredHolder.create(DragonAbility.REGISTRY, res("unstoppable"))
 							),
+							Optional.empty(),
 							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("cave_dragon"))))),
 							false)
 			).stacksTo(1).rarity(Rarity.EPIC)
@@ -147,6 +150,7 @@ public class ADItems {
 									DeferredHolder.create(DragonAbility.REGISTRY, res("phase_out")),
 									DeferredHolder.create(DragonAbility.REGISTRY, DragonSurvival.res("personal_wyrmhole"))
 							),
+							Optional.empty(),
 							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("astral_dragon"))))),
 							false
 					)

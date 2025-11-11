@@ -76,7 +76,7 @@ dependencies {
 
 	// Dependencies
 	implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
-	implementation "dragonsurvival:DragonSurvival-1.21.1-v2.0.28-06.06.2025-all"
+	implementation "curse.maven:dragons-survival-420799:7183473"
 
 	implementation "curse.maven:AstralDragon-1252507:7006978"
 
