@@ -21,7 +21,8 @@ public class VisualEffectSync {
             ADEffects.BUBBLE_SHIELD,
             ADEffects.INVIGORATE,
             ADEffects.CONFOUNDED,
-            ADEffects.SEEKING_TALONS
+            ADEffects.SEEKING_TALONS,
+            ADEffects.PHASE_OUT
     );
 
     @SubscribeEvent
