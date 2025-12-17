@@ -76,9 +76,9 @@ dependencies {
 
 	// Dependencies
 	implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
-	implementation "curse.maven:dragons-survival-420799:7183473"
+	implementation "curse.maven:dragons-survival-420799:7320820"
 
-	implementation "curse.maven:AstralDragon-1252507:7006978"
+	implementation "curse.maven:astral-dragon-1252507:7056311"
 
 	// JEI
 	compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"

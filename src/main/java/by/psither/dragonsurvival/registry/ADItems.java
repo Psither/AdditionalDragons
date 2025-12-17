@@ -75,15 +75,19 @@ public class ADItems {
 			new Item.Properties().component(
 					DSDataComponents.DRAGON_ABILITIES,
 					new DragonAbilityHolder(
-							HolderSet.direct(
-									DeferredHolder.create(DragonAbility.REGISTRY, res("misty_barb")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("confounding_breath")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("invigorate")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("seeking_talons"))
+							List.of(
+									new DragonAbilityHolder.AbilityPair(
+											List.of(
+													"additionaldragons:misty_barb",
+													"additionaldragons:confounding_breath",
+													"additionaldragons:invigorate",
+													"additionaldragons:seeking_talons"
+											), List.of(), false
+									)
 							),
 							Optional.empty(),
-							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("forest_dragon"))))),
-					false)
+							List.of("dragonsurvival:forest_dragon")
+					)
 			).stacksTo(1).rarity(Rarity.EPIC)
 	) {
 		@Override
@@ -97,15 +101,19 @@ public class ADItems {
 			new Item.Properties().component(
 					DSDataComponents.DRAGON_ABILITIES,
 					new DragonAbilityHolder(
-							HolderSet.direct(
-									DeferredHolder.create(DragonAbility.REGISTRY, res("luminous_breath")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("group_heal")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("high_voltage")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("bubble_shield"))
+							List.of(
+									new DragonAbilityHolder.AbilityPair(
+											List.of(
+													"additionaldragons:luminous_breath",
+													"additionaldragons:group_heal",
+													"additionaldragons:high_voltage",
+													"additionaldragons:bubble_shield"
+											), List.of(), false
+									)
 							),
 							Optional.empty(),
-							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("sea_dragon"))))),
-							false)
+							List.of("dragonsurvival:sea_dragon")
+					)
 			).stacksTo(1).rarity(Rarity.EPIC)
 	) {
 		@Override
@@ -119,16 +127,20 @@ public class ADItems {
 			new Item.Properties().component(
 					DSDataComponents.DRAGON_ABILITIES,
 					new DragonAbilityHolder(
-							HolderSet.direct(
-									DeferredHolder.create(DragonAbility.REGISTRY, res("blast_breath")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("blast_dust_immunity")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("fault_line")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("pyroclastic_roar")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("unstoppable"))
-							),
-							Optional.empty(),
-							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("cave_dragon"))))),
-							false)
+						List.of(
+								new DragonAbilityHolder.AbilityPair(
+										List.of(
+												"additionaldragons:blast_breath",
+												"additionaldragons:blast_dust_immunity",
+												"additionaldragons:fault_line",
+												"additionaldragons:pyroclastic_roar",
+												"additionaldragons:unstoppable"
+										), List.of(), false
+								)
+						),
+						Optional.empty(),
+						List.of("dragonsurvival:cave_dragon")
+					)
 			).stacksTo(1).rarity(Rarity.EPIC)
 	) {
 		@Override
@@ -142,19 +154,21 @@ public class ADItems {
 			new Item.Properties().component(
 					DSDataComponents.DRAGON_ABILITIES,
 					new DragonAbilityHolder(
-							HolderSet.direct(
-									DeferredHolder.create(DragonAbility.REGISTRY, res("wyrmgate_overworld")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("wyrmgate_nether")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("wyrmgate_end")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("gravity_control")),
-									DeferredHolder.create(DragonAbility.REGISTRY, res("phase_out")),
-									DeferredHolder.create(DragonAbility.REGISTRY, DragonSurvival.res("personal_wyrmhole"))
+							List.of(
+									new DragonAbilityHolder.AbilityPair(
+											List.of(
+													"additionaldragons:wyrmgate_overworld",
+													"additionaldragons:wyrmgate_nether",
+													"additionaldragons:wyrmgate_end",
+													"additionaldragons:gravity_control",
+													"additionaldragons:phase_out"
+											), List.of(), false
+									)
 							),
 							Optional.empty(),
-							Optional.of(HolderSet.direct(DeferredHolder.create(ResourceKey.create(DragonSpecies.REGISTRY, DragonSurvival.res("astral_dragon"))))),
-							false
+							List.of("dragonsurvival:astral_dragon")
 					)
-			)
+			).stacksTo(1).rarity(Rarity.EPIC)
 	) {
 		@Override
 		public void appendHoverText(@NotNull ItemStack pStack, Item.@NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag){
